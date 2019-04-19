@@ -40,7 +40,7 @@
 												<label class="form-label">Fecha de la solicitud</label>
 												<div class="form-line focused">
 													<div class="form-line">
-														<asp:TextBox ID="txtFechaIni" class="form-control" runat="server" TextMode="Date" MaxLength="10"></asp:TextBox>
+														<asp:TextBox ID="txtFecha" class="form-control" runat="server" TextMode="Date" MaxLength="10"></asp:TextBox>
 													</div>
 												</div>
 											</div>
@@ -54,7 +54,7 @@
 												<div class="form-group form-float">
 													<label class="form-label">Hora</label>
 													<div class="form-line focused">
-														<asp:TextBox ID="TextBox2" class="form-control numeros" TextMode="Time" runat="server" MaxLength="3"></asp:TextBox>
+														<asp:TextBox ID="txtHoras" class="form-control numeros" TextMode="Time" runat="server" MaxLength="3"></asp:TextBox>
 
 													</div>
 												</div>
@@ -70,7 +70,7 @@
 											<div class="form-group">
 												<label class="form-label">Duda o consulta</label>
 												<div class="form-line">
-													<textarea rows="4" class="form-control no-resize" placeholder="Ingrese la consulta brevemente"></textarea>
+													<asp:TextBox ID="txtDudaConsulta" runat="server" TextMode="multiline" Rows="4" class="form-control no-resize" placeholder="Ingrese la consulta brevemente"></asp:TextBox>
 
 												</div>
 											</div>
@@ -83,7 +83,7 @@
 								<div class="col-lg-4">
 									<div class="demo-checkbox">
 										<div class="demo-radio-button">
-											<input type="checkbox" id="cbx_Nutricionista" class="filled-in chk-col-indigo" />
+											<input type="radio" id="cbx_Nutricionista" name="Servicios" class="radio-col-indigo" value="1" />
 											<label for="cbx_Nutricionista">Cita con nutricionista</label>
 										</div>
 									</div>
@@ -92,7 +92,7 @@
 								<div class="col-lg-4">
 									<div class="demo-checkbox">
 										<div class="demo-radio-button">
-											<input type="checkbox" id="cbx_Fisioterapeuta" class="filled-in chk-col-red" />
+											<input type="radio" id="cbx_Fisioterapeuta" name="Servicios" class="radio-col-red" value="2" />
 											<label for="cbx_Fisioterapeuta">Cita con fisioterapeuta</label>
 										</div>
 									</div>
@@ -100,7 +100,7 @@
 								</div>
 								<div class="col-lg-3 right">
 
-									<button type="button" class="btn bg-indigo waves-effect" id="btnGuardar" onclick="btnGuardar_ServerClick" >
+									<button type="button" class="btn bg-indigo waves-effect" id="btnGuardar" runat="server" onserverclick="btnGuardar_ServerClick">
 										<i class="material-icons">save</i>
 										<span>Guardar</span>
 									</button>
@@ -108,6 +108,7 @@
 										<i class="material-icons">cancel</i>
 										<span>Cancelar</span>
 									</button>
+									<asp:TextBox  ID="txtresultadoChecbox" class="form-control numeros" runat="server" MaxLength="3"></asp:TextBox>
 								</div>
 							</div>
 						</div>
@@ -118,5 +119,6 @@
 	</section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
+	<script src="js/RadioButtonCustom.js"></script>
 </asp:Content>
 

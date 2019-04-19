@@ -20,7 +20,7 @@ namespace DAO
 		{
 			SqlCommand command = new SqlCommand("sp_insertCita", conexion);
 			command.CommandType = CommandType.StoredProcedure;
-			command.Parameters.AddWithValue("@CodigoCita", cita.IC_Cod);
+			//command.Parameters.AddWithValue("@CodigoCita", cita.IC_Cod);
 			command.Parameters.AddWithValue("@FechaHoraSolicitadaCita", cita.DC_FechaHoraSolicitada);
 			command.Parameters.AddWithValue("@ObservacionCita", cita.VC_Observacion);
 			command.Parameters.AddWithValue("@FechaHoraCreadaCita", cita.DC_FechaHoraCreada);
