@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Adm. Solicitudes" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Administrar_Solicitudes_Citas.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Title="Adm. Solicitudes" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Sol_Citas_Administracion.aspx.cs" Inherits="_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_header" runat="Server">
 </asp:Content>

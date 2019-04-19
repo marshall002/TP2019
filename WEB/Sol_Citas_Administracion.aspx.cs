@@ -51,6 +51,6 @@ public partial class _Default : System.Web.UI.Page
 
 	protected void btnRegistrar_Click(object sender, EventArgs e)
 	{
-
+		Response.Redirect("~/Registrar_Solicitud_Cita.aspx");
 	}
 }
