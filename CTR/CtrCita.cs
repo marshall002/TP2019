@@ -21,5 +21,9 @@ namespace CTR
 		{
 			return objDaoCita.VerCitasSolicitada(idEstadoCita, CodigoUsuarioDNI);
 		}
+		public void registrarSolicitudCita(DtoCita CitaSol)
+		{
+			objDaoCita.RegistrarSolCita(CitaSol);
+		}
 	}
 }

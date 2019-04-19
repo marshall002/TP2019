@@ -11,4 +11,8 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
 	{
 
 	}
+	protected void btnGuardar_ServerClick(object sender, EventArgs e)
+	{
+		ClientScript.RegisterStartupScript(typeof(Page), "showNotification", "showNotification('bg-red', 'No se ha subido Imagen', 'bottom', 'center', null, null);", true);
+	}
 }

@@ -6,7 +6,7 @@
 	<section>
 		<div class="container-fluid">
 			<div class="block-header">
-				<h2>Mis solicitudes de cita</h2>
+				<h1>Citas solicitadas</h1>
 			</div>
 			<div class="row clearfix">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
