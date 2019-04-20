@@ -104,11 +104,11 @@
 										<i class="material-icons">save</i>
 										<span>Guardar</span>
 									</button>
-									<button type="button" class="btn bg-red waves-effect" id="btnCancelar">
+									<button type="button" class="btn bg-red waves-effect" id="btnCancelar" runat="server" onserverclick="btnCancelar_ServerClick">
 										<i class="material-icons">cancel</i>
 										<span>Cancelar</span>
 									</button>
-									<asp:TextBox  ID="txtresultadoChecbox" class="form-control numeros" runat="server" MaxLength="3" Visible="false"></asp:TextBox>
+									<asp:HiddenField  ID="txtresultadoChecbox" runat="server"/>
 								</div>
 							</div>
 						</div>

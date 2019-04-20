@@ -12,7 +12,7 @@ public partial class _Default : System.Web.UI.Page
 {
 	CtrCita objcita = new CtrCita();
 	int TipoCitaSol = 1;
-	string CodigoUsuarioDNI="74931448";
+	string CodigoUsuarioDNI = "74931448";
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!IsPostBack)
@@ -42,25 +42,23 @@ public partial class _Default : System.Web.UI.Page
 			{
 				int index = Convert.ToInt32(e.CommandArgument);
 				var colsNoVisible = gvSolicitudesCita.DataKeys[index].Values;
-				string id = colsNoVisible[0].ToString();
-				Log.WriteLog(id);
+				string idSol = colsNoVisible[0].ToString();
+				string estadosol = colsNoVisible[1].ToString();
+				Log.WriteLog(colsNoVisible[0].ToString());
+				Log.WriteLog(colsNoVisible[1].ToString());
+				Log.WriteLog("---------------------------------------------");
+				Session["CodigoSolicitudCita"] = idSol;
+				Session["estadosol"] = estadosol;
 				
-				DescModalEliminarCurso.InnerText = "¿Seguro desea eliminar el curso '" + id + "'";
-				Log.WriteLog("1");
 				string script = @"<script type='text/javascript'>
-                                      $('#modalAsignarCurso').modal('show');
+                                      $('#modalconfirmacioneliminarsol').modal('show');
                                   </script>";
-				Log.WriteLog("2");
 				ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
 			}
-			catch
+			catch (Exception ex)
 			{
-				ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'curso asignado actualmente a un programa', 'bottom', 'center', null, null);", true);
+				ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + ex.Message + "', 'bottom', 'center', null, null);", true);
 			}
-			//int index = Convert.ToInt32(e.CommandArgument);
-			//var colsNoVisible = gvSolicitudesCita.DataKeys[index].Values;
-			//string id = colsNoVisible[0].ToString();
-			//Session["CodigoSolicitudCita"] = id;
 		}
 	}
 
@@ -73,13 +71,16 @@ public partial class _Default : System.Web.UI.Page
 	{
 		try
 		{
-			int id_sed = int.Parse(Session["id_sede_aux"].ToString());
-			//eliminarCurso(id_sed);
-			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Curso eliminado exitosamente', 'bottom', 'center', null, null);", true);
+			int idSolicitud = int.Parse(Session["CodigoSolicitudCita"].ToString());
+			int estadosol = int.Parse(Session["estadosol"].ToString());
+			objcita.EliminarrSolicitudCita(idSolicitud, estadosol);
+			ListarSolicitudesCita(TipoCitaSol, CodigoUsuarioDNI);
+			upCursos.Update();
+			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Solicitud eliminada con exito	', 'bottom', 'center', null, null);", true);
 		}
 		catch (Exception ex)
 		{
-			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No se puede eliminar el curso', 'bottom', 'center', null, null);", true);
+			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + ex.Message + "', 'bottom', 'center', null, null);", true);
 		}
 	}
 }

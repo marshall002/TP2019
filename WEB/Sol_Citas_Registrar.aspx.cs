@@ -24,7 +24,7 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
 		string Fecha = txtFecha.Text.Trim();
 		string Sesion = "74931448";
 
-		string valorRadiobuttonentxt= txtresultadoChecbox.Text.Trim();
+		string valorRadiobuttonentxt= txtresultadoChecbox.Value;
 		int IECCod = 1;
 
 		DtoCita dto_Cita = new DtoCita();
@@ -38,5 +38,10 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
 		CtrCita ctr_Cita = new CtrCita();
 		ctr_Cita.registrarSolicitudCita(dto_Cita);
 
+	}
+
+	protected void btnCancelar_ServerClick(object sender, EventArgs e)
+	{
+		Response.Redirect("~/Sol_Citas_Administracion.aspx");
 	}
 }

@@ -58,5 +58,16 @@ namespace DAO
 			conexion.Close();
 			return dtDatos;
 		}
+		public void EliminarSolCita(int codigoCita,int EstadoTipoCita)
+		{
+			SqlCommand command = new SqlCommand("sp_eliminar_SoliCita", conexion);
+			command.CommandType = CommandType.StoredProcedure;
+			command.Parameters.AddWithValue("@CodigoCita", codigoCita);
+			command.Parameters.AddWithValue("@CodigoEstadoCita", EstadoTipoCita);
+
+			conexion.Open();
+			command.ExecuteNonQuery();
+			conexion.Close();
+		}
 	}
 }

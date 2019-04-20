@@ -10,4 +10,9 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 	protected void Page_Load(object sender, EventArgs e)
 	{
 	}
+
+	protected void btnGuardar_ServerClick(object sender, EventArgs e)
+	{
+
+	}
 }

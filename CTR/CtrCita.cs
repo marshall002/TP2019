@@ -29,5 +29,9 @@ namespace CTR
 		{
 			objDaoCita.ActualizarSolCita (Codigo, fechahorasolicitada, dudaconsulta, idTipoCita);
 		}
+		public void EliminarrSolicitudCita(int Codigo,int estadoCita)
+		{
+			objDaoCita.EliminarSolCita(Codigo, estadoCita);
+		}
 	}
 }

@@ -18,7 +18,7 @@
 	<link href="plugins/node-waves/waves.css" rel="stylesheet" />
 	<link href="plugins/animate-css/animate.css" rel="stylesheet" />
 	<link href="plugins/morrisjs/morris.css" rel="stylesheet" />
-    <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+	<link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
 	<!-- Custom Css -->
 	<link href="css/style.css" rel="stylesheet" />
@@ -167,7 +167,6 @@
 		</section>
 		<section class="content">
 			<asp:ContentPlaceHolder ID="cph_body" runat="server">
-
 			</asp:ContentPlaceHolder>
 		</section>
 
@@ -194,6 +193,7 @@
 	</div>
 	<!-- Jquery Core Js -->
 	<!-- Bootstrap Core Js -->
+	<script src="js/pages/ui/notifications.js"></script>
 	<script src="plugins/bootstrap/js/bootstrap.js"></script>
 
 	<!-- Select Plugin Js -->
