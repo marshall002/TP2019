@@ -1,9 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Sol_Citas_Registrar.aspx.cs" Inherits="Solicitudes_Cita_Registrar_Solicitud_Cita" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Sol_Citas_Detalles.aspx.cs" Inherits="Sol_Citas_Detalles" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_header" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="Server">
-
 	<section>
 		<div class="container-fluid">
 			<div class="block-header">
@@ -100,7 +99,7 @@
 								</div>
 								<div class="col-lg-3 right">
 
-									<button type="button" class="btn bg-indigo waves-effect" id="btnGuardar" runat="server" onserverclick="btnGuardar_ServerClick" >
+									<button type="button" class="btn bg-indigo waves-effect" id="btnGuardar" runat="server" onserverclick="btnGuardar_ServerClick">
 										<i class="material-icons">save</i>
 										<span>Guardar</span>
 									</button>
@@ -108,7 +107,7 @@
 										<i class="material-icons">cancel</i>
 										<span>Cancelar</span>
 									</button>
-									<asp:TextBox  ID="txtresultadoChecbox" class="form-control numeros" runat="server" MaxLength="3" Visible="false"></asp:TextBox>
+									<asp:TextBox ID="txtresultadoChecbox" class="form-control numeros" runat="server" MaxLength="3" Visible="false"></asp:TextBox>
 								</div>
 							</div>
 						</div>
@@ -119,6 +118,5 @@
 	</section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
-	<script src="js/RadioButtonCustom.js"></script>
 </asp:Content>
 

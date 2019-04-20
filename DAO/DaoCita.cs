@@ -31,23 +31,18 @@ namespace DAO
 			command.ExecuteNonQuery();
 			conexion.Close();
 		}
-		//public void RegistrarCita(int codigoCita, DateTime FechaHoraSolicitada, string ObservacionDuda, DateTime FechaHoraCreada, int codigoEstadoCita, int codigoTipoCita, int codigoUsuarioDni)
-		//{
-		//	SqlCommand command = new SqlCommand("sp_insertCita", conexion);
-		//	command.CommandType = CommandType.StoredProcedure;
-		//	command.Parameters.AddWithValue("@CodigoCita", codigoCita);
-		//	command.Parameters.AddWithValue("@FechaHoraSolicitadaCita", FechaHoraSolicitada);
-		//	command.Parameters.AddWithValue("@ObservacionCita", ObservacionDuda);
-		//	command.Parameters.AddWithValue("@FechaHoraCreadaCita", FechaHoraCreada);
-		//	command.Parameters.AddWithValue("@CodigoEstadoCita", codigoEstadoCita);
-		//	command.Parameters.AddWithValue("@CodigoTipoCita", codigoTipoCita);
-		//	command.Parameters.AddWithValue("@CodigoUsuarioDNI", codigoUsuarioDni);
-		//	conexion.Open();
-		//	command.ExecuteNonQuery();
-		//	conexion.Close();
-
-
-		//}
+		public void ActualizarSolCita(int codigoCita, DateTime FechaHoraSolicitada, string ObservacionDuda, int codigoTipoCita)
+		{
+			SqlCommand command = new SqlCommand("sp_insertCita", conexion);
+			command.CommandType = CommandType.StoredProcedure;
+			command.Parameters.AddWithValue("@CodigoCita", codigoCita);
+			command.Parameters.AddWithValue("@FechaHoraSolicitadaCita", FechaHoraSolicitada);
+			command.Parameters.AddWithValue("@ObservacionCita", ObservacionDuda);
+			command.Parameters.AddWithValue("@CodigoTipoCita", codigoTipoCita);
+			conexion.Open();
+			command.ExecuteNonQuery();
+			conexion.Close();
+		}
 		public DataTable VerCitasSolicitada(int idEstadoCita, string CodigoUsuario)
 		{
 			DataTable dtDatos = null;

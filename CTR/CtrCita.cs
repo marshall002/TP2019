@@ -25,5 +25,9 @@ namespace CTR
 		{
 			objDaoCita.RegistrarSolCita(CitaSol);
 		}
+		public void actualizarSolicitudCita(int Codigo,DateTime fechahorasolicitada,string dudaconsulta,int idTipoCita)
+		{
+			objDaoCita.ActualizarSolCita (Codigo, fechahorasolicitada, dudaconsulta, idTipoCita);
+		}
 	}
 }

@@ -12,7 +12,10 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		
+		if (!IsPostBack)
+		{
+			
+		}
 	}
 	protected void btnGuardar_ServerClick(object sender, EventArgs e)
 	{
