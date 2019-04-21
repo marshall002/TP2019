@@ -31,17 +31,29 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
 			int IECCod = 1;
 
 			DtoCita dto_Cita = new DtoCita();
-			dto_Cita.FK_ITC_Cod = Convert.ToInt32(valorRadiobuttonentxt);
+			CtrCita ctr_Cita = new CtrCita();
+
+			Log.WriteLog("1");
+			dto_Cita.FK_ITC_Cod = int.Parse(valorRadiobuttonentxt);
 			dto_Cita.DC_FechaHoraSolicitada = fechasolitada;
 			dto_Cita.DC_FechaHoraCreada = DateTime.Now;
 			dto_Cita.VC_Observacion = txtareaconsulta;
 			dto_Cita.FK_IEC_Cod = IECCod;
 			dto_Cita.FK_CU_DNI = Sesion;
+			Log.WriteLog("2");
 
-			CtrCita ctr_Cita = new CtrCita();
-			ctr_Cita.registrarSolicitudCita(dto_Cita);
+			string mensaje = "Registrado con exito";
+			Log.WriteLog("3");
 
-			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Registrado con exito', 'bottom', 'center', null, null);", true);
+			ctr_Cita.registrarSolicitudCita(fechasolitada,txtareaconsulta,DateTime.Now,IECCod, int.Parse(valorRadiobuttonentxt),Sesion);
+			Log.WriteLog("4");
+
+			Log.WriteLog("hiddenfield:"+valorRadiobuttonentxt);
+			
+
+
+			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+
 
 		}
 		catch (Exception ex)

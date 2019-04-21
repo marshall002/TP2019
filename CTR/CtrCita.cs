@@ -21,9 +21,9 @@ namespace CTR
 		{
 			return objDaoCita.VerCitasSolicitada(idEstadoCita, CodigoUsuarioDNI);
 		}
-		public void registrarSolicitudCita(DtoCita CitaSol)
+		public void registrarSolicitudCita(DateTime fechasol, string obsCita, DateTime fechacreacion,int idEstado, int idTipo, string DNIUsuario)
 		{
-			objDaoCita.RegistrarSolCita(CitaSol);
+			objDaoCita.RegistrarSolCita(fechasol,obsCita,fechacreacion,idEstado,idTipo,DNIUsuario);
 		}
 		public void actualizarSolicitudCita(int Codigo,DateTime fechahorasolicitada,string dudaconsulta,int idTipoCita)
 		{

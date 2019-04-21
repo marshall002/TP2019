@@ -100,26 +100,45 @@
 								</div>
 								<div class="col-lg-3 right">
 
-									<button type="button" class="btn bg-indigo waves-effect" id="btnGuardar" runat="server" onserverclick="btnGuardar_ServerClick">
+									<%--<button type="button" class="btn bg-indigo waves-effect" id="btnGuardar1" runat="server" onserverclick="btnGuardar_ServerClick">
 										<i class="material-icons">save</i>
 										<span>Guardar</span>
 									</button>
-									<button type="button" class="btn bg-red waves-effect" id="btnCancelar" runat="server" onserverclick="btnCancelar_ServerClick">
+									<button type="button" class="btn bg-red waves-effect" id="btnCancelar1" runat="server" onserverclick="btnCancelar_ServerClick">
 										<i class="material-icons">cancel</i>
 										<span>Cancelar</span>
-									</button>
+									</button>--%>
+									<asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Always"
+										ChildrenAsTriggers="true">
+										<ContentTemplate>
+											<asp:LinkButton ID="btnCancelar1" runat="server" CssClass="btn bg-red waves-effect" Style="float: right" Width="33%" Text="Cancelar" PostBackUrl="~/Sol_Citas_Administracion.aspx" OnClick="btnCancelar_ServerClick">
+												<i class="material-icons">cancel</i>Cancelar
+											</asp:LinkButton>
+										</ContentTemplate>
+										<Triggers>
+											<asp:AsyncPostBackTrigger ControlID="btnCancelar1" EventName="Click" />
+										</Triggers>
+									</asp:UpdatePanel>
+
+									<asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Always"
+										ChildrenAsTriggers="true">
+										<ContentTemplate>
+											<asp:LinkButton ID="btnGuardar1" runat="server" CssClass="btn bg-indigo waves-effect" Style="float: right" Width="33%" Text="Guardar" OnClick="btnGuardar_ServerClick" >
+												<i class="material-icons">save</i> Guardar
+											</asp:LinkButton>
+										</ContentTemplate>
+										<Triggers>
+											<asp:AsyncPostBackTrigger ControlID="btnGuardar1" EventName="Click" />
+										</Triggers>
+									</asp:UpdatePanel>
+
+									
 									<asp:HiddenField ID="txtresultadoChecbox" runat="server" />
 								</div>
 
-								<asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Always"
-									ChildrenAsTriggers="true">
-									<ContentTemplate>
-										<asp:Button ID="btnRegresar" runat="server" CssClass="btn btn-danger" Style="float: right" Width="33%" Text="Regresar" OnClick="btnGuardar_ServerClick" />
-									</ContentTemplate>
-									<Triggers>
-										<asp:AsyncPostBackTrigger ControlID="btnRegresar" EventName="Click" />
-									</Triggers>
-								</asp:UpdatePanel>
+
+
+
 							</div>
 						</div>
 					</div>

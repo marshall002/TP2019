@@ -219,7 +219,7 @@
         <script src="../../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
         <script src="../../js/admin.js"></script>//
         <script src="../../js/pages/ui/tooltips-popovers.js"></script>
-        <script src="../../js/pages/forms/basic-form-elements.js"></script>
+        <%--<script src="../../js/pages/forms/basic-form-elements.js"></script>--%>
         <script src="../../js/pages/ui/notifications.js"></script>
         <script src="../../js/pages/ui/modals.js"></script>
         <script src="js/pages/index.js"></script>//
