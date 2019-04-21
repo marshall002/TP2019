@@ -8,7 +8,7 @@ namespace DTO
 {
 	public class DtoCita
 	{
-		//public int IC_Cod { get; set; }
+		public int IC_Cod { get; set; }
 		public DateTime DC_FechaHoraSolicitada { get; set; }
 		public string VC_Observacion { get; set; }
 		public DateTime DC_FechaHoraCreada { get; set; }

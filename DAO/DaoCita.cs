@@ -18,7 +18,7 @@ namespace DAO
 		}
 		public void RegistrarSolCita(DtoCita cita)
 		{
-			SqlCommand command = new SqlCommand("sp_insertCita", conexion);
+			SqlCommand command = new SqlCommand("sp_RegistrarSolicitudCita", conexion);
 			command.CommandType = CommandType.StoredProcedure;
 			//command.Parameters.AddWithValue("@CodigoCita", cita.IC_Cod);
 			command.Parameters.AddWithValue("@FechaHoraSolicitadaCita", cita.DC_FechaHoraSolicitada);
@@ -33,7 +33,7 @@ namespace DAO
 		}
 		public void ActualizarSolCita(int codigoCita, DateTime FechaHoraSolicitada, string ObservacionDuda, int codigoTipoCita)
 		{
-			SqlCommand command = new SqlCommand("sp_insertCita", conexion);
+			SqlCommand command = new SqlCommand("sp_ActualizarSolicitudCita", conexion);
 			command.CommandType = CommandType.StoredProcedure;
 			command.Parameters.AddWithValue("@CodigoCita", codigoCita);
 			command.Parameters.AddWithValue("@FechaHoraSolicitadaCita", FechaHoraSolicitada);
@@ -60,7 +60,7 @@ namespace DAO
 		}
 		public void EliminarSolCita(int codigoCita,int EstadoTipoCita)
 		{
-			SqlCommand command = new SqlCommand("sp_eliminar_SoliCita", conexion);
+			SqlCommand command = new SqlCommand("sp_EliminarSolicitudCita", conexion);
 			command.CommandType = CommandType.StoredProcedure;
 			command.Parameters.AddWithValue("@CodigoCita", codigoCita);
 			command.Parameters.AddWithValue("@CodigoEstadoCita", EstadoTipoCita);
@@ -68,6 +68,35 @@ namespace DAO
 			conexion.Open();
 			command.ExecuteNonQuery();
 			conexion.Close();
+		}
+
+		public void ObtenerSolCita(DtoCita cita)
+		{
+			SqlCommand cmd = new SqlCommand("sp_ObtenerSolicitudCita", conexion);
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.AddWithValue("@codigoCita", cita.IC_Cod);
+			DataSet ds = new DataSet();
+			conexion.Open();
+			SqlDataAdapter da = new SqlDataAdapter(cmd);
+			da.Fill(ds);
+			da.Dispose();
+
+			SqlDataReader reader = cmd.ExecuteReader();
+
+			while (reader.Read())
+			{
+
+				cita.IC_Cod = int.Parse(reader[0].ToString());
+				cita.DC_FechaHoraSolicitada = Convert.ToDateTime(reader[1].ToString());
+				cita.VC_Observacion = reader[2].ToString();
+				cita.FK_IEC_Cod = Convert.ToInt32(reader[3].ToString());
+				cita.FK_ITC_Cod = Convert.ToInt32(reader[4].ToString());
+				cita.DC_FechaHoraCreada = Convert.ToDateTime(reader[5].ToString());
+				cita.FK_CU_DNI = reader[6].ToString();
+			}
+
+			conexion.Close();
+			conexion.Dispose();
 		}
 	}
 }

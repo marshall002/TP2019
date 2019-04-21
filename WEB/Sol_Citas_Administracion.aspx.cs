@@ -33,7 +33,7 @@ public partial class _Default : System.Web.UI.Page
 			var colsNoVisible = gvSolicitudesCita.DataKeys[index].Values;
 			string id = colsNoVisible[0].ToString();
 			Session["CodigoSolicitudCita"] = id;
-			Response.Redirect("Sol_Citas_Registrar.aspx");
+			Response.Redirect("Sol_Citas_Detalles.aspx");
 
 		}
 		if (e.CommandName == "eliminar")
@@ -44,9 +44,6 @@ public partial class _Default : System.Web.UI.Page
 				var colsNoVisible = gvSolicitudesCita.DataKeys[index].Values;
 				string idSol = colsNoVisible[0].ToString();
 				string estadosol = colsNoVisible[1].ToString();
-				Log.WriteLog(colsNoVisible[0].ToString());
-				Log.WriteLog(colsNoVisible[1].ToString());
-				Log.WriteLog("---------------------------------------------");
 				Session["CodigoSolicitudCita"] = idSol;
 				Session["estadosol"] = estadosol;
 				

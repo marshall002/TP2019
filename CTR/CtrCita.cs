@@ -33,5 +33,9 @@ namespace CTR
 		{
 			objDaoCita.EliminarSolCita(Codigo, estadoCita);
 		}
+		public void ObtenerInformacionSolicitudCita(DtoCita CitaSol)
+		{
+			objDaoCita.ObtenerSolCita(CitaSol);
+		}
 	}
 }

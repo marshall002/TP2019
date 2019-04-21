@@ -6,13 +6,13 @@
 	<section>
 		<div class="container-fluid">
 			<div class="block-header">
-				<h1>Solicitar cita</h1>
+				<h1>Actualizacion de Solicitud</h1>
 			</div>
 			<div class="row clearfix">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 						<div class="header">
-							<h2>Completa la solicitud
+							<h2>Actualiza los campos de tu solicitud
                                
 								<small></small>
 							</h2>
@@ -99,15 +99,15 @@
 								</div>
 								<div class="col-lg-3 right">
 
-									<button type="button" class="btn bg-indigo waves-effect" id="btnGuardar" runat="server" onserverclick="btnGuardar_ServerClick">
+									<button type="button" class="btn bg-indigo waves-effect" id="btnGuardar" runat="server" onserverclick="btnGuardar_ServerClick" >
 										<i class="material-icons">save</i>
 										<span>Guardar</span>
 									</button>
-									<button type="button" class="btn bg-red waves-effect" id="btnCancelar">
+									<button type="button" class="btn bg-red waves-effect" id="btnCancelar" runat="server" onserverclick="btnCancelar_ServerClick">
 										<i class="material-icons">cancel</i>
 										<span>Cancelar</span>
 									</button>
-									<asp:TextBox ID="txtresultadoChecbox" class="form-control numeros" runat="server" MaxLength="3" Visible="false"></asp:TextBox>
+									<asp:HiddenField  ID="txtresultadoChecbox" runat="server"/>
 								</div>
 							</div>
 						</div>
@@ -118,5 +118,6 @@
 	</section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
+	<script src="js/RadioButtonCustom.js"></script>
 </asp:Content>
 

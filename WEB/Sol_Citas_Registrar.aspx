@@ -100,7 +100,7 @@
 								</div>
 								<div class="col-lg-3 right">
 
-									<button type="button" class="btn bg-indigo waves-effect" id="btnGuardar" runat="server" onserverclick="btnGuardar_ServerClick" >
+									<button type="button" class="btn bg-indigo waves-effect" id="btnGuardar" runat="server" onserverclick="btnGuardar_ServerClick">
 										<i class="material-icons">save</i>
 										<span>Guardar</span>
 									</button>
@@ -108,8 +108,18 @@
 										<i class="material-icons">cancel</i>
 										<span>Cancelar</span>
 									</button>
-									<asp:HiddenField  ID="txtresultadoChecbox" runat="server"/>
+									<asp:HiddenField ID="txtresultadoChecbox" runat="server" />
 								</div>
+
+								<asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Always"
+									ChildrenAsTriggers="true">
+									<ContentTemplate>
+										<asp:Button ID="btnRegresar" runat="server" CssClass="btn btn-danger" Style="float: right" Width="33%" Text="Regresar" OnClick="btnGuardar_ServerClick" />
+									</ContentTemplate>
+									<Triggers>
+										<asp:AsyncPostBackTrigger ControlID="btnRegresar" EventName="Click" />
+									</Triggers>
+								</asp:UpdatePanel>
 							</div>
 						</div>
 					</div>
