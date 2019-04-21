@@ -26,21 +26,28 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 
 	protected void btnGuardar_ServerClick(object sender, EventArgs e)
 	{
-		string Hora = txtHoras.Text;
-		string txtareaconsulta = txtDudaConsulta.Text.Trim();
-		DateTime Fecha = Convert.ToDateTime(txtFecha.Text);
-		string Sesion = "74931448";
-		int codigosol = int.Parse(Session["CodigoSolicitudCita"].ToString());
-		Log.WriteLog(txtresultadoChecbox.Value);
+		try
+		{
+			string txtareaconsulta = txtDudaConsulta.Text.Trim();
+			TimeSpan Hora = TimeSpan.Parse(txtHoras.Text);
+			DateTime Fecha = Convert.ToDateTime(txtFecha.Text);
+			DateTime fechasolitada = Fecha + Hora;
+			int codigosol = int.Parse(Session["CodigoSolicitudCita"].ToString());
+			Log.WriteLog(txtresultadoChecbox.Value);
 
+			string valorRadiobuttonentxt = txtresultadoChecbox.Value;
+			string mensaje = "Datos actualizados";
 
+			objctrcita.actualizarSolicitudCita(codigosol, fechasolitada, txtareaconsulta, int.Parse(valorRadiobuttonentxt));
+			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
 
+		}
+		catch (Exception ex)
+		{
+			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + ex.Message + "', 'bottom', 'center', null, null);", true);
 
+		}
 
-		string valorRadiobuttonentxt = txtresultadoChecbox.Value;
-		
-
-		objctrcita.actualizarSolicitudCita(codigosol, Fecha, txtareaconsulta, int.Parse(valorRadiobuttonentxt));
 	}
 	public void cargardatosCitas()
 	{

@@ -37,9 +37,9 @@
 									<asp:Button ID="btnRegistrar" runat="server" Text="Registrar"
 										class="btn btn-block btn-lg btn-primary waves-effect" aria-hidden="true" OnClick="btnRegistrar_Click" />
 
-									<asp:GridView ID="gvSolicitudesCita" CssClass="table table-bordered table-hover " DataKeyNames="Codigo,ID_EstadoCita" runat="server" AutoGenerateColumns="False" EmptyDataText="No tiene citas registradas" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolicitudesCita_RowCommand">
+									<asp:GridView ID="gvSolicitudesCita" CssClass="table table-bordered table-hover " DataKeyNames="ID_Cita,ID_EstadoCita" runat="server" AutoGenerateColumns="False" EmptyDataText="No tiene citas registradas" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolicitudesCita_RowCommand">
 										<Columns>
-											<asp:BoundField DataField="Codigo" HeaderText="Codigo de solicitud" />
+											<asp:BoundField DataField="ID_Cita" HeaderText="Codigo de solicitud" />
 											<asp:BoundField DataField="FechaHoraSolicitada" HeaderText="Fecha y Hora solicitada"  DataFormatString="{0:dd/MM/yyyy hh:mm tt}" />
 											<asp:BoundField DataField="Observacion" HeaderText="Consulta" Visible="false" />
 											<asp:BoundField DataField="FechaHoraCreada" HeaderText="Fecha de creacion" Visible="false" />
