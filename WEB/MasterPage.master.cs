@@ -18,8 +18,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
 			{
 				Session["id_perfil"] = 1;
 				int perfil = int.Parse(Session["id_perfil"].ToString());
-				Log.WriteLog("Perfil ID" + perfil);
-				Log.WriteLog(Constante.ROL_SOCIO.ToString());
 				switch (perfil)
 				{
 					case Constante.ROL_SOCIO:

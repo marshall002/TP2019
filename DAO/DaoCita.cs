@@ -48,8 +48,18 @@ namespace DAO
 			DataTable dtDatos = null;
 			conexion.Open();
 			SqlCommand command = new SqlCommand("sp_ListarSolicitudesCita", conexion);
-			command.Parameters.AddWithValue("@CodigoEstadoCita", idEstadoCita);
+			//command.Parameters.AddWithValue("@CodigoEstadoCita", idEstadoCita);
 			command.Parameters.AddWithValue("@CodigoUsuarioDNI", CodigoUsuario);
+
+			//SqlParameter CountCitasNutri = new SqlParameter("@countCitasNutri", SqlDbType.Int);
+			//SqlParameter CountCitasFisio = new SqlParameter("@countCitasFisio", SqlDbType.Int);
+
+			//CountCitasNutri.Direction = ParameterDirection.Output;
+			//CountCitasFisio.Direction = ParameterDirection.Output;
+
+			//command.Parameters.Add(CountCitasNutri);
+			//command.Parameters.Add(CountCitasFisio);
+
 
 			SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
 			command.CommandType = CommandType.StoredProcedure;
