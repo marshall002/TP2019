@@ -112,7 +112,7 @@
 										ChildrenAsTriggers="true">
 										<ContentTemplate>
 											<asp:LinkButton ID="btnCancelar1" runat="server" CssClass="btn bg-red waves-effect" Style="float: right" Width="33%" Text="Cancelar" PostBackUrl="~/Sol_Citas_Administracion.aspx" OnClick="btnCancelar_ServerClick">
-												<i class="material-icons">cancel</i>Cancelar
+												<i class="material-icons">arrow_back</i>Regresar
 											</asp:LinkButton>
 										</ContentTemplate>
 										<Triggers>

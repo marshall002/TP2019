@@ -32,9 +32,14 @@ public partial class _Default : System.Web.UI.Page
 			int index = Convert.ToInt32(e.CommandArgument);
 			var colsNoVisible = gvSolicitudesCita.DataKeys[index].Values;
 			string id = colsNoVisible[0].ToString();
-			Session["CodigoSolicitudCita"] = id;
-			Response.Redirect("Sol_Citas_Detalles.aspx");
+			string estadosol = colsNoVisible[1].ToString();
+			string tipocitasol = colsNoVisible[2].ToString();
 
+			Session["CodigoSolicitudCita"] = id;
+			Session["estadosol"] = estadosol;
+			Session["TipoCitaSol"] = tipocitasol;
+
+			Response.Redirect("Sol_Citas_Detalles.aspx");
 		}
 		if (e.CommandName == "eliminar")
 		{

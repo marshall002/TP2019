@@ -55,16 +55,24 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 
 		objctrcita.ObtenerInformacionSolicitudCita(objdtocita);
 
-		DateTime dtValue= objdtocita.DC_FechaHoraSolicitada;  // load your date & time into this variable
+		DateTime dtValue= objdtocita.DC_FechaHoraSolicitada;
 		txtFecha.Text = dtValue.ToString("yyyy-MM-dd");
 		txtHoras.Text = dtValue.ToString("HH:mm");
+		string TipoCitaSol = Session["tipocitasol"].ToString();
+		Log.WriteLog(TipoCitaSol);
 
 
+
+
+		System.Text.StringBuilder sb = new System.Text.StringBuilder();
+		sb.Append(@"<script language='javascript'>");
+		sb.Append(@"SeleccionarRadioButton("+ TipoCitaSol + ");");
+		sb.Append(@"</script>");
+		System.Web.UI.ScriptManager.RegisterStartupScript(this, this.GetType(), "JCall1", sb.ToString(), false);
+
+		
 		txtDudaConsulta.Text = objdtocita.VC_Observacion;
-		Log.WriteLog(objdtocita.DC_FechaHoraSolicitada.ToString("yyyy-MM-dd"));
 		txtFecha.Text = Convert.ToString(objdtocita.DC_FechaHoraSolicitada.ToString("yyyy-MM-dd"));
-
-
 	}
 
 	protected void btnCancelar_ServerClick(object sender, EventArgs e)
