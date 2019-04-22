@@ -19,7 +19,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 		if (!IsPostBack)
 		{
 			cargardatosCitas();
-			contarCitasxServicio();
+			//contarCitasxServicio();
 		}
 
 	}
@@ -30,30 +30,51 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 		{
 			string valorRadiobuttonentxt = txtresultadoChecbox.Value;
 			contarCitasxServicio();
-			Log.WriteLog("Cantidad de sesiones x plan de fisioterapeuta detalles.aspx: " + Session["ISF_Cantidad"].ToString());
-			Log.WriteLog("Contador de sesiones registradas detalles.aspx: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
-			if (valorRadiobuttonentxt == "1")//fisioterapeuta
+			Log.WriteLog("---------------------------------------------------------------------------------------------");
+
+			Log.WriteLog("Cantidad de sesiones x plan de fisioterapeuta actuales: " + Session["ISF_Cantidad"].ToString());
+			Log.WriteLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
+			Log.WriteLog("Contador de sesiones x plan de nutricionista actuales: " + Session["ISN_Cantidad"].ToString());
+			Log.WriteLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
+
+			Log.WriteLog("---------------------------------------------------------------------------------------------");
+			if (valorRadiobuttonentxt == "1")//Nutricionista
 			{
-				if (Session["ISF_Cantidad"].ToString() == objdtousuario.IC_Citas_Fisio_Usadas.ToString())
+				if ( int.Parse(objdtousuario.IC_Citas_Nutri_Usadas.ToString()) >= int.Parse(Session["ISN_Cantidad"].ToString()))
 				{
 					ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Debe adjuntar el derecho de pago para registrar una cita', 'bottom', 'center', null, null);", true);
 
 				}
 				else
 				{
-					actualizardatos(valorRadiobuttonentxt);
+					if (int.Parse(objdtousuario.IC_Citas_Nutri_Usadas.ToString()) > int.Parse(Session["ISN_Cantidad"].ToString()))
+					{
+						actualizardatos(valorRadiobuttonentxt);
+					}
+					else
+					{
+						actualizardatos(valorRadiobuttonentxt);
+					}
 				}
 			}
-			else if (valorRadiobuttonentxt == "1")//Nutricionista
+			else if (valorRadiobuttonentxt == "2")//Fisioterapeuta
 			{
-				if (Session["ISN_Cantidad"].ToString() == objdtousuario.IC_Citas_Nutri_Usadas.ToString())
+				if (int.Parse(objdtousuario.IC_Citas_Fisio_Usadas.ToString()) > int.Parse(Session["ISF_Cantidad"].ToString()))
 				{
 					ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Debe adjuntar el derecho de pago para registrar una cita', 'bottom', 'center', null, null);", true);
 
 				}
 				else
 				{
-					actualizardatos(valorRadiobuttonentxt);
+					if (int.Parse(objdtousuario.IC_Citas_Fisio_Usadas.ToString()) == int.Parse(Session["ISF_Cantidad"].ToString()))
+					{
+						
+						actualizardatos(valorRadiobuttonentxt);
+					}
+					else
+						actualizardatos(valorRadiobuttonentxt);
+					{
+					}
 				}
 			}
 			//if (Session["ISF_Cantidad"].ToString() == objdtousuario.IC_Citas_Fisio_Usadas.ToString())
@@ -108,11 +129,6 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 			txtFecha.Text = dtValue.ToString("yyyy-MM-dd");
 			txtHoras.Text = dtValue.ToString("HH:mm");
 			string TipoCitaSol = Session["tipocitasol"].ToString();
-			Log.WriteLog(TipoCitaSol);
-
-
-
-
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 			sb.Append(@"<script language='javascript'>");
 			sb.Append(@"SeleccionarRadioButton(" + TipoCitaSol + ");");
@@ -154,6 +170,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 		objdtousuario.PK_CU_Dni = Session["SessionUsuario"].ToString();
 		Log.WriteLog("El codigo de sesion es:" + objdtousuario.PK_CU_Dni);
 		objctrusuario.ObtenerNumCitasRealizadas(objdtousuario);
+		Log.WriteLog("-----------------------------------SOL_CITAS_DETALLES.ASPX----------------------------------------------------");
 
 		Log.WriteLog("Citas registradas de fisioterapeuta son en aspx de detalles: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
 		Log.WriteLog("Citas registradas de nutricionista  son en aspx de detalles: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());

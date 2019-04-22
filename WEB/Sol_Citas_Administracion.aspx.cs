@@ -21,7 +21,7 @@ public partial class _Default : System.Web.UI.Page
 		if (!IsPostBack)
 		{
 			ListarSolicitudesCita(TipoCitaSol, Session["SessionUsuario"].ToString());
-			contarCitasxServicio();
+			//contarCitasxServicio();
 		}
 	}
 	public void ListarSolicitudesCita(int tiposolicitud, string CodigoUsuario)

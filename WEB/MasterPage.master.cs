@@ -65,7 +65,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     </li>
 					<li>
                         <a href='#' onclick='modal('modalEnConstruccion');'>
-                            <i class='material-icons'>content_paste</i>
+                            <i class='material-icons'>assignment</i>
                             <span>Inscribete a las clases</span>
                         </a>
                     </li>
