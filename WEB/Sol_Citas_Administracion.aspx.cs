@@ -22,6 +22,7 @@ public partial class _Default : System.Web.UI.Page
 		{
 			ListarSolicitudesCita(TipoCitaSol, Session["SessionUsuario"].ToString());
 			//contarCitasxServicio();
+			ValidarfechaFinPlan();
 		}
 	}
 	public void ListarSolicitudesCita(int tiposolicitud, string CodigoUsuario)
@@ -122,10 +123,34 @@ public partial class _Default : System.Web.UI.Page
 	public void contarCitasxServicio()
 	{
 		objdtousuario.PK_CU_Dni = Session["SessionUsuario"].ToString();
-		Log.WriteLog("El codigo de sesion es:" + objdtousuario.PK_CU_Dni);
+		//Log.WriteLog("El codigo de sesion es:" + objdtousuario.PK_CU_Dni);
 		objctrusuario.ObtenerNumCitasRealizadas(objdtousuario);
 
-		Log.WriteLog("Citas registradas de fisioterapeuta son: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
-		Log.WriteLog("Citas registradas de nutricionista  son: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
+		//Log.WriteLog("Citas registradas de fisioterapeuta son: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
+		//Log.WriteLog("Citas registradas de nutricionista  son: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
+	}
+
+	public void ValidarfechaFinPlan()
+	{
+		DateTime Fechafinpla= DateTime.Parse(Session["DP_Fecha_Fin_Plan"].ToString());
+		DateTime fechaahora = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
+		Log.WriteLog("fecha fin de plan por usuario " + Session["NombreUsuario"].ToString() + ":" +Fechafinpla);
+		Log.WriteLog("Funcion Now" + fechaahora);
+
+		if(fechaahora> Fechafinpla)
+		{
+			Log.WriteLog("1");
+			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Es mayor la fecha de hoy a la fecha de fin de plan', 'bottom', 'center', null, null);", true);
+			Log.WriteLog("2");
+
+		}
+		else if(fechaahora <= Fechafinpla)
+		{
+			Log.WriteLog("3");
+			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Es menor la fecha de hoy a la fecha de fin de plan', 'bottom', 'center', null, null);", true);
+			Log.WriteLog("4");
+
+		}
+
 	}
 }

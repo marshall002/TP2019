@@ -45,7 +45,7 @@ public partial class Inicio : System.Web.UI.Page
 			Log.WriteLog("" + objdtousuario.FK_ITU_Cod);
 			Session["FK_ITU_Cod"] = objdtousuario.FK_ITU_Cod;
 			Log.WriteLog("" + objdtoplan.DP_Fecha_Fin);
-			Session["DP_Fecha_Fin"] = objdtoplan.DP_Fecha_Fin;
+			Session["DP_Fecha_Fin_Plan"] = objdtoplan.DP_Fecha_Fin;
 			Log.WriteLog("Sesiones de fisioterapeuta por derecho: " + objdtosesionFisio.ISF_Cantidad);
 			Session["ISF_Cantidad"] = objdtosesionFisio.ISF_Cantidad;
 			Log.WriteLog("Sesiones de nutricionista por derecho: " + objdtosesionNutri.ISN_Cantidad);
