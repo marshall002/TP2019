@@ -66,7 +66,7 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
 	}
 	public void RegistrarCodigo(string valorRadiobuttonentxt)
 	{
-		TimeSpan Hora = TimeSpan.Parse(txtHoras.Text);
+		TimeSpan Hora = TimeSpan.Parse(ddlHoras.Text);
 		string txtareaconsulta = txtDudaConsulta.Text.Trim();
 		DateTime Fecha = Convert.ToDateTime(txtFecha.Text);
 		DateTime fechasolitada = Fecha + Hora;
@@ -101,5 +101,10 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
 
 		Log.WriteLog("Citas registradas de fisioterapeuta : " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
 		Log.WriteLog("Citas registradas de nutricionista : " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
+	}
+
+	protected void ddlHoras_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		Log.WriteLog("Valor de dropdownList seleccionado : " +ddlHoras.SelectedValue);
 	}
 }

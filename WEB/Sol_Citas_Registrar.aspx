@@ -51,13 +51,32 @@
 									<div class="col-md-4">
 										<div class="row clearfix">
 											<div class="col-sm-12">
-												<div class="form-group form-float">
-													<label class="form-label">Hora</label>
-													<div class="form-line focused">
-														<asp:TextBox ID="txtHoras" class="form-control numeros" TextMode="Time" runat="server" MaxLength="3"></asp:TextBox>
-
-													</div>
-												</div>
+												<%--<div class="form-group form-float">--%>
+												<label class="form-label">Hora</label>
+												<%--<div class="form-line focused">--%>
+												<%--<asp:TextBox ID="txtHoras" class="form-control numeros" TextMode="Time" runat="server" MaxLength="3" Visible="false"></asp:TextBox>--%>
+												<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+													<ContentTemplate>
+														<asp:DropDownList runat="server" ID="ddlHoras" CssClass="form-control" OnSelectedIndexChanged="ddlHoras_SelectedIndexChanged" AutoPostBack="true">
+															<asp:ListItem Value="NULO" >Seleccione la hora</asp:ListItem>															
+															<asp:ListItem Value="15:30">3:30 PM</asp:ListItem>
+															<asp:ListItem Value="16:00">4:00 PM</asp:ListItem>
+															<asp:ListItem Value="16:30">4:30 PM</asp:ListItem>
+															<asp:ListItem Value="17:00">5:00 PM</asp:ListItem>
+															<asp:ListItem Value="17:30">5:30 PM</asp:ListItem>
+															<asp:ListItem Value="18:00">6:00 PM</asp:ListItem>
+															<asp:ListItem Value="18:30">6:30 PM</asp:ListItem>
+															<asp:ListItem Value="19:00">7:00 PM</asp:ListItem>
+															<asp:ListItem Value="19:30">7:30 PM</asp:ListItem>
+															<asp:ListItem Value="20:00">8:30 PM</asp:ListItem>
+														</asp:DropDownList>
+													</ContentTemplate>
+													<Triggers>
+														<asp:AsyncPostBackTrigger ControlID="ddlHoras" EventName="selectedindexchanged" />
+													</Triggers>
+												</asp:UpdatePanel>
+												<%--</div>--%>
+												<%--</div>--%>
 											</div>
 										</div>
 									</div>
@@ -71,7 +90,6 @@
 												<label class="form-label">Duda o consulta</label>
 												<div class="form-line">
 													<asp:TextBox ID="txtDudaConsulta" runat="server" TextMode="multiline" Rows="4" class="form-control no-resize" placeholder="Ingrese la consulta brevemente"></asp:TextBox>
-
 												</div>
 											</div>
 										</div>
@@ -123,7 +141,7 @@
 									<asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Always"
 										ChildrenAsTriggers="true">
 										<ContentTemplate>
-											<asp:LinkButton ID="btnGuardar1" runat="server" CssClass="btn bg-indigo waves-effect" Style="float: right" Width="33%" Text="Guardar" OnClick="btnGuardar_ServerClick" >
+											<asp:LinkButton ID="btnGuardar1" runat="server" CssClass="btn bg-indigo waves-effect" Style="float: right" Width="33%" Text="Guardar" OnClick="btnGuardar_ServerClick">
 												<i class="material-icons">save</i> Guardar
 											</asp:LinkButton>
 										</ContentTemplate>
@@ -132,7 +150,7 @@
 										</Triggers>
 									</asp:UpdatePanel>
 
-									
+
 									<asp:HiddenField ID="txtresultadoChecbox" runat="server" />
 								</div>
 

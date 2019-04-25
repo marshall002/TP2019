@@ -105,7 +105,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 	public void actualizardatos(string valorRadiobuttonentxt)
 	{
 		string txtareaconsulta = txtDudaConsulta.Text.Trim();
-		TimeSpan Hora = TimeSpan.Parse(txtHoras.Text);
+		TimeSpan Hora = TimeSpan.Parse(ddlHoras.Text);
 		DateTime Fecha = Convert.ToDateTime(txtFecha.Text);
 		DateTime fechasolitada = Fecha + Hora;
 		int codigosol = int.Parse(Session["CodigoSolicitudCita"].ToString());
@@ -127,7 +127,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 
 			DateTime dtValue = objdtocita.DC_FechaHoraSolicitada;
 			txtFecha.Text = dtValue.ToString("yyyy-MM-dd");
-			txtHoras.Text = dtValue.ToString("HH:mm");
+			ddlHoras.Text = dtValue.ToString("HH:mm");
 			string TipoCitaSol = Session["tipocitasol"].ToString();
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 			sb.Append(@"<script language='javascript'>");
@@ -174,5 +174,11 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 
 		Log.WriteLog("Citas registradas de fisioterapeuta son en aspx de detalles: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
 		Log.WriteLog("Citas registradas de nutricionista  son en aspx de detalles: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
+	}
+
+	protected void ddlHoras_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		Log.WriteLog("Valor de dropdownList seleccionado al actualizar : " + ddlHoras.SelectedValue);
+
 	}
 }
