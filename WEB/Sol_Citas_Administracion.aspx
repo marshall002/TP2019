@@ -68,7 +68,7 @@
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-link waves-effect waves-grey" data-dismiss="modal">CANCELAR</button>
-											<button type="button" class="btn btn-link waves-effect waves-grey" id="btnEliminarCurso" runat="server" data-dismiss="modal" onserverclick="btnEliminarCurso_ServerClick">ELIMINAR</button>
+											<button type="button" class="btn btn-link waves-effect waves-grey" id="btnEliminarCurso" runat="server" data-dismiss="modal" onserverclick="btnEliminarSolCita_ServerClick">ELIMINAR</button>
 										</div>
 									</div>
 								</div>

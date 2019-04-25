@@ -56,24 +56,6 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
 					RegistrarCodigo(valorRadiobuttonentxt);
 				}
 			}
-
-			//if (Session["ISF_Cantidad"].ToString() == objdtousuario.IC_Citas_Fisio_Usadas.ToString())
-			//{
-			//	ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Debe adjuntar el derecho de pago para registrar una cita', 'bottom', 'center', null, null);", true);
-
-			//}
-			//else
-			//{
-			//	if (Session["ISN_Cantidad"].ToString() == objdtousuario.IC_Citas_Nutri_Usadas.ToString())
-			//	{
-			//		ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-blue', 'Debe adjuntar el derecho de pago para registrar una cita', 'bottom', 'center', null, null);", true);
-			//	}
-			//	else
-			//	{
-			//		RegistrarCodigo();
-			//	}
-
-			//}
 		}
 		catch (Exception ex)
 		{

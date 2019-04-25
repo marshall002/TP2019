@@ -103,7 +103,7 @@ public partial class _Default : System.Web.UI.Page
 		//}
 	}
 
-	protected void btnEliminarCurso_ServerClick(object sender, EventArgs e)
+	protected void btnEliminarSolCita_ServerClick(object sender, EventArgs e)
 	{
 		try
 		{
