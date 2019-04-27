@@ -56,4 +56,5 @@ public partial class Inicio : System.Web.UI.Page
 			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No tiene los permisos para actualizar', 'bottom', 'center', null, null);", true);
 		}
 	}
+	
 }

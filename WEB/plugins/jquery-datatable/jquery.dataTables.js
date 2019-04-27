@@ -6422,7 +6422,7 @@
 			}
 	
 			if ( type == 'alert' ) {
-				alert( msg );
+				//alert( msg );
 			}
 			else if ( type == 'throw' ) {
 				throw new Error(msg);
@@ -11395,8 +11395,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
-	
+			//"sInfo": "Mostrando _START_ de _END_ of _TOTAL_ entries",
+			"sInfo": "",
 	
 			/**
 			 * Display information string for when the table is empty. Typically the
@@ -11694,7 +11694,9 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "No matching records found"
+			"sZeroRecords": "No se han encontrado registros"
+			//"sZeroRecords": "No matching records found"
+
 		},
 	
 	

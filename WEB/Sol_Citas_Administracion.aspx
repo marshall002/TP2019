@@ -2,9 +2,13 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_header" runat="Server">
-	<script src="js/pages/ui/s.js"></script>
+	<%--<script src="js/pages/ui/s.js"></script>--%>
 
 	<script src="../../js/pages/ui/dialogs.js"></script>
+	<link href="../../plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+	<script>$(function () {
+			$(".dataTable").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable();
+		});</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="Server">
 	<section>
@@ -33,12 +37,14 @@
 
 										</li>
 									</ul>
+									
+									<asp:Button ID="btnRegistrar" runat="server" Text="Registrar"
+										class="btn btn-block btn-md btn-primary waves-effect" aria-hidden="true" OnClick="btnRegistrar_Click" />
+
 								</div>
 								<div class="body table-responsive ">
-									<asp:Button ID="btnRegistrar" runat="server" Text="Registrar"
-										class="btn btn-block btn-lg btn-primary waves-effect" aria-hidden="true" OnClick="btnRegistrar_Click" />
-
-									<asp:GridView ID="gvSolicitudesCita" CssClass="table table-bordered table-hover " DataKeyNames="PK_IC_Cod,FK_IEC_Cod,FK_ITC_Cod" runat="server" AutoGenerateColumns="False" EmptyDataText="No tiene citas registradas" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolicitudesCita_RowCommand">
+									
+									<asp:GridView ID="gvSolicitudesCita" CssClass="table table-bordered table-hover js-basic-example dataTable" DataKeyNames="PK_IC_Cod,FK_IEC_Cod,FK_ITC_Cod" runat="server" AutoGenerateColumns="False" EmptyDataText="No tiene citas registradas" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolicitudesCita_RowCommand">
 										<Columns>
 											<asp:BoundField DataField="PK_IC_Cod" HeaderText="Codigo de solicitud" />
 											<asp:BoundField DataField="DC_FechaHoraSolicitada" HeaderText="Fecha y Hora solicitada" DataFormatString="{0:dd/MM/yyyy hh:mm tt}" />
@@ -89,4 +95,17 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="cph_js" runat="Server">
+	<script src="../../plugins/jquery-datatable/jquery.dataTables.js"></script>
+	<script src="../../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+	<script src="../../plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+	<script src="../../plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+	<script src="../../plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+	<script src="../../plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+	<script src="../../plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+	<script src="../../plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+	<script src="../../plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
+	<!-- Custom Js -->
+	<script src="../../js/admin.js"></script>
+	<script src="../../js/pages/tables/jquery-datatable.js"></script>
 </asp:Content>
