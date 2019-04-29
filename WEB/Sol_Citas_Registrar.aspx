@@ -153,10 +153,6 @@
 
 									<asp:HiddenField ID="txtresultadoChecbox" runat="server" />
 								</div>
-
-
-
-
 							</div>
 						</div>
 					</div>
@@ -167,5 +163,10 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
 	<script src="js/RadioButtonCustom.js"></script>
+    <script src="../../plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="../../plugins/jquery-steps/jquery.steps.js"></script>
+    <script src="../../js/pages/forms/form-validation.js"></script>
+
+
 </asp:Content>
 
