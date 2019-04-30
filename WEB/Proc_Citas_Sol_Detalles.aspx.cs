@@ -187,10 +187,13 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 
     protected void btnaceptar_ServerClick(object sender, EventArgs e)
     {
+		//txtresultadoChecbox.Value = "3";
 		txtresultadoChecbox.Text = "3";
-    }
 
-    protected void btnReprogramar_Click(object sender, EventArgs e)
+
+	}
+
+	protected void btnReprogramar_Click(object sender, EventArgs e)
     {
         string script = @"<script type='text/javascript'>
                                       $('#modalreprogramar').modal('show');
@@ -208,4 +211,9 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 
 
     }
+
+	protected void ddlNuevaHora_SelectedIndexChanged(object sender, EventArgs e)
+	{
+
+	}
 }

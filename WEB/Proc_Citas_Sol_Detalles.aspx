@@ -8,7 +8,7 @@
 			$("[id*=txtFecha]").prop('disabled', true);
 			$("[id*=txtHoras]").prop('disabled', true);
 			$("[id*=txtDudaConsulta]").prop('disabled', true);
-			$("[id*=btnGuardar1]").attr('disabled', 'disabled');
+			$("[id*=ddlHoras]").prop('disabled', true);
 		});
 	</script>
 </asp:Content>
@@ -109,7 +109,7 @@
 										</div>
 									</div>
 									<div class="col-lg-12 right">
-										<asp:LinkButton ID="btnReprogramar" runat="server" CssClass="btn bg-indigo waves-effect" Style="float: left" Width="10%" Text="Guardar" OnClick="btnReprogramar_Click">
+										<asp:LinkButton ID="btnReprogramar" runat="server" CssClass="btn bg-indigo waves-effect" Style="float: left" Width="10%" Text="Guardar" OnClick="btnReprogramar_Click" >
 												<i class="material-icons">alarm</i> Reprogramar
 										</asp:LinkButton>
 									</div>
@@ -164,7 +164,7 @@
 												<div class="modal-dialog" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
-															<h4 class="modal-title" id="DescModalEliminarCita" runat="server">¿Seguro desea eliminar su solicitud?</h4>
+															<h4 class="modal-title" id="DescModalEliminarCita" runat="server">Escoja la fecha y hora para la reprogramación</h4>
 														</div>
 														<div class="modal-body">
 															<div class="form-group">
@@ -172,7 +172,6 @@
 																	Nueva fecha</label>
 																<div class="form-line">
 																	<asp:TextBox ID="TextBox1" class="form-control" runat="server" TextMode="Date" MaxLength="10"></asp:TextBox>
-
 																</div>
 															</div>
 															<div class="form-group">
@@ -180,7 +179,7 @@
 																<div class="form-line">
 																	<asp:UpdatePanel ID="UpdatePanel4" runat="server">
 																		<ContentTemplate>
-																			<asp:DropDownList runat="server" ID="DropDownList1" CssClass="form-control" OnSelectedIndexChanged="ddlHoras_SelectedIndexChanged" AutoPostBack="true">
+																			<asp:DropDownList runat="server" ID="ddlNuevaHora" CssClass="form-control" OnSelectedIndexChanged="ddlNuevaHora_SelectedIndexChanged" AutoPostBack="true">
 																				<asp:ListItem Value="NULO">Seleccione la hora</asp:ListItem>
 																				<asp:ListItem Value="15:30">3:30 PM</asp:ListItem>
 																				<asp:ListItem Value="16:00">4:00 PM</asp:ListItem>
@@ -195,7 +194,7 @@
 																			</asp:DropDownList>
 																		</ContentTemplate>
 																		<Triggers>
-																			<asp:AsyncPostBackTrigger ControlID="ddlHoras" EventName="selectedindexchanged" />
+																			<asp:AsyncPostBackTrigger ControlID="ddlNuevaHora" EventName="selectedindexchanged" />
 																		</Triggers>
 																	</asp:UpdatePanel>
 																</div>
@@ -223,6 +222,6 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
 	<script src="js/CheckboxCustom.js"></script>
-	<script src="js/RadioButtonCustom.js"></script>
+	<%--<script src="js/RadioButtonCustom.js"></script>--%>
 </asp:Content>
 
