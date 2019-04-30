@@ -17,19 +17,23 @@ namespace CTR
 		{
 			objDaoCita = new DaoCita();
 		}
-		public DataTable VerSolicitudesCita(int idEstadoCita,string CodigoUsuarioDNI)
+		public DataTable VerSolicitudesCita(string CodigoUsuarioDNI)
 		{
-			return objDaoCita.VerCitasSolicitada(idEstadoCita, CodigoUsuarioDNI);
+			return objDaoCita.VerCitasSolicitada(CodigoUsuarioDNI);
 		}
-		public void registrarSolicitudCita(DateTime fechasol, string obsCita, DateTime fechacreacion,int idEstado, int idTipo, string DNIUsuario)
+		public DataTable VerSolicitudesCitaAdmin()
 		{
-			objDaoCita.RegistrarSolCita(fechasol,obsCita,fechacreacion,idEstado,idTipo,DNIUsuario);
+			return objDaoCita.VerCitasSolicitudesAdmin();
 		}
-		public void actualizarSolicitudCita(int Codigo,DateTime fechahorasolicitada,string dudaconsulta,int idTipoCita)
+		public void registrarSolicitudCita(DateTime fechasol, string obsCita, DateTime fechacreacion, int idEstado, int idTipo, string DNIUsuario)
 		{
-			objDaoCita.ActualizarSolCita (Codigo, fechahorasolicitada, dudaconsulta, idTipoCita);
+			objDaoCita.RegistrarSolCita(fechasol, obsCita, fechacreacion, idEstado, idTipo, DNIUsuario);
 		}
-		public void EliminarrSolicitudCita(int Codigo,int estadoCita)
+		public void actualizarSolicitudCita(int Codigo, DateTime fechahorasolicitada, string dudaconsulta, int idTipoCita)
+		{
+			objDaoCita.ActualizarSolCita(Codigo, fechahorasolicitada, dudaconsulta, idTipoCita);
+		}
+		public void EliminarrSolicitudCita(int Codigo, int estadoCita)
 		{
 			objDaoCita.EliminarSolCita(Codigo, estadoCita);
 		}
@@ -37,5 +41,6 @@ namespace CTR
 		{
 			objDaoCita.ObtenerSolCita(CitaSol);
 		}
+
 	}
 }

@@ -11,9 +11,10 @@
 	<link rel="icon" href="favicon.ico" type="image/x-icon" />
 
 	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css" />
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
-
+	<%--<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css" />--%>
+	<%--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />--%>
+	<link href="css/googleapis_latyn_cyrillic.css" rel="stylesheet" />
+	<link href="css/googleapis_material_Icons.css" rel="stylesheet" />
 	<link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
 	<link href="plugins/node-waves/waves.css" rel="stylesheet" />
 	<link href="plugins/animate-css/animate.css" rel="stylesheet" />

@@ -16,7 +16,7 @@ namespace DAO
 		{
 			conexion = new SqlConnection(ConexionBD.CadenaConexion);
 		}
-		public void RegistrarSolCita(DateTime fechahorasolicitada, string observacioncita,DateTime fechahoracreada, int Id_EstadoCita, int id_TipoCita, string DniUsuario)
+		public void RegistrarSolCita(DateTime fechahorasolicitada, string observacioncita, DateTime fechahoracreada, int Id_EstadoCita, int id_TipoCita, string DniUsuario)
 		{
 			SqlCommand command = new SqlCommand("sp_RegistrarSolicitudCita", conexion);
 			command.CommandType = CommandType.StoredProcedure;
@@ -43,24 +43,12 @@ namespace DAO
 			command.ExecuteNonQuery();
 			conexion.Close();
 		}
-		public DataTable VerCitasSolicitada(int idEstadoCita, string CodigoUsuario)
+		public DataTable VerCitasSolicitada(string CodigoUsuario)
 		{
 			DataTable dtDatos = null;
 			conexion.Open();
 			SqlCommand command = new SqlCommand("sp_ListarSolicitudesCita", conexion);
-			//command.Parameters.AddWithValue("@CodigoEstadoCita", idEstadoCita);
 			command.Parameters.AddWithValue("@CodigoUsuarioDNI", CodigoUsuario);
-
-			//SqlParameter CountCitasNutri = new SqlParameter("@countCitasNutri", SqlDbType.Int);
-			//SqlParameter CountCitasFisio = new SqlParameter("@countCitasFisio", SqlDbType.Int);
-
-			//CountCitasNutri.Direction = ParameterDirection.Output;
-			//CountCitasFisio.Direction = ParameterDirection.Output;
-
-			//command.Parameters.Add(CountCitasNutri);
-			//command.Parameters.Add(CountCitasFisio);
-
-
 			SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
 			command.CommandType = CommandType.StoredProcedure;
 			dtDatos = new DataTable();
@@ -68,7 +56,19 @@ namespace DAO
 			conexion.Close();
 			return dtDatos;
 		}
-		public void EliminarSolCita(int codigoCita,int EstadoTipoCita)
+		public DataTable VerCitasSolicitudesAdmin()
+		{
+			DataTable dtDatos = null;
+			conexion.Open();
+			SqlCommand command = new SqlCommand("sp_ListarSolicitudesCitaAdmin", conexion);
+			SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+			command.CommandType = CommandType.StoredProcedure;
+			dtDatos = new DataTable();
+			daAdaptador.Fill(dtDatos);
+			conexion.Close();
+			return dtDatos;
+		}
+		public void EliminarSolCita(int codigoCita, int EstadoTipoCita)
 		{
 			SqlCommand command = new SqlCommand("sp_EliminarSolicitudCita", conexion);
 			command.CommandType = CommandType.StoredProcedure;

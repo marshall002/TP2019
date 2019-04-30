@@ -27,7 +27,7 @@ public partial class _Default : System.Web.UI.Page
 	}
 	public void ListarSolicitudesCita(int tiposolicitud, string CodigoUsuario)
 	{
-		gvSolicitudesCita.DataSource = objctrcita.VerSolicitudesCita(tiposolicitud, CodigoUsuario);
+		gvSolicitudesCita.DataSource = objctrcita.VerSolicitudesCita(CodigoUsuario);
 		gvSolicitudesCita.DataBind();
 	}
 	protected void gvSolicitudesCita_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -89,18 +89,7 @@ public partial class _Default : System.Web.UI.Page
 
 	protected void btnRegistrar_Click(object sender, EventArgs e)
 	{
-		//contarCitasxServicio();
-		//Log.WriteLog("Cantidad de sesiones x plan de fisioterapeuta: " + Session["ISF_Cantidad"].ToString());
-		//Log.WriteLog("Contador de sesiones registradas: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
-		//if (Session["ISF_Cantidad"].ToString() == objdtousuario.IC_Citas_Fisio_Usadas.ToString())
-		//{
-		//	ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Debe adjuntar el derecho de pago para registrar una cita', 'bottom', 'center', null, null);", true);
-
-		//}
-		//else
-		//{
 			Response.Redirect("~/Sol_Citas_Registrar.aspx");
-		//}
 	}
 
 	protected void btnEliminarSolCita_ServerClick(object sender, EventArgs e)
