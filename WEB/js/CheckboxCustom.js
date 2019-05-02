@@ -3,13 +3,13 @@
 });
 $("input[type='checkbox']").change(function () {
 	if ($(this).is(":checked")) {
-		var checkboxradio = 1;
+		var checkboxradio = 2;
 		$('[id*=btnReprogramar]').hide();
 		$("[id*=txtresultadoChecbox]").val(checkboxradio);
 
 	}
 	else {
-		var checkboxradio = 8;
+		checkboxradio = 8;
 		$("[id*=txtresultadoChecbox]").val(checkboxradio);
 		$('[id*=btnReprogramar]').show();
 	}

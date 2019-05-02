@@ -65,5 +65,22 @@ namespace DAO
 			conexion.Close();
 			conexion.Dispose();
 		}
-	}
+
+        public DataTable ListarDNIUsuario()
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_Desplegable_Socio", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+                return dt;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+    }
 }

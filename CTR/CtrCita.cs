@@ -33,7 +33,11 @@ namespace CTR
 		{
 			objDaoCita.ActualizarSolCita(Codigo, fechahorasolicitada, dudaconsulta, idTipoCita);
 		}
-		public void EliminarrSolicitudCita(int Codigo, int estadoCita)
+        public void ActualizarSolCitaAdmin(DtoCita CitaSolAdmin)
+        {
+            objDaoCita.ActualizarSolCitaAdmin(CitaSolAdmin);
+        }
+        public void EliminarrSolicitudCita(int Codigo, int estadoCita)
 		{
 			objDaoCita.EliminarSolCita(Codigo, estadoCita);
 		}

@@ -138,7 +138,7 @@
 											<asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Always"
 												ChildrenAsTriggers="true">
 												<ContentTemplate>
-													<asp:LinkButton ID="btnCancelar1" runat="server" CssClass="btn bg-red waves-effect" Style="float: right" Width="33%" Text="Cancelar" PostBackUrl="~/Sol_Citas_Administracion.aspx" OnClick="btnCancelar_ServerClick">
+													<asp:LinkButton ID="btnCancelar1" runat="server" CssClass="btn bg-red waves-effect" Style="float: right" Width="33%" Text="Cancelar" PostBackUrl="~/Proc_Citas_Sol_Listar.aspx" OnClick="btnCancelar_ServerClick">
 												<i class="material-icons">arrow_back</i>Regresar
 													</asp:LinkButton>
 												</ContentTemplate>
@@ -160,7 +160,7 @@
 											</asp:UpdatePanel>
 
 											<%--<asp:HiddenField ID="txtresultadoChecbox" runat="server" />--%>
-											<asp:TextBox ID="txtresultadoChecbox" runat="server" />
+											<asp:HiddenField ID="txtresultadoChecbox" runat="server" />
 
 											<div class="modal fade" id="modalreprogramar" tabindex="-1" role="dialog">
 												<div class="modal-dialog" role="document">

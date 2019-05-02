@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DAO;
 using DTO;
+using System.Data;
+
 
 namespace CTR
 {
@@ -23,5 +25,9 @@ namespace CTR
 		{
 			objDaoUsuario.ObtenerNumerodeCitasUsadas(dtoUsuario);
 		}
+        public DataTable ListarDNIUsuario()
+        {
+           return objDaoUsuario.ListarDNIUsuario();
+        }
 	}
 }

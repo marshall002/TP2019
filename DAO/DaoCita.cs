@@ -118,5 +118,17 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+        public void ActualizarSolCitaAdmin(DtoCita objdtocita)
+        {
+            SqlCommand command = new SqlCommand("sp_ActualizarSolicitudCitaAdmin", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@CodigoCita", objdtocita.IC_Cod);
+            command.Parameters.AddWithValue("@IdEstadoCita", objdtocita.FK_IEC_Cod);
+
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
+
     }
 }

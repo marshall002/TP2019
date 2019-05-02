@@ -103,6 +103,7 @@
 									</div>
 								</div>
 							</div>
+
 							<h2 class="card-inside-title">Seleccione el tipo de cita</h2>
 							<div class="row">
 								<div class="col-lg-4">

@@ -26,9 +26,9 @@ public partial class Proc_Citas_Sol_Listar : System.Web.UI.Page
 
 
 	protected void btnRegistrar_Click(object sender, EventArgs e)
-	{
-
-	}
+    {
+        Response.Redirect("~/Proc_Citas_Sol_Registrar.aspx");
+    }
 	
 	protected void gvSolicitudesCitaAdmin_RowCommand(object sender, GridViewCommandEventArgs e)
 	{
