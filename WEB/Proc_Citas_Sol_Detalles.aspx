@@ -8,7 +8,8 @@
 			$("[id*=txtFecha]").prop('disabled', true);
 			$("[id*=txtHoras]").prop('disabled', true);
 			$("[id*=txtDudaConsulta]").prop('disabled', true);
-			$("[id*=ddlHoras]").prop('disabled', true);
+            $("[id*=ddlHoras]").prop('disabled', true);
+            $("[id*=txtFechaProNueva]").prop('disabled', false);
 		});
 	</script>
 </asp:Content>
@@ -60,7 +61,8 @@
 												<div class="row clearfix">
 													<div class="col-sm-12">
 														<label class="form-label">Hora</label>
-														<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                                        <asp:TextBox ID="ddlHoras" class="form-control" runat="server" MaxLength="10"></asp:TextBox>
+														<%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
 															<ContentTemplate>
 																<asp:DropDownList runat="server" ID="ddlHoras" CssClass="form-control" OnSelectedIndexChanged="ddlHoras_SelectedIndexChanged" AutoPostBack="true">
 																	<asp:ListItem Value="NULO">Seleccione la hora</asp:ListItem>
@@ -79,7 +81,7 @@
 															<Triggers>
 																<asp:AsyncPostBackTrigger ControlID="ddlHoras" EventName="selectedindexchanged" />
 															</Triggers>
-														</asp:UpdatePanel>
+														</asp:UpdatePanel>--%>
 													</div>
 												</div>
 											</div>
@@ -171,7 +173,7 @@
 																<label class="form-label">
 																	Nueva fecha</label>
 																<div class="form-line">
-																	<asp:TextBox ID="TextBox1" class="form-control" runat="server" TextMode="Date" MaxLength="10"></asp:TextBox>
+																	<asp:TextBox ID="txtFechaProNueva" class="form-control" runat="server" TextMode="Date" MaxLength="10"></asp:TextBox>
 																</div>
 															</div>
 															<div class="form-group">
@@ -202,7 +204,7 @@
 														</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-link waves-effect waves-grey" data-dismiss="modal">CANCELAR</button>
-															<button type="button" class="btn btn-link waves-effect waves-grey" id="btnaceptar" runat="server" data-dismiss="modal" onserverclick="btnaceptar_ServerClick">ELIMINAR</button>
+															<button type="button" class="btn btn-link waves-effect waves-grey" id="btnaceptar" runat="server" data-dismiss="modal" onserverclick="btnReproSCita_ServerClick">REPROGRAMAR</button>
 														</div>
 													</div>
 												</div>

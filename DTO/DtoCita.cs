@@ -15,5 +15,6 @@ namespace DTO
 		public int FK_IEC_Cod { get; set; }
 		public int FK_ITC_Cod { get; set; }
 		public string FK_CU_DNI { get; set; }
-	}
+        public DateTime  DC_FechaReprogramada { get; set; }
+    }
 }

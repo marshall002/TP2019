@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Proc_Citas_Sol_Listar.aspx.cs" Inherits="Proc_Citas_Sol_Listar" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>--%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_header" Runat="Server">
 	<script src="../../js/pages/ui/dialogs.js"></script>
@@ -45,12 +45,10 @@
 									
 									<asp:GridView ID="gvSolicitudesCitaAdmin" CssClass="table table-bordered table-hover js-basic-example dataTable" DataKeyNames="PK_IC_Cod,FK_IEC_Cod,FK_ITC_Cod,FK_CU_Dni" runat="server" AutoGenerateColumns="False" EmptyDataText="No tiene citas registradas" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolicitudesCitaAdmin_RowCommand">
 										<Columns>
-											<asp:BoundField DataField="PK_IC_Cod" HeaderText="Codigo de solicitud" />
 											<asp:BoundField DataField="NombreCompletoUsuario" HeaderText="Nombre Completo Usuario" />
 											<asp:BoundField DataField="VEC_Nombre" HeaderText="Estado de Solicitud" />
 											<asp:BoundField DataField="VTC_Nombre" HeaderText="Especialidad" />
 											<asp:BoundField DataField="DC_FechaHoraSolicitada" HeaderText="Fecha y Hora solicitada" DataFormatString="{0:dd/MM/yyyy hh:mm tt}" />
-											<asp:BoundField DataField="DC_FechaHoraCreada" HeaderText="Fecha de creacion" DataFormatString="{0:dd/MM/yyyy hh:mm tt}" />
 											<asp:BoundField DataField="VC_Observacion" HeaderText="Consulta" Visible="false" />
 											<asp:BoundField DataField="FK_IEC_Cod" HeaderText="FK_ EstadoCitaCod" Visible="false" />
 											<asp:BoundField DataField="FK_ITC_Cod" HeaderText="FK_TipoCita" Visible="false" />

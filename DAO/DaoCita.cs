@@ -108,5 +108,15 @@ namespace DAO
 			conexion.Close();
 			conexion.Dispose();
 		}
-	}
+        public void ProReprogramarCita( int codigoCita, DateTime FechaReprogramada)
+        {
+            conexion.Open();
+            SqlCommand command = new SqlCommand("sp_Reprogramar_Cita", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@idCita", codigoCita);
+            command.Parameters.AddWithValue("@FechaHoraReproCita", FechaReprogramada);
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
+    }
 }

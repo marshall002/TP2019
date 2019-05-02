@@ -41,6 +41,10 @@ namespace CTR
 		{
 			objDaoCita.ObtenerSolCita(CitaSol);
 		}
+        public void ReprogramarCita(int idCita,DateTime fechaReprogramadac)
+        {
+            objDaoCita.ProReprogramarCita(idCita,fechaReprogramadac);
+        }
 
-	}
+    }
 }

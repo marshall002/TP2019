@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="SCLAP" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Sol_Citas_Administracion.aspx.cs" Inherits="_Default" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_header" runat="Server">
 	<%--<script src="js/pages/ui/s.js"></script>--%>
 

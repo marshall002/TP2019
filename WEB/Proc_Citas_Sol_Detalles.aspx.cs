@@ -179,19 +179,33 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
         Log.WriteLog("Citas registradas de nutricionista  son en aspx de detalles: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
     }
 
-    protected void ddlHoras_SelectedIndexChanged(object sender, EventArgs e)
+    //protected void ddlHoras_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    Log.WriteLog("Valor de dropdownList seleccionado al actualizar : " + ddlHoras.SelectedValue);
+
+    //}
+
+    protected void btnReproSCita_ServerClick(object sender, EventArgs e)
     {
-        Log.WriteLog("Valor de dropdownList seleccionado al actualizar : " + ddlHoras.SelectedValue);
+        //txtresultadoChecbox.Value = "3";
+        //txtresultadoChecbox.Text = "3";
+
+        string txtareaconsulta = txtDudaConsulta.Text.Trim();
+        TimeSpan Hora = TimeSpan.Parse(ddlNuevaHora.Text);
+        DateTime Fecha = Convert.ToDateTime(txtFechaProNueva.Text);
+        DateTime fechaReprogramada = Fecha + Hora;
+        int codigosol = int.Parse(Session["CodigoSolicitudCita"].ToString());
+        //Log.WriteLog(txtresultadoChecbox.Value);
+        Log.WriteLog(txtresultadoChecbox.Text);
+
+
+        string mensaje = "Datos actualizados";
+
+        objctrcita.ReprogramarCita(codigosol, fechaReprogramada);
+        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+
 
     }
-
-    protected void btnaceptar_ServerClick(object sender, EventArgs e)
-    {
-		//txtresultadoChecbox.Value = "3";
-		txtresultadoChecbox.Text = "3";
-
-
-	}
 
 	protected void btnReprogramar_Click(object sender, EventArgs e)
     {

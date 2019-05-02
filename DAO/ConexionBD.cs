@@ -12,7 +12,7 @@ namespace DAO
 		{
 			get
 			{
-				return "data source=MMASCO; initial catalog=BD_SLAP; integrated security=SSPI;";
+				return @"data source=DESKTOP-4DLDR9D\SQLEXPRESS; initial catalog=BD_SLAP1; integrated security=SSPI;";
 			}
 		}
 	}
