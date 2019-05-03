@@ -95,7 +95,7 @@ public partial class Proc_CItas_Sol_Registrar : System.Web.UI.Page
     }
     protected void btnCancelar_ServerClick(object sender, EventArgs e)
     {
-        Response.Redirect("~/Sol_Citas_Administracion.aspx");
+        Response.Redirect("~/Proc_Sol_Listar.aspx");
     }
     public void contarCitasxServicio()
     {
