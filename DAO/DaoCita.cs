@@ -9,6 +9,7 @@ using DTO;
 
 namespace DAO
 {
+    //comentarios
 	public class DaoCita
 	{
 		SqlConnection conexion;
