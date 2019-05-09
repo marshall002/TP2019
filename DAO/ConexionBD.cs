@@ -14,6 +14,7 @@ namespace DAO
 			{
 				return @"data source=DESKTOP-4DLDR9D\SQLEXPRESS; initial catalog=BD_SLAP1; integrated security=SSPI;";
 			}
+            //mira estrella sincronizo :v 
 		}
 	}
 }
