@@ -9,7 +9,6 @@ using DTO;
 
 namespace DAO
 {
-    //comentarios
 	public class DaoCita
 	{
 		SqlConnection conexion;
@@ -32,7 +31,21 @@ namespace DAO
 			command.ExecuteNonQuery();
 			conexion.Close();
 		}
-		public void ActualizarSolCita(int codigoCita, DateTime FechaHoraSolicitada, string ObservacionDuda, int codigoTipoCita)
+        public void RegistrarSolCita2(DtoCita ObjDtoCita)
+        {
+            SqlCommand command = new SqlCommand("sp_RegistrarSolicitudCita2", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            //command.Parameters.AddWithValue("@CodigoCita", cita.IC_Cod);
+            command.Parameters.AddWithValue("@FechaHoraSolicitadaCita", ObjDtoCita.DC_FechaHoraSolicitada);
+            command.Parameters.AddWithValue("@ObservacionCita", ObjDtoCita.VC_Observacion);
+            command.Parameters.AddWithValue("@CodigoEstadoCita", ObjDtoCita.FK_IEC_Cod);
+            command.Parameters.AddWithValue("@CodigoTipoCita", ObjDtoCita.FK_ITC_Cod);
+            command.Parameters.AddWithValue("@CodigoUsuarioDNI", ObjDtoCita.FK_CU_DNI);
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
+        public void ActualizarSolCita(int codigoCita, DateTime FechaHoraSolicitada, string ObservacionDuda, int codigoTipoCita)
 		{
 			SqlCommand command = new SqlCommand("sp_ActualizarSolicitudCita", conexion);
 			command.CommandType = CommandType.StoredProcedure;
@@ -103,7 +116,8 @@ namespace DAO
 				cita.FK_IEC_Cod = Convert.ToInt32(reader[3].ToString());
 				cita.FK_ITC_Cod = Convert.ToInt32(reader[4].ToString());
 				cita.DC_FechaHoraCreada = Convert.ToDateTime(reader[5].ToString());
-				cita.FK_CU_DNI = reader[6].ToString();
+                cita.FK_IEC_Nombre = reader[6].ToString();
+                cita.FK_CU_DNI = reader[7].ToString();
 			}
 
 			conexion.Close();

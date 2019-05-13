@@ -13,11 +13,11 @@ public partial class MasterPage : System.Web.UI.MasterPage
 	{
 		try
 		{
-
 			if (!IsPostBack)
 			{
-				Session["id_perfil"] = 1;
-				int perfil = int.Parse(Session["id_perfil"].ToString());
+                Session["id_perfil"] = 1;
+
+                int perfil = int.Parse(Session["id_perfil"].ToString());
 				switch (perfil)
 				{
 					case Constante.ROL_SOCIO:
@@ -80,7 +80,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     <li>
                        <a href='#' onclick='modal('modalEnConstruccion');'>
                             <i class='material-icons'>content_paste</i>
-                            <span>Administra las solicitudes de citas</span>
+                            <span>Gestionar las solicitudes</span>
                         </a>
                     </li>
                     ");
@@ -112,4 +112,27 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     ");
 		this.Literal1.Text = html;
 	}
+    protected void Test(object sender, EventArgs e)
+    {
+        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No tiene los permisos para actualizar', 'bottom', 'center', null, null);", true);
+    }
+
+    protected void btnCerrarSesion_ServerClick(object sender, EventArgs e)
+    {
+        Session.Clear();
+        //    Session.Abandon();
+        //Response.Redirect("inicio.aspx");
+    }
+
+    protected void AdministradorOption_ServerClick(object sender, EventArgs e)
+    {
+        Session["id_perfil"] = 2;
+        Page.Response.Redirect(Page.Request.Url.ToString(), true);
+    }
+
+    protected void UsuarioOption_ServerClick(object sender, EventArgs e)
+    {
+        Session["id_perfil"] = 1;
+        Page.Response.Redirect(Page.Request.Url.ToString(), true);
+    }
 }

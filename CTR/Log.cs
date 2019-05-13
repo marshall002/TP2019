@@ -12,7 +12,7 @@ namespace CTR
 	{
 		public static void WriteLog(string strMessage)
 		{
-			string strPath = @"C:\\TP2019\Log.txt";
+			string strPath = @"C:\\Users\Marcial\Documents\TP2019\Log.txt";
 			string strDate = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture); // 12 horas
 
 			PrepareLog(strPath);

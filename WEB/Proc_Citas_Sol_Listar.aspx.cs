@@ -42,12 +42,12 @@ public partial class Proc_Citas_Sol_Listar : System.Web.UI.Page
 			string CodigoUsuarioCita = colsNoVisible[3].ToString();
 
 
-			Session["CodigoSolicitudCita"] = id;
+
+            Session["CodigoSolicitudCita"] = id;
 			Session["estadosol"] = estadosol;
 			Session["TipoCitaSol"] = tipocitasol;
 			Session["CodigoUsuarioCita"] = CodigoUsuarioCita;
-
-			Response.Redirect("Proc_Citas_Sol_Detalles.aspx");
+            Response.Redirect("Proc_Citas_Sol_Detalles.aspx");
 		}
 	}
 }

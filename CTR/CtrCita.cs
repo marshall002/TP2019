@@ -29,7 +29,11 @@ namespace CTR
 		{
 			objDaoCita.RegistrarSolCita(fechasol, obsCita, fechacreacion, idEstado, idTipo, DNIUsuario);
 		}
-		public void actualizarSolicitudCita(int Codigo, DateTime fechahorasolicitada, string dudaconsulta, int idTipoCita)
+        public void registrarCita(DtoCita objDtoCita)
+        {
+            objDaoCita.RegistrarSolCita2(objDtoCita);
+        }
+        public void actualizarSolicitudCita(int Codigo, DateTime fechahorasolicitada, string dudaconsulta, int idTipoCita)
 		{
 			objDaoCita.ActualizarSolCita(Codigo, fechahorasolicitada, dudaconsulta, idTipoCita);
 		}
