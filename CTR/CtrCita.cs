@@ -25,13 +25,13 @@ namespace CTR
 		{
 			return objDaoCita.VerCitasSolicitudesAdmin();
 		}
-		public void registrarSolicitudCita(DateTime fechasol, string obsCita, DateTime fechacreacion, int idEstado, int idTipo, string DNIUsuario)
-		{
-			objDaoCita.RegistrarSolCita(fechasol, obsCita, fechacreacion, idEstado, idTipo, DNIUsuario);
-		}
-        public void registrarCita(DtoCita objDtoCita)
+		public void registrarSolicitudCita(DtoCita objDtoCita)
         {
-            objDaoCita.RegistrarSolCita2(objDtoCita);
+			objDaoCita.RegistrarSolCita(objDtoCita);
+		}
+        public void RegistrarCita(DtoCita objDtoCita)
+        {
+            objDaoCita.RegistrarCita(objDtoCita);
         }
         public void actualizarSolicitudCita(int Codigo, DateTime fechahorasolicitada, string dudaconsulta, int idTipoCita)
 		{
@@ -53,6 +53,11 @@ namespace CTR
         {
             objDaoCita.ProReprogramarCita(idCita,fechaReprogramadac);
         }
+        public void EvaluarReprogramarCita(DtoCita objdtoCita)
+        {
+            objDaoCita.EvalReprogramarCita(objdtoCita);
+        }
 
+        
     }
 }

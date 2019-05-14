@@ -25,10 +25,7 @@ public partial class Proc_CItas_Sol_Registrar : System.Web.UI.Page
         try
         {
             string valorRadiobuttonentxt = txtresultadoChecbox.Value;
-            Log.WriteLog("11");
-
             contarCitasxServicio();
-            Log.WriteLog("12");
 
             if (valorRadiobuttonentxt == "1")//Nutri
             {
@@ -62,13 +59,13 @@ public partial class Proc_CItas_Sol_Registrar : System.Web.UI.Page
     }
     public void RegistrarCita(string valorRadiobuttonentxt)
     {
-       
+
         TimeSpan Hora = TimeSpan.Parse(ddlHoras.Text);
         string txtareaconsulta = txtDudaConsulta.Text.Trim();
         DateTime Fecha = Convert.ToDateTime(txtFecha.Text);
         DateTime fechasolitada = Fecha + Hora;
         string DNIUsuario = DdlUsuariosID.SelectedValue;
-        
+
         objdtoCita.DC_FechaHoraSolicitada = fechasolitada;
         objdtoCita.VC_Observacion = txtareaconsulta;
         objdtoCita.FK_IEC_Cod = 2;
@@ -78,7 +75,7 @@ public partial class Proc_CItas_Sol_Registrar : System.Web.UI.Page
         CtrCita ctr_Cita = new CtrCita();
 
         string mensaje = "Registrado con exito";
-        ctr_Cita.registrarCita(objdtoCita);
+        ctr_Cita.RegistrarCita(objdtoCita);
 
         ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + mensaje + "', 'bottom', 'center', null, null);", true);
     }
@@ -102,8 +99,10 @@ public partial class Proc_CItas_Sol_Registrar : System.Web.UI.Page
     protected void DdlUsuariosID_SelectedIndexChanged(object sender, EventArgs e)
     {
         obtenerdatosUsuario();
-        txtNombre.Text = objdtousuario.VU_Nombre + " " + objdtousuario.VU_APaterno + " " + objdtousuario.VU_AMaterno;
+        txtNombre.Text = objdtousuario.VU_Nombre;
+        txtApellidos.Text= objdtousuario.VU_APaterno + " " + objdtousuario.VU_AMaterno;
         txtNombre.Attributes.Add("disabled", "disabled");
+        txtApellidos.Attributes.Add("disabled", "disabled");
     }
 
     public void obtenerdatosUsuario()

@@ -16,24 +16,23 @@ namespace DAO
 		{
 			conexion = new SqlConnection(ConexionBD.CadenaConexion);
 		}
-		public void RegistrarSolCita(DateTime fechahorasolicitada, string observacioncita, DateTime fechahoracreada, int Id_EstadoCita, int id_TipoCita, string DniUsuario)
+		public void RegistrarSolCita(DtoCita ObjDtoCita)
 		{
 			SqlCommand command = new SqlCommand("sp_RegistrarSolicitudCita", conexion);
 			command.CommandType = CommandType.StoredProcedure;
-			//command.Parameters.AddWithValue("@CodigoCita", cita.IC_Cod);
-			command.Parameters.AddWithValue("@FechaHoraSolicitadaCita", fechahorasolicitada);
-			command.Parameters.AddWithValue("@ObservacionCita", observacioncita);
-			command.Parameters.AddWithValue("@FechaHoraCreadaCita", fechahoracreada);
-			command.Parameters.AddWithValue("@CodigoEstadoCita", Id_EstadoCita);
-			command.Parameters.AddWithValue("@CodigoTipoCita", id_TipoCita);
-			command.Parameters.AddWithValue("@CodigoUsuarioDNI", DniUsuario);
-			conexion.Open();
+            //command.Parameters.AddWithValue("@CodigoCita", cita.IC_Cod);
+            command.Parameters.AddWithValue("@FechaHoraSolicitadaCita", ObjDtoCita.DC_FechaHoraSolicitada);
+            command.Parameters.AddWithValue("@ObservacionCita", ObjDtoCita.VC_Observacion);
+            command.Parameters.AddWithValue("@CodigoEstadoCita", ObjDtoCita.FK_IEC_Cod);
+            command.Parameters.AddWithValue("@CodigoTipoCita", ObjDtoCita.FK_ITC_Cod);
+            command.Parameters.AddWithValue("@CodigoUsuarioDNI", ObjDtoCita.FK_CU_DNI);
+            conexion.Open();
 			command.ExecuteNonQuery();
 			conexion.Close();
 		}
-        public void RegistrarSolCita2(DtoCita ObjDtoCita)
+        public void RegistrarCita(DtoCita ObjDtoCita)
         {
-            SqlCommand command = new SqlCommand("sp_RegistrarSolicitudCita2", conexion);
+            SqlCommand command = new SqlCommand("sp_RegistrarSolicitudCita", conexion);
             command.CommandType = CommandType.StoredProcedure;
             //command.Parameters.AddWithValue("@CodigoCita", cita.IC_Cod);
             command.Parameters.AddWithValue("@FechaHoraSolicitadaCita", ObjDtoCita.DC_FechaHoraSolicitada);
@@ -130,6 +129,15 @@ namespace DAO
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@idCita", codigoCita);
             command.Parameters.AddWithValue("@FechaHoraReproCita", FechaReprogramada);
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
+        public void EvalReprogramarCita(DtoCita objdtoCita)
+        {
+            conexion.Open();
+            SqlCommand command = new SqlCommand("sp_Evaluar_Cita_Repro", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@idCita", objdtoCita.IC_Cod);
             command.ExecuteNonQuery();
             conexion.Close();
         }

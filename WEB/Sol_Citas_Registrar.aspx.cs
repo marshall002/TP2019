@@ -12,7 +12,11 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
 {
 	DtoUsuario objdtousuario = new DtoUsuario();
 	CtrUsuario objctrusuario = new CtrUsuario();
-	protected void Page_Load(object sender, EventArgs e)
+    DtoCita objdtoCita = new DtoCita();
+    CtrCita objctrCita = new CtrCita();
+
+
+    protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!IsPostBack)
 		{
@@ -74,20 +78,17 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
 
 		int IECCod = 1;
 
-		DtoCita dto_Cita = new DtoCita();
-		CtrCita ctr_Cita = new CtrCita();
+        objdtoCita.DC_FechaHoraSolicitada = fechasolitada;
+        objdtoCita.VC_Observacion = txtareaconsulta;
+        objdtoCita.FK_IEC_Cod = IECCod;
+        objdtoCita.FK_ITC_Cod = int.Parse(valorRadiobuttonentxt);
+        objdtoCita.FK_CU_DNI = Sesion;
 
-		//dto_Cita.FK_ITC_Cod = int.Parse(valorRadiobuttonentxt);
-		//dto_Cita.DC_FechaHoraSolicitada = fechasolitada;
-		//dto_Cita.DC_FechaHoraCreada = DateTime.Now;
-		//dto_Cita.VC_Observacion = txtareaconsulta;
-		//dto_Cita.FK_IEC_Cod = IECCod;
-		//dto_Cita.FK_CU_DNI = Sesion;
 
-		string mensaje = "Registrado con exito";
-		ctr_Cita.registrarSolicitudCita(fechasolitada, txtareaconsulta, DateTime.Now, IECCod, int.Parse(valorRadiobuttonentxt), Sesion);
+        string mensaje = "Registrado con exito";
+        objctrCita.registrarSolicitudCita(objdtoCita);
 
-		ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + mensaje + "', 'bottom', 'center', null, null);", true);
 	}
 	protected void btnCancelar_ServerClick(object sender, EventArgs e)
 	{
@@ -96,15 +97,10 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
 	public void contarCitasxServicio()
 	{
 		objdtousuario.PK_CU_Dni = Session["SessionUsuario"].ToString();
-		Log.WriteLog("El codigo de sesion es:" + objdtousuario.PK_CU_Dni);
 		objctrusuario.ObtenerNumCitasRealizadas(objdtousuario);
-
-		Log.WriteLog("Citas registradas de fisioterapeuta : " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
-		Log.WriteLog("Citas registradas de nutricionista : " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
 	}
 
 	protected void ddlHoras_SelectedIndexChanged(object sender, EventArgs e)
 	{
-		Log.WriteLog("Valor de dropdownList seleccionado : " +ddlHoras.SelectedValue);
 	}
 }

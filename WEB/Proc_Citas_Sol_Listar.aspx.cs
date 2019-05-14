@@ -50,4 +50,5 @@ public partial class Proc_Citas_Sol_Listar : System.Web.UI.Page
             Response.Redirect("Proc_Citas_Sol_Detalles.aspx");
 		}
 	}
+    
 }

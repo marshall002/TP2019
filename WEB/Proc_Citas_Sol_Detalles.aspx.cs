@@ -73,22 +73,24 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
             txtFecha.Text = dtValue.ToString("yyyy-MM-dd");
             ddlHoras.Text = dtValue.ToString("HH:mm");
             string TipoCitaSol = Session["tipocitasol"].ToString();
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            #region js
-            sb.Append(@"<script language='javascript'>");
-            sb.Append(@"SeleccionarRadioButton(" + TipoCitaSol + ");");
-            sb.Append(@"</script>");
-            System.Web.UI.ScriptManager.RegisterStartupScript(this, this.GetType(), "JCall1", sb.ToString(), false);
-#endregion
+            if (TipoCitaSol == "1")
+            {
+                txtServicios.Text = "Nutricionista";
+            }
+            else
+            {
+                txtServicios.Text = "Fisioterapeuta";
+            }
             txtDudaConsulta.Text = objdtocita.VC_Observacion;
             txtFecha.Text = Convert.ToString(objdtocita.DC_FechaHoraSolicitada.ToString("yyyy-MM-dd"));
             txtEstadoSolicitud.Text = objdtocita.FK_IEC_Nombre;
-            
-            objdtousuario.PK_CU_Dni= objdtocita.FK_CU_DNI;
+
+            objdtousuario.PK_CU_Dni = objdtocita.FK_CU_DNI;
             try
             {
                 objctrusuario.ObtenerInformacionUsuario(objdtousuario, objdtoplan, objdtosesionFisio, objdtosesionNutri);
-                txtUsuarioSolicitante.Text = objdtousuario.VU_Nombre+" " + objdtousuario.VU_APaterno+" "+ objdtousuario.VU_AMaterno;
+                txtUsuarioSolicitante.Text = objdtousuario.VU_Nombre;
+                txtApellidos.Text = objdtousuario.VU_APaterno + " " + objdtousuario.VU_AMaterno;
             }
             catch (Exception ex)
             {
@@ -125,7 +127,9 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
         string mensaje = "Datos actualizados";
         objctrcita.ReprogramarCita(codigosol, fechaReprogramada);
         ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+        Response.Redirect("~/Proc_Citas_Sol_Listar.aspx");
     }
+
 
     protected void btnReprogramar_Click(object sender, EventArgs e)
     {

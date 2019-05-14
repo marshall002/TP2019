@@ -4,6 +4,7 @@
     <script>
         $(document).ready(function () {
             $("[id*=txtNombre]").prop('disabled', true);
+            $("[id*=txtApellidos]").prop('disabled', true);
         });
     </script>
 </asp:Content>
@@ -12,16 +13,16 @@
     <section>
         <div class="container-fluid">
             <div class="block-header">
-                <h1>Solicitar cita</h1>
+                <h1></h1>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>Completa la solicitud
+                            <h1>Registrar Cita
                                
 								<small></small>
-                            </h2>
+                            </h1>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -58,12 +59,22 @@
                                     <div class="row clearfix">
                                         <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                                             <ContentTemplate>
-                                                <div class="col-sm-12">
+                                                <div class="col-sm-6">
                                                     <div class="form-group form-float">
                                                         <label class="form-label">Nombres</label>
                                                         <div class="form-line focused">
                                                             <div class="form-line">
                                                                 <asp:TextBox ID="txtNombre" class="form-control" runat="server"></asp:TextBox>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group form-float">
+                                                        <label class="form-label">Apellidos</label>
+                                                        <div class="form-line focused">
+                                                            <div class="form-line">
+                                                                <asp:TextBox ID="txtApellidos" class="form-control" runat="server"></asp:TextBox>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -186,7 +197,7 @@
                                         ChildrenAsTriggers="true">
                                         <ContentTemplate>
                                             <asp:LinkButton ID="btnGuardar1" runat="server" CssClass="btn bg-indigo waves-effect" Style="float: right" Width="33%" Text="Guardar" OnClick="btnGuardar_ServerClick">
-												<i class="material-icons">save</i> Guardar
+												<i class="material-icons">save</i> Registrar
                                             </asp:LinkButton>
                                         </ContentTemplate>
                                         <Triggers>
