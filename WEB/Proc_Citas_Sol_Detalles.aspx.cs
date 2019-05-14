@@ -124,6 +124,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
         DateTime fechaReprogramada = Fecha + Hora;
         int codigosol = int.Parse(Session["CodigoSolicitudCita"].ToString());
         Log.WriteLog(txtresultadoChecbox.Value);
+        Log.WriteLog("Fecha reprogramada "+ fechaReprogramada);
         string mensaje = "Datos actualizados";
         objctrcita.ReprogramarCita(codigosol, fechaReprogramada);
         ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);

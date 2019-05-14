@@ -44,6 +44,11 @@ public partial class _Default : System.Web.UI.Page
             Session["CodigoSolicitudCita"] = id;
             Session["estadosol"] = estadosol;
             Session["TipoCitaSol"] = tipocitasol;
+            Log.WriteLog("CodigoSolicitudCita"+ id);
+            Log.WriteLog("estadosol" + estadosol);
+            Log.WriteLog("TipoCitaSol" + tipocitasol);
+
+
             if (estadosol != "2")
             {
                 Response.Redirect("Sol_Citas_Detalles.aspx");
@@ -92,14 +97,14 @@ public partial class _Default : System.Web.UI.Page
             {
                 int index = Convert.ToInt32(e.CommandArgument);
                 var colsNoVisible = gvSolicitudesCita.DataKeys[index].Values;
-                string idSol = colsNoVisible[0].ToString();
-                string estadosol = colsNoVisible[1].ToString();
-                Session["CodigoSolicitudCita"] = idSol;
-                Session["estadosol"] = estadosol;
+                int idSol = int.Parse(colsNoVisible[0].ToString());
+                Session["CodigoSolicitudCita"]= idSol;
+                ObtenerHoraReprograma(objdtoCita);
                 string script = @"<script type='text/javascript'>
                                       $('#modalDetallesHoraReprogramada').modal('show');
                                   </script>";
                 ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
+               
 
                 //objctrcita.EvaluarReprogramarCita(objdtoCita);
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '"+index+"', 'bottom', 'center', null, null);", true);
@@ -158,5 +163,63 @@ public partial class _Default : System.Web.UI.Page
     protected Boolean ValidacionEstadoCita(int FK_IEC_Cod)
     {
         return FK_IEC_Cod == 3;
+    }
+    public void ObtenerHoraReprograma(DtoCita objdtoCita)
+    {
+        objdtoCita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
+        Log.WriteLog("objdtoCita.IC_Cod "+ objdtoCita.IC_Cod);
+        objctrcita.ObtenerInformacionSolicitudCita(objdtoCita);
+        DateTime dtValue = objdtoCita.DC_FechaReprogramada;
+        Log.WriteLog("dtValue " + dtValue);
+
+
+        txtFechareprogramada.Text = dtValue.ToString("dd/MM/yyyy");
+        txtHorareprogramada.Text = dtValue.ToString("hh:mm tt");
+        upHoraReprogramada.Update();
+    }
+
+    protected void btnAprobar_ServerClick(object sender, EventArgs e)
+    {
+        try
+        {
+            Log.WriteLog("Entro a funcion aprobar ");
+            
+            objdtoCita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
+            objdtoCita.FK_IEC_Cod = 2;
+            Log.WriteLog("1A");
+            Log.WriteLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
+            Log.WriteLog("objdtoCita.FK_IEC_Cod "+ objdtoCita.FK_IEC_Cod);
+
+            objctrcita.EvaluarReprogramarCita(objdtoCita);
+            Log.WriteLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
+            Log.WriteLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
+
+            Log.WriteLog("2A");
+        }
+        catch (Exception ex)
+        {
+            Log.WriteLog("CATCH Aprobar " + ex.Message);
+        }
+    }
+
+    protected void btnRechazar_ServerClick(object sender, EventArgs e)
+    {
+        try
+        {
+            Log.WriteLog("Entro a funcion rechazar");
+            objdtoCita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
+            objdtoCita.FK_IEC_Cod = 8;
+            Log.WriteLog("1R");
+            Log.WriteLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
+            Log.WriteLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
+            objctrcita.EvaluarReprogramarCita(objdtoCita);
+            Log.WriteLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
+            Log.WriteLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
+            Log.WriteLog("2R");
+        }
+        catch (Exception ex)
+        {
+            Log.WriteLog("CATCH RECHAZAR "+ex.Message);
+        }
     }
 }

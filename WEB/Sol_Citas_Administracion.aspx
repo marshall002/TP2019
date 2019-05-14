@@ -97,10 +97,30 @@
                                             <h4 class="modal-title" id="H1" runat="server">La hora Reprogramada es: </h4>
                                         </div>
                                         <div class="modal-body">
+                                            <asp:UpdatePanel ID="upHoraReprogramada" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                                                <ContentTemplate>
+                                                    <div class="form-group">
+                                                        <label class="form-label">
+                                                            Nueva fecha propuesta</label>
+                                                        <div class="form-line">
+                                                            <asp:TextBox runat="server" ID="txtFechareprogramada" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label">
+                                                            Nueva hora propuesta</label>
+                                                        <div class="form-line">
+                                                            <asp:TextBox runat="server" ID="txtHorareprogramada" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-link waves-effect waves-grey" data-dismiss="modal">CANCELAR</button>
-                                            <button type="button" class="btn btn-link waves-effect waves-grey" id="Button1" runat="server" data-dismiss="modal" onserverclick="btnEliminarSolCita_ServerClick">ELIMINAR</button>
+                                            <button type="button" class="btn btn-link waves-effect waves-grey" id="btnAprobar" runat="server" data-dismiss="modal" onserverclick="btnAprobar_ServerClick">Aprobar</button>
+                                            <button type="button" class="btn btn-link waves-effect waves-grey" id="btnRechazar" runat="server" data-dismiss="modal" onserverclick="btnRechazar_ServerClick">Rechazar</button>
+
                                         </div>
                                     </div>
                                 </div>
@@ -109,6 +129,9 @@
                         <Triggers>
 
                             <asp:AsyncPostBackTrigger ControlID="btnEliminarSolCita" />
+                            <asp:AsyncPostBackTrigger ControlID="btnAprobar" />
+                            <asp:AsyncPostBackTrigger ControlID="btnRechazar" />
+
 
                         </Triggers>
 

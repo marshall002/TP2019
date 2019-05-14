@@ -121,11 +121,13 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 	{
 		try
 		{
+            Log.WriteLog("Entro a cargar datos citas");
 			objdtocita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
+            Log.WriteLog("1");
 
-			objctrcita.ObtenerInformacionSolicitudCita(objdtocita);
-
-			DateTime dtValue = objdtocita.DC_FechaHoraSolicitada;
+            objctrcita.ObtenerInformacionSolicitudCita(objdtocita);
+            Log.WriteLog("2");
+            DateTime dtValue = objdtocita.DC_FechaHoraSolicitada;
 			txtFecha.Text = dtValue.ToString("yyyy-MM-dd");
 			ddlHoras.Text = dtValue.ToString("HH:mm");
 			string TipoCitaSol = Session["tipocitasol"].ToString();
@@ -138,8 +140,14 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 
 			txtDudaConsulta.Text = objdtocita.VC_Observacion;
 			txtFecha.Text = Convert.ToString(objdtocita.DC_FechaHoraSolicitada.ToString("yyyy-MM-dd"));
+            Log.WriteLog("objdtocita.IC_Cod"+ objdtocita.IC_Cod);
+            Log.WriteLog("dtValue" + dtValue);
+            Log.WriteLog("TipoCitaSol" + TipoCitaSol);
+            Log.WriteLog("objdtocita.VC_Observacion" + objdtocita.VC_Observacion);
+            Log.WriteLog("objdtocita.FechaHoraSolicitada" + Convert.ToString(objdtocita.DC_FechaHoraSolicitada.ToString("yyyy-MM-dd")));
 
-			if (int.Parse(Session["estadosol"].ToString()) == 2)
+
+            if (int.Parse(Session["estadosol"].ToString()) == 2)
 			{
 				Log.WriteLog("entro a page load");
 
@@ -151,9 +159,10 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 			}
 
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-			ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No tiene los permisos para actualizar', 'bottom', 'center', null, null);", true);
+            Log.WriteLog("Error en EX"+ex.Message);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No tiene los permisos para actualizar', 'bottom', 'center', null, null);", true);
 
 		}
 
