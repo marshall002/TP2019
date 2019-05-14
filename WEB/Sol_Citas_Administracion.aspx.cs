@@ -92,16 +92,22 @@ public partial class _Default : System.Web.UI.Page
             {
                 int index = Convert.ToInt32(e.CommandArgument);
                 var colsNoVisible = gvSolicitudesCita.DataKeys[index].Values;
-                objdtoCita.IC_Cod = int.Parse(colsNoVisible[0].ToString());
-                Log.WriteLog("Valor de objdtoCita.IC_Cod"+objdtoCita.IC_Cod.ToString());
-                objctrcita.EvaluarReprogramarCita(objdtoCita);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '"+index+"', 'bottom', 'center', null, null);", true);
+                string idSol = colsNoVisible[0].ToString();
+                string estadosol = colsNoVisible[1].ToString();
+                Session["CodigoSolicitudCita"] = idSol;
+                Session["estadosol"] = estadosol;
+                string script = @"<script type='text/javascript'>
+                                      $('#modalDetallesHoraReprogramada').modal('show');
+                                  </script>";
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
+
+                //objctrcita.EvaluarReprogramarCita(objdtoCita);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '"+index+"', 'bottom', 'center', null, null);", true);
 
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'error:" + ex.Message + "', 'bottom', 'center', null, null);", true);
-
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'error en ComandoAprobar:" + ex.Message + "', 'bottom', 'center', null, null);", true);
             }
         }
     }
