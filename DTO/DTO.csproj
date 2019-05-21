@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="Constante.cs" />
     <Compile Include="DtoCita.cs" />
+    <Compile Include="DtoEjercicio.cs" />
     <Compile Include="DtoPlan.cs" />
+    <Compile Include="DtoRutina.cs" />
     <Compile Include="DtoSesionFisio.cs" />
     <Compile Include="DtoSesionNutri.cs" />
     <Compile Include="DtoUsuario.cs" />
