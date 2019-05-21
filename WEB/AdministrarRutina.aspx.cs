@@ -61,19 +61,30 @@ public partial class AdministrarRutina : System.Web.UI.Page
         //DataColumn n3 = dt.Columns.Add("n3", typeof(string));
         //DataColumn n4 = dt.Columns.Add("n9", typeof(Int64));
 
-        for(int i=0; i<=weeksInMonth; i++)
+        for (int i = 1; i <= daysInMonth; i++)
         {
-            dt.Rows.Add();
+            //for (int j = 0; j <= 2; j++)
+            //{
+
+            //    dt.Rows.Add();
+            //}
+            if (i ==i + 7)
+            {
+                dt.Rows.Add(i, i + 7);
+            }
+            dt.Rows.Add(i, i + 7);
+
+
         }
 
 
 
 
-        dt.Rows.Add("29/04/2018", "05/05/2018");
-        dt.Rows.Add("06/05/2018", "12/05/2018");
+        //dt.Rows.Add("29/04/2018", "05/05/2018");
+        //dt.Rows.Add("06/05/2018", "12/05/2018");
         //dt.Rows.Add("13/05/2018", "19/05/2018");
         //dt.Rows.Add("20/05/2018", "26/05/2018");
-        //gvLista.DataSource = dt;
-        //gvLista.DataBind();
+        gvLista.DataSource = dt;
+        gvLista.DataBind();
     }
 }

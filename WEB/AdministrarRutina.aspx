@@ -48,7 +48,7 @@
             <asp:Panel ID="Panel1" runat="server" CssClass="auto-style1">
                 <asp:GridView ID="gvLista" runat="server" AutoGenerateColumns="False" GridLines="None"  
                 AllowPaging="true" CssClass="table table-striped table-hover" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
-                PageSize="9">
+                PageSize="50">
            <Columns>
                             <asp:BoundField DataField="n1" HeaderText="Inicio de Semana"/> 
                             <asp:BoundField DataField="n2" HeaderText="Fin de semana"/> 
