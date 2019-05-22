@@ -16,11 +16,11 @@ public partial class AdministrarRutina : System.Web.UI.Page
         encontrarsemanas();
         if (!IsPostBack)
         {
-                        
-            
+
+
         }
 
-        
+
         //ddlMes.SelectedItem = DateTime.Now.ToShortDateString();
         //txtfecha.SelectedDate.ToLongDateString();
         //fnCargarDDL();
@@ -37,7 +37,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         //dt.Rows.Add("20/05/2018", "26/05/2018");
         //gvLista.DataSource = dt;
         //gvLista.DataBind();
-       
+
     }
     protected void Registro_Click(object sender, EventArgs e)
     {
@@ -52,7 +52,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
     {
         DateTime today = DateTime.Now;
         //EXTRAEMOS EL MES
-        int daysInMonth = DateTime.DaysInMonth(today.Year,int.Parse(ddlMes.SelectedValue));
+        int daysInMonth = DateTime.DaysInMonth(today.Year, int.Parse(ddlMes.SelectedValue));
         Log.WriteLog("Dias de semana: " + daysInMonth);
         DateTime firstOfMonth = new DateTime(today.Year, today.Month, 1);
         Log.WriteLog("firstOfMonth: " + firstOfMonth);
@@ -92,6 +92,14 @@ public partial class AdministrarRutina : System.Web.UI.Page
         //dt.Rows.Add("20/05/2018", "26/05/2018");
         gvLista.DataSource = dt;
         gvLista.DataBind();
-        
-}
+
+    }
+
+
+   
+    protected void gvLista_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvLista.PageIndex = e.NewPageIndex;
+        gvLista.DataBind();
+    }
 }
