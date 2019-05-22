@@ -9,12 +9,12 @@ namespace DAO
 {
     public class ConexionBD
     {
-		public static string CadenaConexion
-		{
-			get
-			{
-				return @"data source=LACING202B-11; initial catalog=BD_SCLAP; integrated security=SSPI;";
-			}
-		}
-	}
+        public static string CadenaConexion
+        {
+            get
+            {
+                return @"data source=DESKTOP-UH5SKAR\LENOVOPC; initial catalog=BD_SCLAP; integrated security=SSPI;";
+            }
+        }
+    }
 }

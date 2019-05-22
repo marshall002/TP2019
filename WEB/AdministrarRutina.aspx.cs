@@ -12,12 +12,13 @@ public partial class AdministrarRutina : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         txtfecha.Text = System.DateTime.Now.ToShortDateString();
-        //ddlMes.SelectedValue = DateTime.Now.Month.ToString();
-            
-
         if (!IsPostBack)
         {
+            ddlMes.SelectedValue = DateTime.Now.Month.ToString();
+
             encontrarsemanas();
+
+
         }
 
 
@@ -53,6 +54,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         DateTime today = DateTime.Now;
         //EXTRAEMOS EL MES
         int daysInMonth = DateTime.DaysInMonth(today.Year, int.Parse(ddlMes.SelectedValue));
+        Log.WriteLog("Dias de semana: " + daysInMonth);
         DateTime firstOfMonth = new DateTime(today.Year, today.Month, 1);
         Log.WriteLog("firstOfMonth: " + firstOfMonth);
 
@@ -72,37 +74,77 @@ public partial class AdministrarRutina : System.Web.UI.Page
 
         for (int i = 1; i <= daysInMonth; i++)
         {
-            //for (int j = 0; j <= 2; j++)
-            //{
-
-            //    dt.Rows.Add();
-            //}
-            if (i == i + 7)
+            string resultadodia = i.ToString();
+            if (i < 10)
             {
-                dt.Rows.Add(i, i + 7);
+                resultadodia = "0" + i;
             }
-            dt.Rows.Add(i, i + 7);
+            string resultado = ddlMes.SelectedValue;
+            if (int.Parse(ddlMes.SelectedValue) < 10)
+            {
+                resultado = "0" + ddlMes.SelectedValue;
+            }
+            dt.Rows.Add(resultadodia + "/" + resultado + "/" + today.Year);
         }
-
-
-        //dt.Rows.Add("29/04/2018", "05/05/2018");
-        //dt.Rows.Add("06/05/2018", "12/05/2018");
-        //dt.Rows.Add("13/05/2018", "19/05/2018");
-        //dt.Rows.Add("20/05/2018", "26/05/2018");
         gvLista.DataSource = dt;
         gvLista.DataBind();
         upCursos.Update();
 
-
     }
-
-
-
     protected void gvLista_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
+        upCursos.Update();
         encontrarsemanas();
         gvLista.PageIndex = e.NewPageIndex;
         gvLista.DataBind();
+    }
+
+    protected void gvLista_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "VerC")
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            var colsNoVisible = gvLista.DataKeys[index].Values;
+            string id = colsNoVisible[0].ToString();
+
+            Session["Tipo_Rutina"] = 1;
+            Session["Primerdia"] = id;
+            Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
+            Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+        }
+        if (e.CommandName == "VerF")
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            var colsNoVisible = gvLista.DataKeys[index].Values;
+            string id = colsNoVisible[0].ToString();
+
+            Session["Tipo_Rutina"] = 2;
+            Session["Primerdia"] = id;
+            Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
+            Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+        }
+        if (e.CommandName == "RegistrarC")
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            var colsNoVisible = gvLista.DataKeys[index].Values;
+            string id = colsNoVisible[0].ToString();
+
+            Session["Tipo_Rutina"] = 1;
+            Session["Primerdia"] = id;
+            Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
+            Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+        }
+        if (e.CommandName == "RegistrarF")
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            var colsNoVisible = gvLista.DataKeys[index].Values;
+            string id = colsNoVisible[0].ToString();
+
+            Session["Tipo_Rutina"] = 2;
+            Session["Primerdia"] = id;
+            Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
+            Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+        }
     }
 
     protected void ddlMes_SelectedIndexChanged(object sender, EventArgs e)
