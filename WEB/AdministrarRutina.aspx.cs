@@ -11,10 +11,19 @@ public partial class AdministrarRutina : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //txtfecha.Text = System.DateTime.Now.ToShortDateString();
-        ////ddlMes.SelectedItem = DateTime.Now.ToShortDateString();
-        ////txtfecha.SelectedDate.ToLongDateString();
-        ////fnCargarDDL();
+        txtfecha.Text = System.DateTime.Now.ToShortDateString();
+        //ddlMes.SelectedValue = DateTime.Now.Month.ToString();
+        encontrarsemanas();
+        if (!IsPostBack)
+        {
+                        
+            
+        }
+
+        
+        //ddlMes.SelectedItem = DateTime.Now.ToShortDateString();
+        //txtfecha.SelectedDate.ToLongDateString();
+        //fnCargarDDL();
 
         //DataTable dt = new DataTable();
         //DataColumn n1 = dt.Columns.Add("n1", typeof(string));
@@ -28,7 +37,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         //dt.Rows.Add("20/05/2018", "26/05/2018");
         //gvLista.DataSource = dt;
         //gvLista.DataBind();
-        encontrarsemanas();
+       
     }
     protected void Registro_Click(object sender, EventArgs e)
     {
@@ -38,15 +47,16 @@ public partial class AdministrarRutina : System.Web.UI.Page
     {
         Response.Redirect("AdministrarRutina.aspx", false);
     }
+
     public void encontrarsemanas()
     {
         DateTime today = DateTime.Now;
         //EXTRAEMOS EL MES
-        int daysInMonth = DateTime.DaysInMonth(today.Year, today.Month);
+        int daysInMonth = DateTime.DaysInMonth(today.Year,int.Parse(ddlMes.SelectedValue));
         Log.WriteLog("Dias de semana: " + daysInMonth);
         DateTime firstOfMonth = new DateTime(today.Year, today.Month, 1);
         Log.WriteLog("firstOfMonth: " + firstOfMonth);
-        
+
 
         //DIAS DEL MES COMIENZA DEL DOMINGO =0
         int firstDayOfMonth = (int)firstOfMonth.DayOfWeek;
@@ -68,16 +78,12 @@ public partial class AdministrarRutina : System.Web.UI.Page
 
             //    dt.Rows.Add();
             //}
-            if (i ==i + 7)
+            if (i == i + 7)
             {
                 dt.Rows.Add(i, i + 7);
             }
             dt.Rows.Add(i, i + 7);
-
-
         }
-
-
 
 
         //dt.Rows.Add("29/04/2018", "05/05/2018");
@@ -86,5 +92,6 @@ public partial class AdministrarRutina : System.Web.UI.Page
         //dt.Rows.Add("20/05/2018", "26/05/2018");
         gvLista.DataSource = dt;
         gvLista.DataBind();
-    }
+        
+}
 }

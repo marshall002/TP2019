@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO;
 
 namespace DAO
 {
@@ -12,7 +13,7 @@ namespace DAO
 		{
 			get
 			{
-				return @"data source=LACING201B-19; initial catalog=BD_SCLAP; integrated security=SSPI;";
+				return @"data source=LACING202A-10; initial catalog=BD_SCLAP; integrated security=SSPI;";
 			}
 		}
 	}

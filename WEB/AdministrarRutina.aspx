@@ -16,7 +16,7 @@
                     <div class="col-lg-1"></div><div class="col-lg-3">
                        <label for="lblCliente">Seleccionar Mes: </label>
                         <asp:DropDownList runat="server" ID="ddlMes" CssClass="form-control"  AutoPostBack="true">
-															<asp:ListItem Value="NULO" >Seleccione el mes</asp:ListItem>															
+																														
 															<asp:ListItem Value="1">Enero</asp:ListItem>
 															<asp:ListItem Value="2">Febrero</asp:ListItem>
 															<asp:ListItem Value="3">Marzo</asp:ListItem>
@@ -48,12 +48,14 @@
             <asp:Panel ID="Panel1" runat="server" CssClass="auto-style1">
                 <asp:GridView ID="gvLista" runat="server" AutoGenerateColumns="False" GridLines="None"  
                 AllowPaging="true" CssClass="table table-striped table-hover" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
-                PageSize="50">
+                PageSize="32">
            <Columns>
                             <asp:BoundField DataField="n1" HeaderText="Inicio de Semana"/> 
                             <asp:BoundField DataField="n2" HeaderText="Fin de semana"/> 
                            <asp:ButtonField ButtonType="button"  HeaderText="Crossfit" CommandName="Crear" Text="Crear">
-                            <ControlStyle CssClass= "btn btn-success" />
+                            <ControlStyle CssClass= "btn btn-success"  />
+
+
                              </asp:ButtonField>    
                             <asp:ButtonField ButtonType="button"  HeaderText="Funtional" CommandName="Crear" Text="Crear">
                             <ControlStyle CssClass= "btn btn-success" />
