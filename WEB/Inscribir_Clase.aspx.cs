@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DTO;
+using System.Globalization;
 
 public partial class Inscribir_Clase : System.Web.UI.Page
 {
@@ -32,7 +33,7 @@ public partial class Inscribir_Clase : System.Web.UI.Page
     {
         if (e.CommandName == "VerC")
         {
-            
+
             try
             {
                 int index = Convert.ToInt32(e.CommandArgument);
@@ -47,11 +48,14 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 //{
 
                 obtener_Rutina_Fecha();
-                    string script = @"<script type='text/javascript'>
+
+                string script = @"<script type='text/javascript'>
                                       $('#modalInscripcion').modal('show');
                                   </script>";
-                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
-                    //}
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
+                cargarddlHoras();
+
+                //}
                 //else
                 //{
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Usted no puede eliminar la cita', 'bottom', 'center', null, null);", true);
@@ -78,10 +82,12 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
                 Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
                 obtener_Rutina_Fecha();
+
                 string script = @"<script type='text/javascript'>
                                       $('#modalInscripcion').modal('show');
                                   </script>";
                 ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
+                cargarddlHoras();
             }
             catch (Exception ex)
             {
@@ -105,7 +111,7 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         TimeSpan Hora = TimeSpan.Parse(ddlHoras.Text);
         DateTime Fecha = Convert.ToDateTime(fecha);
         DateTime fechaclase = Fecha + Hora;
-        Log.WriteLog("Fecha y hora clase"+fechaclase);
+        Log.WriteLog("Fecha y hora clase" + fechaclase);
     }
     public void encontrarsemanas()
     {
@@ -142,7 +148,13 @@ public partial class Inscribir_Clase : System.Web.UI.Page
             {
                 resultado = "0" + ddlMes.SelectedValue;
             }
-            dt.Rows.Add(resultadodia + "/" + resultado + "/" + today.Year);
+
+            string resultadoamostrar = resultadodia + "/" + resultado + "/" + today.Year;
+            DateTime dia = DateTime.Parse(resultadoamostrar);
+            CultureInfo test = new System.Globalization.CultureInfo("es-ES");
+            string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
+
+            dt.Rows.Add(resultadoamostrar, diaespaniol);
         }
         gvDiasRutinas.DataSource = dt;
         gvDiasRutinas.DataBind();
@@ -153,7 +165,8 @@ public partial class Inscribir_Clase : System.Web.UI.Page
     {
         string fecha = Session["PrimerDia"].ToString();
         string TRutina = Session["Tipo_Rutina"].ToString();
-        if (TRutina == "1") {
+        if (TRutina == "1")
+        {
             txtTipoR.Text = "Crossfit";
             txtTipoR.Enabled = false;
         }
@@ -162,14 +175,80 @@ public partial class Inscribir_Clase : System.Web.UI.Page
             txtTipoR.Text = "Functional";
             txtTipoR.Enabled = false;
         }
-        txtfechaClase.Text = fecha;
-        
+        DateTime dia = DateTime.Parse(fecha);
+        txtfechaClase.Text = fecha + ", " + Convert.ToInt32(dia.DayOfWeek);
+        txtfechaClase.Enabled = false;
+
         upFecha_Rutina.Update();
+
 
     }
 
     protected void ddlHoras_SelectedIndexChanged(object sender, EventArgs e)
     {
 
+    }
+    public void cargarddlHoras()
+    {
+        ddlHoras.Items.Clear();
+        Log.WriteLog("1");
+        string fecha = Session["PrimerDia"].ToString();
+
+        Log.WriteLog("2");
+        DateTime dia = DateTime.Parse(fecha);
+        Log.WriteLog("3");
+        //txtfechaClase.Text = fecha + ", " + dia.DayOfWeek.ToString();
+        if (Convert.ToInt32(dia.DayOfWeek) == 0)
+        {
+            Log.WriteLog("dia:" + Convert.ToInt32(dia.DayOfWeek));
+            ListItem i;
+            i = new ListItem("8:00 AM", "08:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("9:00 AM", "09:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("10:00 AM", "10:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("11:00 AM", "11:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("12:00 PM", "12:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("1:00 PM", "13:00");
+            ddlHoras.Items.Add(i);
+
+        }
+        else
+        {
+            Log.WriteLog("Convert.ToInt32(dia.DayOfWeek)" + Convert.ToInt32(dia.DayOfWeek));
+            ListItem i;
+            i = new ListItem("8:00 AM", "08:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("9:00 AM", "09:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("10:00 AM", "10:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("11:00 AM", "11:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("12:00 PM", "12:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("1:00 PM", "13:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("2:00 PM", "14:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("3:00 PM", "15:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("4:00 PM", "16:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("5:00 PM", "17:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("6:00 PM", "18:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("7:00 PM", "19:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("8:00 PM", "20:00");
+            ddlHoras.Items.Add(i);
+            i = new ListItem("9:00 PM", "21:00");
+            ddlHoras.Items.Add(i);
+        }
+            Udp_ddlhoras.Update();
     }
 }

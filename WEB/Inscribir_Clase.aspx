@@ -53,7 +53,9 @@
                                         <asp:Panel ID="Panel1" runat="server" CssClass="auto-style1">
                                             <asp:GridView ID="gvDiasRutinas" runat="server" AutoGenerateColumns="False" DataKeyNames="n1" GridLines="None" AllowPaging="true" CssClass="table table-striped table-hover" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" PageSize="7" OnPageIndexChanging="gvDiasRutinas_PageIndexChanging" OnRowCommand="gvDiasRutinas_RowCommand">
                                                 <Columns>
-                                                    <asp:BoundField DataField="n1" HeaderText="Inicio de Semana" />
+                                                    <asp:BoundField DataField="n1" HeaderText="Fecha" />
+                                                    <asp:BoundField DataField="n2" HeaderText="Dia" />
+
 
                                                     <asp:ButtonField ButtonType="button" HeaderText="Crossfit" CommandName="VerC" Text="Ver">
                                                         <ControlStyle CssClass="btn btn-info" />
@@ -104,12 +106,12 @@
                                                                     </asp:UpdatePanel>
                                                                     <div class="form-group">
                                                                         <label class="form-label">Hora</label>
-                                                                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                                                        <asp:UpdatePanel ID="Udp_ddlhoras" runat="server" UpdateMode="Conditional">
                                                                             <ContentTemplate>
                                                                                 <div class="form-line">
                                                                                     <asp:DropDownList ID="ddlHoras" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlHoras_SelectedIndexChanged" AutoPostBack="true">
-                                                                                        <asp:ListItem Value="NULO">Seleccione la hora</asp:ListItem>
-                                                                                        <asp:ListItem Value="08:00">8:00 AM</asp:ListItem>
+                                                                                        <%--<asp:ListItem Value="NULO">Seleccione la hora</asp:ListItem>--%>
+                                                                                        <%--<asp:ListItem Value="08:00">8:00 AM</asp:ListItem>
                                                                                         <asp:ListItem Value="09:00">9:00 AM</asp:ListItem>
                                                                                         <asp:ListItem Value="10:00">10:00 AM</asp:ListItem>
                                                                                         <asp:ListItem Value="11:00">11:00 AM</asp:ListItem>
@@ -121,37 +123,34 @@
                                                                                         <asp:ListItem Value="17:00">5:00 PM</asp:ListItem>
                                                                                         <asp:ListItem Value="18:00">6:00 PM</asp:ListItem>
                                                                                         <asp:ListItem Value="19:00">7:00 PM</asp:ListItem>
-                                                                                        <asp:ListItem Value="20:00">8:00 PM</asp:ListItem>
+                                                                                        <asp:ListItem Value="20:00">8:00 PM</asp:ListItem>--%>
                                                                                     </asp:DropDownList>
                                                                                 </div>
-                                                                                </ContentTemplate>
-													                            <Triggers>
-														                            <asp:AsyncPostBackTrigger ControlID="ddlHoras" EventName="selectedindexchanged" />
-													                            </Triggers>
-												                            </asp:UpdatePanel>
-                                                        </div>
+                                                                            </ContentTemplate>
+                                                                            <Triggers>
+                                                                                <asp:AsyncPostBackTrigger ControlID="ddlHoras" EventName="selectedindexchanged" />
+                                                                            </Triggers>
+                                                                        </asp:UpdatePanel>
+                                                                    </div>
 
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-link waves-effect waves-grey btn-danger" data-dismiss="modal">CANCELAR</button>
+                                                                <button type="button" class="btn btn-link waves-effect waves-grey btn-success" id="btnInscribir" runat="server" data-dismiss="modal" data-type="success" onserverclick="btnInscribir_ServerClick">INSCRIBIR</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-link waves-effect waves-grey btn-danger" data-dismiss="modal">CANCELAR</button>
-                                                    <button type="button" class="btn btn-link waves-effect waves-grey btn-success" id="btnInscribir" runat="server" data-dismiss="modal" data-type="success" onserverclick="btnInscribir_ServerClick">INSCRIBIR</button>
-
-                                                </div>
                                             </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            </asp:Panel>
+                                        </asp:Panel>
                                     </div>
                                 </div>
                             </div>
 
                         </ContentTemplate>
                     </asp:UpdatePanel>
-        </div>
+                </div>
             </div>
         </div>
 

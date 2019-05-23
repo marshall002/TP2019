@@ -13,7 +13,7 @@ namespace DAO
         {
             get
             {
-                return @"data source=ALE\SQLEXPRESS; initial catalog=BD_SCLAP; integrated security=SSPI;";
+                return @"data source=DESKTOP-IJNOKHP\SQLEXPRESS; initial catalog=BD_SCLAP; integrated security=SSPI;";
             }
         }
     }

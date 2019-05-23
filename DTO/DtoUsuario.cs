@@ -16,6 +16,7 @@ namespace DTO
 		public string CU_Celular { get; set; }
 		public string VU_Direccion { get; set; }
 		public string VU_Correo { get; set; }
+        public string VU_Contraseña { get; set; }
 		public int FK_ITU_Cod { get; set; }
 		public int FK_ID_Cod { get; set; }
 		public int FK_IP_Cod { get; set; }
