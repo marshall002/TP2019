@@ -13,7 +13,7 @@ namespace DAO
         {
             get
             {
-                return @"data source=DESKTOP-UH5SKAR\LENOVOPC; initial catalog=BD_SCLAP; integrated security=SSPI;";
+                return @"data source=LACING211D-02; initial catalog=BD_SCLAP; integrated security=SSPI;";
             }
         }
     }
