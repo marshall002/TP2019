@@ -11,6 +11,8 @@ using System.Globalization;
 
 public partial class Inscribir_Clase : System.Web.UI.Page
 {
+    DtoUsuario_X_Rutina objdtousuariorutina= new DtoUsuario_X_Rutina();
+    CtrUsuario_X_Rutina objctrusuariorutina = new CtrUsuario_X_Rutina();
     protected void Page_Load(object sender, EventArgs e)
     {
         txtfecha.Text = System.DateTime.Now.ToShortDateString();
@@ -107,11 +109,17 @@ public partial class Inscribir_Clase : System.Web.UI.Page
 
     protected void btnInscribir_ServerClick(object sender, EventArgs e)
     {
+        DtoRutina objrutina = new DtoRutina();
         string fecha = Session["PrimerDia"].ToString();
         TimeSpan Hora = TimeSpan.Parse(ddlHoras.Text);
         DateTime Fecha = Convert.ToDateTime(fecha);
+        objrutina.DR_FechaRutina = Fecha;
         DateTime fechaclase = Fecha + Hora;
+        objdtousuariorutina.FK_IR_Cod = objctrusuariorutina.buscarRutina(objrutina);
+        objdtousuariorutina.DR_FechaHora = fechaclase;
+        objctrusuariorutina.registrarUsuario_rutina(objdtousuariorutina);
         Log.WriteLog("Fecha y hora clase" + fechaclase);
+
     }
     public void encontrarsemanas()
     {

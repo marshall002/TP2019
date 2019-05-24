@@ -44,6 +44,7 @@
     <Compile Include="DaoCita.cs" />
     <Compile Include="DaoRutina.cs" />
     <Compile Include="DaoUsuario.cs" />
+    <Compile Include="DaoUsuario_X_Rutina.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

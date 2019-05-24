@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class DtoRutina_X_Usuario
+    public class DtoTipo_Ejercicio
     {
+
     }
 }

@@ -9,9 +9,8 @@ namespace DTO
     public class DtoRutina
     {
         public int PK_IR_Cod { get; set; }
-        public DateTime DR_FechaHoraInicio { get; set; }
-        public DateTime DR_FechaHoraFin { get; set; }
-        public int FK_IE_Cod { get; set; }
+        public DateTime DR_FechaRutina { get; set; }
+        public DateTime DR_FechaHoraRegistro { get; set; }
         public int FK_ITR_Cod { get; set; }
 
     }
