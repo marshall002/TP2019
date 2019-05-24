@@ -82,5 +82,56 @@ namespace DAO
                 return null;
             }
         }
+
+
+        public int validacionLogin(string usuario, string clave)
+        {
+
+            int valor_retornado = 0;
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM T_USUARIO as U WHERE" +
+                " U.PK_CU_Dni = '" + usuario + "' AND U.VU_Contraseña = '" + clave+"'", conexion);
+
+            
+
+            Console.WriteLine(cmd);
+            conexion.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                //valor_retornado = reader[0].ToString();
+                valor_retornado = int.Parse(reader[0].ToString());
+            conexion.Close();
+
+            return valor_retornado;
+        }
+
+
+        public DtoUsuario datosUsuario(String usuario)
+        {
+            SqlCommand cmd = new SqlCommand("select U.FK_ITU_Cod," +
+                "U.VU_Nombre," +
+                "U.VU_APaterno," +
+                "U.VU_Correo " +
+                "from T_Usuario as U " +
+                "where U.PK_CU_Dni = '" + usuario + "'", conexion);
+
+            DtoUsuario usuarioDto = new DtoUsuario();
+
+            conexion.Open();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                usuarioDto.FK_ITU_Cod = int.Parse(reader[0].ToString());
+                usuarioDto.VU_Nombre = reader[1].ToString();
+                usuarioDto.VU_APaterno = reader[2].ToString();
+                usuarioDto.VU_Correo = reader[3].ToString();
+       
+            }
+            conexion.Close();
+
+            return usuarioDto;
+        }
     }
 }
