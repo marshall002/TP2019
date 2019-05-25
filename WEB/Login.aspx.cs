@@ -12,12 +12,7 @@ public partial class Login : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-
-       
-
     }
-
-
     protected void btnIniciarSesión_Click(Object sender, EventArgs e)
     {
 
@@ -25,14 +20,13 @@ public partial class Login : System.Web.UI.Page
         string msj = "";
         int error = Constante.ERROR_EXIT;
         try
-        {
-            Log.WriteLog("q2q21212121");
+        {;
             string usuario = textUsuario.Text.Trim();
             string clave = textPassword.Text.Trim();
             if (string.IsNullOrEmpty(usuario))
                 throw new Exception("Ingrese su usuario");
 
-            if(string.IsNullOrEmpty(clave))
+            if (string.IsNullOrEmpty(clave))
                 throw new Exception("Ingrese su clave");
             DtoUsuario usuarioDto = new DtoUsuario();
             usuarioDto.PK_CU_Dni = usuario;
@@ -48,7 +42,7 @@ public partial class Login : System.Web.UI.Page
             string apellido = usuarioDto.VU_APaterno;
             string correo = usuarioDto.VU_Correo;
 
-            if(usuarioDto != null)
+            if (usuarioDto != null)
             {
 
                 string script = @"<script type='text/javascript'>
@@ -63,7 +57,7 @@ public partial class Login : System.Web.UI.Page
             {
                 throw new Exception("Su usuario o contraseña incorrecta o no existe");
             }
-              
+
         }
         catch (Exception ex)
         {

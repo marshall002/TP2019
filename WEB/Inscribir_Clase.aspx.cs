@@ -115,9 +115,19 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         DateTime Fecha = Convert.ToDateTime(fecha);
         objrutina.DR_FechaRutina = Fecha;
         DateTime fechaclase = Fecha + Hora;
+        objdtousuariorutina.FK_CU_Dni = Session["SessionUsuario"].ToString();
         objdtousuariorutina.FK_IR_Cod = objctrusuariorutina.buscarRutina(objrutina);
         objdtousuariorutina.DR_FechaHora = fechaclase;
-        objctrusuariorutina.registrarUsuario_rutina(objdtousuariorutina);
+        if (objctrusuariorutina.buscarfechaInsc(objdtousuariorutina) == false)
+        {
+            objctrusuariorutina.registrarUsuario_rutina(objdtousuariorutina);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + "registro exitoso" + "', 'bottom', 'center', null, null);", true);
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'asdasd" + "existe inscripcion en la misma hora" + "', 'bottom', 'center', null, null);", true);
+        }
+        
         Log.WriteLog("Fecha y hora clase" + fechaclase);
 
     }

@@ -39,6 +39,23 @@ namespace DAO
             return valor_retornado ;
 
         }
+        public bool ExisteInscripcion(DtoUsuario_X_Rutina dur)
+        {
+
+            string query = "SELECT COUNT (*) FROM T_Usuario_X_Rutina WHERE DUR_FechaHora=@fecha and FK_CU_Dni=@dni";
+            SqlCommand cmd = new SqlCommand(query, conexion);
+            cmd.Parameters.AddWithValue("@fecha", dur.DR_FechaHora);
+            cmd.Parameters.AddWithValue("@dni", dur.FK_CU_Dni);
+            conexion.Open();
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+            conexion.Close();
+
+            if (count == 0)
+                return false;
+            else
+                return true;
+
+        }
         public void RegistrarRutinaUsuario(DtoUsuario_X_Rutina ObjDtoUsuarioXRutina)
         {
             SqlCommand command = new SqlCommand("sp_RegistrarUsuarioXRutina", conexion);

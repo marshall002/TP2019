@@ -29,6 +29,10 @@ namespace CTR
         {
             objDRU.RegistrarRutinaUsuario(dtour);
         }
+        public bool buscarfechaInsc(DtoUsuario_X_Rutina dtour)
+        {
+            return objDRU.ExisteInscripcion(dtour);
+        }
 
     }
 }
