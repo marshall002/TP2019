@@ -97,8 +97,10 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
             objdtousuarioxrutina.FK_IR_Cod = int.Parse(Session["cor_R"].ToString());
             DateTime fechaclase = fecha + Hora;
             Log.WriteLog("fecha hora=" + fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
-            objdtousuarioxrutina.DR_FechaHora = fechaclase;
-            Log.WriteLog("fh:" + objdtousuarioxrutina.DR_FechaHora);
+            objdtousuarioxrutina.DR_FechaHora = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
+            Log.WriteLog("objdtousuarioxrutina.DR_FechaHora:" + objdtousuarioxrutina.DR_FechaHora);
+
+            Log.WriteLog("fh:" + objdtousuarioxrutina.DR_FechaHora.ToString("yyyy-MM-dd HH':'mm':'ss"));
             objdtousuarioxrutina.FK_IH_Cod = objctrusuarioxrutina.retornaHoraId(ddlHoras.Text);
             int tr = 0;
             string TRutina = Session["Tipo_Rutina"].ToString();
@@ -112,8 +114,10 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
             }
             if (objctrusuarioxrutina.buscarfechaInsc(fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"), Session["SessionUsuario"].ToString(),tr) == false)
             {
-                objctrusuarioxrutina.actualizarUsuario_rutina(objdtousuarioxrutina);
+                objctrusuarioxrutina.actualizarUsuario_rutina(objdtousuarioxrutina, fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "Actualizacion exitosa" + "', 'bottom', 'center', null, null);", true);
+                listarRutinasSocio();
+                upCursos.Update();
             }
             else
             {
@@ -123,7 +127,7 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
         catch(Exception ex)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + ex.Message + "', 'bottom', 'center', null, null);", true);
-
+            Log.WriteLog(""+ex.Message);
         }
     }
 

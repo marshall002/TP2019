@@ -127,9 +127,17 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         Log.WriteLog("fechahora " + fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
         objdtousuariorutina.FK_IH_Cod = objctrusuariorutina.retornaHoraId(ddlHoras.Text);
         int tiporutina = int.Parse(Session["Tipo_Rutina"].ToString());
-        
+        int idr = objctrusuariorutina.retornaRutinaId(Fecha.ToString("yyyy/MM/dd"), int.Parse(Session["Tipo_Rutina"].ToString()));
+        int idh = objctrusuariorutina.retornaHoraId(ddlHoras.Text);
+        bool resultadobuscadorfecharegistrada = objctrusuariorutina.buscarfechaInsc(fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"), Session["SessionUsuario"].ToString(), tiporutina);
 
-        if (objctrusuariorutina.buscarfechaInsc(fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"), Session["SessionUsuario"].ToString(),tiporutina) == false)
+        Log.WriteLog("-------------------------------------------------");
+        Log.WriteLog(" Resultado de funcion  objctrusuariorutina.retornaNumeroParticipantes(idr, idh)  : " + objctrusuariorutina.retornaNumeroParticipantes(idr, idh));
+        Log.WriteLog("-------------------------------------------------");
+
+
+        if (resultadobuscadorfecharegistrada == false
+            && objctrusuariorutina.retornaNumeroParticipantes(idr, idh) <= 15)
         {
             objctrusuariorutina.registrarUsuario_rutina(objdtousuariorutina);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "registro exitoso" + "', 'bottom', 'center', null, null);", true);

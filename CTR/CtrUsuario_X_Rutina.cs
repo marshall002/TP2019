@@ -30,6 +30,10 @@ namespace CTR
         {
             return objDRU.retornaidHora(hora);
         }
+        public int retornaNumeroParticipantes(int idr, int idh)
+        {
+            return objDRU.retornaNparticipantes(idr,idh);
+        }
         public void registrarUsuario_rutina(DtoUsuario_X_Rutina dtour)
         {
             objDRU.RegistrarRutinaUsuario(dtour);
@@ -38,9 +42,9 @@ namespace CTR
         {
             return objDRU.ExisteInscripcion(fechahora,dni,codtr);
         }
-        public void actualizarUsuario_rutina(DtoUsuario_X_Rutina dtour)
+        public void actualizarUsuario_rutina(DtoUsuario_X_Rutina dtour, string fecha)
         {
-            objDRU.ActualizarRutinaUsuario(dtour);
+            objDRU.ActualizarRutinaUsuario(dtour,fecha);
         }
         public void eliminarUsuario_rutina(DtoUsuario_X_Rutina dtour)
         {

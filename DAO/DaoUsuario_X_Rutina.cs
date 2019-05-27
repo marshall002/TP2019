@@ -37,25 +37,25 @@ namespace DAO
 
             return valor_retornado;
         }
-        public int retornaNParticipantes(string fecha, int tipoR)
-        {
+        //public int retornaNParticipantes(string fecha, int tipoR)
+        //{
 
-            int valor_retornado = 0;
-            SqlCommand cmd = new SqlCommand("SELECT ICL_NParticipantes FROM T_Clase as CL inner join T_Usuario_X_Rutina as UR on UR.FK_ICL_Cod = CL.PK_ICL_Cod inner join T_Rutina as R on R.PK_IR_Cod = UR.FK_IR_Cod WHERE CL.DCL_FechaHora = '" + fecha + "'and R.FK_ITR_Cod" + tipoR, conexion);
+        //    int valor_retornado = 0;
+        //    SqlCommand cmd = new SqlCommand("SELECT ICL_NParticipantes FROM T_Clase as CL inner join T_Usuario_X_Rutina as UR on UR.FK_ICL_Cod = CL.PK_ICL_Cod inner join T_Rutina as R on R.PK_IR_Cod = UR.FK_IR_Cod WHERE CL.DCL_FechaHora = '" + fecha + "'and R.FK_ITR_Cod" + tipoR, conexion);
 
-            Console.WriteLine(cmd);
-            conexion.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
+        //    Console.WriteLine(cmd);
+        //    conexion.Open();
+        //    SqlDataReader reader = cmd.ExecuteReader();
 
-            if (reader.Read())
-            {    //valor_retornado = reader[0].ToString();
-                valor_retornado = int.Parse(reader[0].ToString());
+        //    if (reader.Read())
+        //    {    //valor_retornado = reader[0].ToString();
+        //        valor_retornado = int.Parse(reader[0].ToString());
 
-            }
-            conexion.Close();
+        //    }
+        //    conexion.Close();
 
-            return valor_retornado;
-        }
+        //    return valor_retornado;
+        //}
         public int retornaidHora(string hora)
         {
 
@@ -66,6 +66,18 @@ namespace DAO
             int id = Convert.ToInt32(cmd.ExecuteScalar());
             conexion.Close();
             return id;
+
+        }
+        public int retornaNparticipantes(int idr,int idh)
+        {
+
+            string query = "SELECT COUNT (*) FROM T_Usuario_X_Rutina where FK_IR_Cod=" + idr + " and FK_IH_Cod="+idh;
+            SqlCommand cmd = new SqlCommand(query, conexion);
+
+            conexion.Open();
+            int num = Convert.ToInt32(cmd.ExecuteScalar());
+            conexion.Close();
+            return num;
 
         }
 
@@ -116,13 +128,13 @@ namespace DAO
             conexion.Close();
             return dtDatos;
         }
-        public void ActualizarRutinaUsuario(DtoUsuario_X_Rutina ObjDtoUsuarioXRutina)
+        public void ActualizarRutinaUsuario(DtoUsuario_X_Rutina ObjDtoUsuarioXRutina,string fecha)
         {
             SqlCommand command = new SqlCommand("sp_ActualizarRutinaUsuario", conexion);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@dni", ObjDtoUsuarioXRutina.FK_CU_Dni);
-            command.Parameters.AddWithValue("@corR", ObjDtoUsuarioXRutina.FK_IR_Cod);
-            command.Parameters.AddWithValue("@fechaN", ObjDtoUsuarioXRutina.DR_FechaHora);
+            command.Parameters.AddWithValue("@codR", ObjDtoUsuarioXRutina.FK_IR_Cod);
+            command.Parameters.AddWithValue("@fechaN", fecha);
             command.Parameters.AddWithValue("@idhora", ObjDtoUsuarioXRutina.FK_IH_Cod);
             conexion.Open();
             command.ExecuteNonQuery();
