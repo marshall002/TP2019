@@ -22,9 +22,10 @@
                                     <div class="col-lg-1"></div>
                                     <div class="col-lg-10">
                                         <asp:Panel ID="Panel1" runat="server" CssClass="auto-style1">
-                                            <asp:GridView ID="gvRutinasinscritas" runat="server" AutoGenerateColumns="False" DataKeyNames="FK_IR_Cod,DUR_FechaHora,VR_Nombre" GridLines="None" AllowPaging="true" CssClass="table table-striped table-hover" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" PageSize="7" OnPageIndexChanging="gvRutinasinscritas_PageIndexChanging" OnRowCommand="gvRutinasinscritas_RowCommand">
+                                            <asp:GridView ID="gvRutinasinscritas" runat="server" AutoGenerateColumns="False" DataKeyNames="FK_IR_Cod,DR_FechaRutina,DUR_FechaHora,VR_Nombre" GridLines="None" AllowPaging="true" CssClass="table table-striped table-hover" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" PageSize="7" OnPageIndexChanging="gvRutinasinscritas_PageIndexChanging" OnRowCommand="gvRutinasinscritas_RowCommand">
                                                 <Columns>
                                                     <asp:BoundField DataField="FK_IR_Cod" HeaderText="cod rutina" Visible="false" />
+                                                    <asp:BoundField DataField="DR_FechaRutina" HeaderText="fecha rutina" Visible="false" />
                                                     <asp:BoundField DataField="DUR_FechaHora" HeaderText="Fecha" />
                                                     <asp:BoundField DataField="VR_Nombre" HeaderText="Tipo Rutina" />
                                                     <asp:ButtonField ButtonType="button" HeaderText="Crossfit" CommandName="Actualizar" Text="Actualizar">

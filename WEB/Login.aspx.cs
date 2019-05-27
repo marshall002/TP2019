@@ -41,7 +41,7 @@ public partial class Login : System.Web.UI.Page
             string nombre = usuarioDto.VU_Nombre;
             string apellido = usuarioDto.VU_APaterno;
             string correo = usuarioDto.VU_Correo;
-
+            Session["idusuario"] = textUsuario.Text.Trim();
             if (usuarioDto != null)
             {
 

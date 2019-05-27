@@ -12,5 +12,6 @@ namespace DTO
         public int FK_IR_Cod { get; set; }
         public DateTime DR_FechaHora { get; set; }
         public bool BUR_Asistencia { get; set; }
+        public int FK_IH_Cod { get; set; }
     }
 }

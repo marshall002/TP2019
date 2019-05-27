@@ -21,18 +21,32 @@ namespace CTR
         {
             return objDRU.VerRutinas_Usuario(obju);
         }
-        public int buscarRutina(DtoRutina dtor)
+       
+        public int retornaRutinaId(string fecha,int tipoR)
         {
-            return objDRU.buscarFKRutina(dtor);
+            return objDRU.retornaidRutina(fecha,tipoR);
+        }
+        public int retornaHoraId(string hora)
+        {
+            return objDRU.retornaidHora(hora);
         }
         public void registrarUsuario_rutina(DtoUsuario_X_Rutina dtour)
         {
             objDRU.RegistrarRutinaUsuario(dtour);
         }
-        public bool buscarfechaInsc(DtoUsuario_X_Rutina dtour)
+        public bool buscarfechaInsc(string fechahora, string dni,int codtr)
         {
-            return objDRU.ExisteInscripcion(dtour);
+            return objDRU.ExisteInscripcion(fechahora,dni,codtr);
         }
+        public void actualizarUsuario_rutina(DtoUsuario_X_Rutina dtour)
+        {
+            objDRU.ActualizarRutinaUsuario(dtour);
+        }
+        public void eliminarUsuario_rutina(DtoUsuario_X_Rutina dtour)
+        {
+            objDRU.EliminarRutinaUsuario(dtour);
+        }
+
 
     }
 }
