@@ -73,7 +73,7 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
                 var colsNoVisible = gvRutinasinscritas.DataKeys[index].Values;
                 int codrutina = Convert.ToInt32(colsNoVisible[0]);
                 Session["cor_R"] = codrutina;
-                
+
                 string script = @"<script type='text/javascript'>
                                       $('#modalconfirmacioneliminarIns').modal('show');
                                   </script>";
@@ -90,44 +90,53 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
     {
         try
         {
-            string f = Session["fecha"].ToString();
-            DateTime fecha = DateTime.Parse(f);
-            TimeSpan Hora = TimeSpan.Parse(ddlHoras.Text);
-            objdtousuarioxrutina.FK_CU_Dni= Session["SessionUsuario"].ToString();
-            objdtousuarioxrutina.FK_IR_Cod = int.Parse(Session["cor_R"].ToString());
-            DateTime fechaclase = fecha + Hora;
-            Log.WriteLog("fecha hora=" + fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
-            objdtousuarioxrutina.DR_FechaHora = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
-            Log.WriteLog("objdtousuarioxrutina.DR_FechaHora:" + objdtousuarioxrutina.DR_FechaHora);
+            if (validacionHora() == false)
+            {
+                string f = Session["fecha"].ToString();
+                DateTime fecha = DateTime.Parse(f);
+                TimeSpan Hora = TimeSpan.Parse(ddlHoras.Text);
+                objdtousuarioxrutina.FK_CU_Dni = Session["SessionUsuario"].ToString();
+                objdtousuarioxrutina.FK_IR_Cod = int.Parse(Session["cor_R"].ToString());
+                DateTime fechaclase = fecha + Hora;
+                Log.WriteLog("fecha hora=" + fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+                objdtousuarioxrutina.DR_FechaHora = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+                Log.WriteLog("objdtousuarioxrutina.DR_FechaHora:" + objdtousuarioxrutina.DR_FechaHora);
 
-            Log.WriteLog("fh:" + objdtousuarioxrutina.DR_FechaHora.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
-            objdtousuarioxrutina.FK_IH_Cod = objctrusuarioxrutina.retornaHoraId(ddlHoras.Text);
-            int tr = 0;
-            string TRutina = Session["Tipo_Rutina"].ToString();
-            if (TRutina == "Crossfit")
-            {
-                tr = 1;
+                Log.WriteLog("fh:" + objdtousuarioxrutina.DR_FechaHora.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+                objdtousuarioxrutina.FK_IH_Cod = objctrusuarioxrutina.retornaHoraId(ddlHoras.Text);
+                int tr = 0;
+                string TRutina = Session["Tipo_Rutina"].ToString();
+                if (TRutina == "Crossfit")
+                {
+                    tr = 1;
+                }
+                else
+                {
+                    tr = 2;
+                }
+                if (objctrusuarioxrutina.buscarfechaInsc(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"), Session["SessionUsuario"].ToString(), tr) == false)
+                {
+                    objctrusuarioxrutina.actualizarUsuario_rutina(objdtousuarioxrutina, fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "Actualizacion exitosa" + "', 'bottom', 'center', null, null);", true);
+                    listarRutinasSocio();
+                    upCursos.Update();
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red','" + "existe inscripcion en la misma hora" + "', 'bottom', 'center', null, null);", true);
+                }
             }
             else
             {
-                tr = 2;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red','" + "existe inscripcion en la misma hora, revise" + "', 'bottom', 'center', null, null);", true);
             }
-            if (objctrusuarioxrutina.buscarfechaInsc(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"), Session["SessionUsuario"].ToString(),tr) == false)
-            {
-                objctrusuarioxrutina.actualizarUsuario_rutina(objdtousuarioxrutina, fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "Actualizacion exitosa" + "', 'bottom', 'center', null, null);", true);
-                listarRutinasSocio();
-                upCursos.Update();
-            }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red','" + "existe inscripcion en la misma hora" + "', 'bottom', 'center', null, null);", true);
-            }
+
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + ex.Message + "', 'bottom', 'center', null, null);", true);
-            Log.WriteLog(""+ex.Message);
+            Log.WriteLog("" + ex.Message);
         }
     }
 
@@ -142,11 +151,11 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
             listarRutinasSocio();
             upCursos.Update();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + ex.Message + "', 'bottom', 'center', null, null);", true);
         }
-        
+
 
     }
     public void obtener_Rutina_Fecha()
@@ -163,7 +172,7 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
             txtTipoR.Text = "Functional";
             txtTipoR.Enabled = false;
         }
-        
+
         DateTime dia = DateTime.Parse(fecha);
         CultureInfo test = new System.Globalization.CultureInfo("es-ES");
         string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
@@ -174,13 +183,13 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
 
 
     }
-    
+
     public void cargarddlHoras()
     {
         ddlHoras.Items.Clear();
         Log.WriteLog("1");
         string fecha = Session["fecha"].ToString();
-        
+
         DateTime dia = DateTime.Parse(fecha);
         Log.WriteLog("3");
         //txtfechaClase.Text = fecha + ", " + dia.DayOfWeek.ToString();
@@ -244,6 +253,15 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
 
     protected void ddlHoras_SelectedIndexChanged(object sender, EventArgs e)
     {
+        validacionHora();
+    }
 
+    public bool validacionHora()
+    {
+        string dni = Session["SessionUsuario"].ToString();
+        int idr = int.Parse(Session["cor_R"].ToString());
+        int idH = objctrusuarioxrutina.retornaHoraId(ddlHoras.Text);
+        bool rep = objctrusuarioxrutina.validarHoraRepetida(dni, idr, idH);
+        return rep;
     }
 }

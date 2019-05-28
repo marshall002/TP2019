@@ -104,6 +104,27 @@ namespace DAO
             else
                 return true;
         }
+        public bool Validacion_Hora_Repetido(string FK_DNI,int FK_R,int FK_IHora)
+        {
+            int valor_retornado = 0;
+            string query = "SELECT COUNT (*) FROM T_Usuario_X_Rutina WHERE FK_CU_Dni='"+FK_DNI+"' and FK_IR_Cod="+FK_R+" and FK_IH_Cod="+FK_IHora;
+            SqlCommand cmd = new SqlCommand(query, conexion);
+            Console.WriteLine(cmd);
+            conexion.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {    //valor_retornado = reader[0].ToString();
+                valor_retornado = int.Parse(reader[0].ToString());
+
+            }
+            conexion.Close();
+
+            if (valor_retornado == 0)
+                return false;
+            else
+                return true;
+        }
         public void RegistrarRutinaUsuario(DtoUsuario_X_Rutina ObjDtoUsuarioXRutina)
         {
             SqlCommand command = new SqlCommand("sp_RegistrarUsuarioXRutina", conexion);

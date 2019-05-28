@@ -50,6 +50,10 @@ namespace CTR
         {
             objDRU.EliminarRutinaUsuario(dtour);
         }
+        public bool validarHoraRepetida(String dni,int idR, int idH)
+        {
+            return objDRU.Validacion_Hora_Repetido(dni, idR,idH);
+        }
 
 
     }
