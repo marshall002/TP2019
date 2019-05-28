@@ -18,10 +18,11 @@ namespace DAO
         }
         public int retornaidRutina(string fecha, int tipoR)
         {
-
+            DateTime obj = DateTime.Parse(fecha);
+            string obj2 = obj.ToString("yyyy-MM-dd");
             int valor_retornado = 0;
             SqlCommand cmd = new SqlCommand("SELECT PK_IR_cod FROM T_RUTINA as R WHERE" +
-                " R.DR_FechaRutina ='" + fecha + "' and FK_ITR_Cod=" + tipoR, conexion);
+                " R.DR_FechaRutina ='" + obj2 + "T00:00:00' and FK_ITR_Cod=" + tipoR, conexion);
 
 
             Console.WriteLine(cmd);

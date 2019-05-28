@@ -96,11 +96,11 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
             objdtousuarioxrutina.FK_CU_Dni= Session["SessionUsuario"].ToString();
             objdtousuarioxrutina.FK_IR_Cod = int.Parse(Session["cor_R"].ToString());
             DateTime fechaclase = fecha + Hora;
-            Log.WriteLog("fecha hora=" + fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
-            objdtousuarioxrutina.DR_FechaHora = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
+            Log.WriteLog("fecha hora=" + fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+            objdtousuarioxrutina.DR_FechaHora = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
             Log.WriteLog("objdtousuarioxrutina.DR_FechaHora:" + objdtousuarioxrutina.DR_FechaHora);
 
-            Log.WriteLog("fh:" + objdtousuarioxrutina.DR_FechaHora.ToString("yyyy-MM-dd HH':'mm':'ss"));
+            Log.WriteLog("fh:" + objdtousuarioxrutina.DR_FechaHora.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
             objdtousuarioxrutina.FK_IH_Cod = objctrusuarioxrutina.retornaHoraId(ddlHoras.Text);
             int tr = 0;
             string TRutina = Session["Tipo_Rutina"].ToString();
@@ -112,9 +112,9 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
             {
                 tr = 2;
             }
-            if (objctrusuarioxrutina.buscarfechaInsc(fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"), Session["SessionUsuario"].ToString(),tr) == false)
+            if (objctrusuarioxrutina.buscarfechaInsc(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"), Session["SessionUsuario"].ToString(),tr) == false)
             {
-                objctrusuarioxrutina.actualizarUsuario_rutina(objdtousuarioxrutina, fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
+                objctrusuarioxrutina.actualizarUsuario_rutina(objdtousuarioxrutina, fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "Actualizacion exitosa" + "', 'bottom', 'center', null, null);", true);
                 listarRutinasSocio();
                 upCursos.Update();

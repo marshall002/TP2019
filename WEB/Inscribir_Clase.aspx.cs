@@ -129,7 +129,8 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         int tiporutina = int.Parse(Session["Tipo_Rutina"].ToString());
         int idr = objctrusuariorutina.retornaRutinaId(Fecha.ToString("yyyy/MM/dd"), int.Parse(Session["Tipo_Rutina"].ToString()));
         int idh = objctrusuariorutina.retornaHoraId(ddlHoras.Text);
-        bool resultadobuscadorfecharegistrada = objctrusuariorutina.buscarfechaInsc(fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"), Session["SessionUsuario"].ToString(), tiporutina);
+        Log.WriteLog("fechaclase" + fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+        bool resultadobuscadorfecharegistrada = objctrusuariorutina.buscarfechaInsc(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"), Session["SessionUsuario"].ToString(), tiporutina);
 
         Log.WriteLog("-------------------------------------------------");
         Log.WriteLog(" Resultado de funcion  objctrusuariorutina.retornaNumeroParticipantes(idr, idh)  : " + objctrusuariorutina.retornaNumeroParticipantes(idr, idh));
