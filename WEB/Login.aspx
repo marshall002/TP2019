@@ -66,11 +66,11 @@
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                  
-                        <li class="dropdown" onclick="javascript:LoginModal();">
+                       <!-- <li class="dropdown" onclick="javascript:LoginModal();">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                                <i class="material-icons">perm_identity </i>
 							</a>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -78,10 +78,15 @@
 
         <div class="modal fade" id="modalIniciarSesion" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <div class="login-page bg-blue">
+           
+        </div>
+    </div>
+
+
+         <div class="login-page bg-blue">
                 <div class="login-box">
                     <div class="logo m-t-10 ">
-                        <a> <b>SGCLAP</b></a>
+                        <a> <b>SCLAP</b></a>
                     </div>
                     <div class="card">
                         <div class="body" id="bodyLogin">
@@ -109,31 +114,35 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-7 p-t-5">
+                                <!--<div class="col-xs-7 p-t-5">
                                     <input type="checkbox" runat="server" name="ckbRecuerdame" id="ckbRecuerdame" class="chk-col-pink" />
                                     <label for="ckbRecuerdame">Recuerdame</label>
-                                </div>
+                                </div>-->
 
                                 <div class="col-xs-5">
-                                      <asp:Button ID="btnIniciarSesión" runat="server" Text="INICAR SESI&Oacute;N" CssClass="btn btn-block bg-pink waves-effect"
+                                      <asp:Button ID="btnIniciarSesión" runat="server" Text="INICIAR SESI&Oacute;N" 
+                                          CssClass="btn btn-block btn-success waves-effect "
                                           OnClick="btnIniciarSesión_Click"/>
                                 </div>
+
+                                
                             </div>
 
-                            <div class="row m-t-15 m-b--20">
+                            <!--<div class="row m-t-15 m-b--20">
                                 <div class="col-xs-6">
                                     <a href="#" data-dismiss="modal" onclick="changeToRegister($(this));">&iexcl;Reg&iacute;strate ahora!</a>
                                 </div>
                                 <div class="col-xs-6 align-right">
                                     <a href="#" data-dismiss="modal" onclick="changeToRemember($(this));">&iquest;Olvidaste tu contraseña?</a>
                                 </div>
-                            </div>
+                            </div>-->
+                            <asp:Label ID="Label1" runat="server" ForeColor="#CC0000"></asp:Label>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+
 
 
     </form>

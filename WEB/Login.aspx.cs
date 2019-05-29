@@ -24,10 +24,19 @@ public partial class Login : System.Web.UI.Page
             string usuario = textUsuario.Text.Trim();
             string clave = textPassword.Text.Trim();
             if (string.IsNullOrEmpty(usuario))
+            {
+                Label1.Text = "Ingrese su usuario";
                 throw new Exception("Ingrese su usuario");
+            }
+                
+            
 
             if (string.IsNullOrEmpty(clave))
+            {
+                Label1.Text = "Ingrese su contraseña";
                 throw new Exception("Ingrese su clave");
+            }
+               
             DtoUsuario usuarioDto = new DtoUsuario();
             usuarioDto.PK_CU_Dni = usuario;
             usuarioDto.VU_Contraseña = clave;
@@ -55,7 +64,9 @@ public partial class Login : System.Web.UI.Page
             }
             else
             {
-                throw new Exception("Su usuario o contraseña incorrecta o no existe");
+
+                Label1.Text = "Su usuario o contraseña incorrecta o no existe";
+                //throw new Exception("Su usuario o contraseña incorrecta o no existe");
             }
 
         }
