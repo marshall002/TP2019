@@ -123,7 +123,7 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         Log.WriteLog("dni"+ Session["SessionUsuario"].ToString());
         Log.WriteLog("cod rutina" + objctrusuariorutina.retornaRutinaId(Fecha.ToString("yyyy/MM/dd"),int.Parse(Session["Tipo_Rutina"].ToString())));
         objdtousuariorutina.FK_IR_Cod = objctrusuariorutina.retornaRutinaId(Fecha.ToString("yyyy/MM/dd"), int.Parse(Session["Tipo_Rutina"].ToString()));
-        objdtousuariorutina.DR_FechaHora = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
+        objdtousuariorutina.DR_FechaHora = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
         Log.WriteLog("fechahora " + fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
         objdtousuariorutina.FK_IH_Cod = objctrusuariorutina.retornaHoraId(ddlHoras.Text);
         int tiporutina = int.Parse(Session["Tipo_Rutina"].ToString());
@@ -135,17 +135,25 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         Log.WriteLog("-------------------------------------------------");
         Log.WriteLog(" Resultado de funcion  objctrusuariorutina.retornaNumeroParticipantes(idr, idh)  : " + objctrusuariorutina.retornaNumeroParticipantes(idr, idh));
         Log.WriteLog("-------------------------------------------------");
-
-
-        if (resultadobuscadorfecharegistrada == false
-            && objctrusuariorutina.retornaNumeroParticipantes(idr, idh) <= 15)
+        bool valNumXclase = objctrusuariorutina.validarNClasesXdia(Fecha.ToString("yyyy-MM-dd'T'HH':'mm':'ss"), Session["SessionUsuario"].ToString());
+        Log.WriteLog("fecha:" + Fecha.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+        if (valNumXclase == false)
         {
-            objctrusuariorutina.registrarUsuario_rutina(objdtousuariorutina);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "registro exitoso" + "', 'bottom', 'center', null, null);", true);
+            if (resultadobuscadorfecharegistrada == false
+                && objctrusuariorutina.retornaNumeroParticipantes(idr, idh) <= 15
+                )
+            {
+                objctrusuariorutina.registrarUsuario_rutina(objdtousuariorutina);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "registro exitoso" + "', 'bottom', 'center', null, null);", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + "existe inscripcion en la misma hora" + "', 'bottom', 'center', null, null);", true);
+            }
         }
         else
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + "existe inscripcion en la misma hora" + "', 'bottom', 'center', null, null);", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + "exede el número de rutinas por dia" + "', 'bottom', 'center', null, null);", true);
         }
         
         Log.WriteLog("Fecha y hora clase" + fechaclase);

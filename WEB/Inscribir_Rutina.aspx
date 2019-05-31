@@ -6,7 +6,7 @@
     <section>
         <div class="container-fluid">
             <div class="block-header">
-                <h1>INSCRIBIR CLASE</h1>
+                <h1>INSCRIBIR A RUTINA</h1>
             </div>
             <div class="row clearfix">
                 <div class="col-md-11">

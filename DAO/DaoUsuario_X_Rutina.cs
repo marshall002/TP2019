@@ -85,8 +85,8 @@ namespace DAO
         public bool ExisteInscripcion(string fechahora,string dni,int codTR)
         {
             int valor_retornado = 0;
-            string query = "SELECT COUNT (*) FROM T_Usuario_X_Rutina inner join T_Rutina on PK_IR_Cod = FK_IR_Cod WHERE DUR_FechaHora='" + fechahora + "' and FK_CU_Dni='" + dni + "'"+
-                "and FK_ITR_Cod="+codTR;
+            string query = "SELECT COUNT (*) FROM T_Usuario_X_Rutina inner join T_Rutina on PK_IR_Cod = FK_IR_Cod WHERE DUR_FechaHora='" + fechahora + "' and FK_CU_Dni='" + dni + "'"
+                /*+"and FK_ITR_Cod="+codTR*/;
             SqlCommand cmd = new SqlCommand(query, conexion);
             Console.WriteLine(cmd);
             conexion.Open();
@@ -125,6 +125,28 @@ namespace DAO
             else
                 return true;
         }
+        public bool Validacion_Num_claseXdia(string fecha, string dni)
+        {
+            int valor_retornado = 0;
+            string query = "SELECT COUNT (*) FROM T_Usuario_X_Rutina inner join T_Rutina on PK_IR_Cod = FK_IR_Cod WHERE DR_FechaRutina='" + fecha + "' and FK_CU_Dni='" + dni + "'" ;
+            SqlCommand cmd = new SqlCommand(query, conexion);
+            Console.WriteLine(cmd);
+            conexion.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {    //valor_retornado = reader[0].ToString();
+                valor_retornado = int.Parse(reader[0].ToString());
+
+            }
+            conexion.Close();
+
+            if (valor_retornado <3)
+                return false;
+            else
+                return true;
+        }
+
         public void RegistrarRutinaUsuario(DtoUsuario_X_Rutina ObjDtoUsuarioXRutina)
         {
             SqlCommand command = new SqlCommand("sp_RegistrarUsuarioXRutina", conexion);

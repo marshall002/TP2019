@@ -54,7 +54,10 @@ namespace CTR
         {
             return objDRU.Validacion_Hora_Repetido(dni, idR,idH);
         }
-
+        public bool validarNClasesXdia(string fecha,string dni)
+        {
+            return objDRU.Validacion_Num_claseXdia(fecha, dni);
+        }
 
     }
 }
