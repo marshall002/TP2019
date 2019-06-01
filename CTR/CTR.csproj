@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CtrCita.cs" />
+    <Compile Include="CtrEjercicio.cs" />
+    <Compile Include="CtrRutinaXEjercicio.cs" />
+    <Compile Include="CtrTipo_Ejercicio.cs" />
     <Compile Include="CtrUsuario_X_Rutina.cs" />
     <Compile Include="CtrUsuario.cs" />
     <Compile Include="Log.cs" />

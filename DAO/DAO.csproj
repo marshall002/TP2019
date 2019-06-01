@@ -42,7 +42,10 @@
   <ItemGroup>
     <Compile Include="ConexionBD.cs" />
     <Compile Include="DaoCita.cs" />
+    <Compile Include="DaoEjercicio.cs" />
     <Compile Include="DaoRutina.cs" />
+    <Compile Include="DaoRutinaXEjercicio.cs" />
+    <Compile Include="DaoTipo_Ejercicio.cs" />
     <Compile Include="DaoUsuario.cs" />
     <Compile Include="DaoUsuario_X_Rutina.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

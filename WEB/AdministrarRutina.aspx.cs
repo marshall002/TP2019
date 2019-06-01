@@ -5,20 +5,25 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Web.Services;
+using System.Web.Script.Services;
 using CTR;
+using DAO;
+using DTO;
 
 public partial class AdministrarRutina : System.Web.UI.Page
 {
+   
     protected void Page_Load(object sender, EventArgs e)
     {
         txtfecha.Text = System.DateTime.Now.ToShortDateString();
         if (!IsPostBack)
         {
             ddlMes.SelectedValue = DateTime.Now.Month.ToString();
-
             encontrarsemanas();
-
-
+            //CargarTEjercicio();
+            //CargarEjercicio();
+            
         }
     }
     protected void Registro_Click(object sender, EventArgs e)
@@ -79,8 +84,37 @@ public partial class AdministrarRutina : System.Web.UI.Page
         gvLista.PageIndex = e.NewPageIndex;
         gvLista.DataBind();
     }
+   
+    protected void ddlMes_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        upCursos.Update();
+        encontrarsemanas();
+        upCursos.Update();
+    }
 
-    protected void gvLista_RowCommand(object sender, GridViewCommandEventArgs e)
+    //private void CargarTEjercicio()
+    //{
+    //    CtrTipo_Ejercicio objCtrTipo_Ejercicio = new CtrTipo_Ejercicio();
+
+    //    ddlTEjercicio.DataSource = objCtrTipo_Ejercicio.CargaDatosTEjercicio();
+    //    ddlTEjercicio.DataTextField = "VTE_Nombre";
+    //    ddlTEjercicio.DataValueField = "PK_ITE_Cod";
+    //    ddlTEjercicio.DataBind();
+    //    ddlTEjercicio.Items.Insert(0, new ListItem("Seleccione","0"));
+    //}
+
+    //private void CargarEjercicio()
+    //{
+    //    CtrEjercicio objCtrEjercicio = new CtrEjercicio();
+
+    //    ddlEjercicio.DataSource = objCtrEjercicio.CargaDatosEjercicio();
+    //    ddlEjercicio.DataTextField = "VE_Nombre";
+    //    ddlEjercicio.DataValueField = "PK_IE_Cod";
+    //    ddlEjercicio.DataBind();
+    //    ddlEjercicio.Items.Insert(0, new ListItem("Seleccione", "0"));
+    //}
+    
+    protected void gvLista_RowCommand1(object sender, GridViewCommandEventArgs e)
     {
         if (e.CommandName == "VerC")
         {
@@ -92,6 +126,8 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Session["Primerdia"] = id;
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+            TituloTRut.Text = "Crossfit";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal').modal('show');", true);
         }
         if (e.CommandName == "VerF")
         {
@@ -103,6 +139,8 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Session["Primerdia"] = id;
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+            TituloTRut.Text = "Funcional";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal').modal('show');", true);
         }
         if (e.CommandName == "RegistrarC")
         {
@@ -114,6 +152,10 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Session["Primerdia"] = id;
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+            TituloTRut.Text = "Crossfit";
+            
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal').modal('show');", true);
+            
         }
         if (e.CommandName == "RegistrarF")
         {
@@ -125,13 +167,52 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Session["Primerdia"] = id;
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+            TituloTRut.Text = "Funcional";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal').modal('show');", true);
         }
     }
-
-    protected void ddlMes_SelectedIndexChanged(object sender, EventArgs e)
+    [System.Web.Services.WebMethod]
+    public static ListSelect GetList()
     {
-        upCursos.Update();
-        encontrarsemanas();
-        upCursos.Update();
+        CtrTipo_Ejercicio objCtrTipo_Ejercicio = new CtrTipo_Ejercicio();
+        var Tipoejercicio = objCtrTipo_Ejercicio.CargaDatosTEjercicio();
+        CtrEjercicio objCtrEjercicio = new CtrEjercicio();
+        var ejercicio = objCtrEjercicio.CargaDatosEjercicio();
+        var a = ejercicio.AsEnumerable().ToList();
+        List<DtoTipo_Ejercicio> listTipoEjercicio = Tipoejercicio.AsEnumerable().Select(m => new DtoTipo_Ejercicio()
+        {
+            PK_ITE_Cod = Convert.ToInt32(m.ItemArray[0]),
+            VTE_Nombre = m.ItemArray[1].ToString()
+        }).ToList();
+        List<DtoEjercicio> listEjercicio = ejercicio.AsEnumerable().Select(m => new DtoEjercicio()
+        {
+            PK_IE_Cod = Convert.ToInt32(m.ItemArray[0]),
+            FK_ITE_Cod = Convert.ToInt32(m.ItemArray[2]),
+            VE_Nombre = m.ItemArray[1].ToString(),
+        }).ToList();
+        var list = new ListSelect();
+        list.dtoEjercicios = listEjercicio;
+        list.dtoTipoEjercicios = listTipoEjercicio;
+        return list;
+    }
+    [System.Web.Services.WebMethod]
+    public static ListSelect GetEjercicioByTipoEjercicio(int idTipoUsuario)
+    {
+        CtrEjercicio objCtrEjercicio = new CtrEjercicio();
+        var ejercicio = objCtrEjercicio.CargaDatosEjercicioXT(idTipoUsuario);
+        List<DtoEjercicio> listEjercicio = ejercicio.AsEnumerable().Select(m => new DtoEjercicio()
+        {
+            PK_IE_Cod = Convert.ToInt32(m.ItemArray[0]),
+            FK_ITE_Cod = Convert.ToInt32(m.ItemArray[2]),
+            VE_Nombre = m.ItemArray[1].ToString(),
+        }).ToList();
+        var list = new ListSelect();
+        list.dtoEjercicios = listEjercicio;
+        return list;
+    }
+    public class ListSelect
+    {
+        public List<DtoEjercicio> dtoEjercicios {get;set;}
+        public List<DtoTipo_Ejercicio> dtoTipoEjercicios {get;set;}
     }
 }
