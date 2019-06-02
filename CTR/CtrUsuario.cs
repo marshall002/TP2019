@@ -20,7 +20,7 @@ namespace CTR
 		}
 		public void ObtenerInformacionUsuario(DtoUsuario dtoUsuario,DtoPlan dtoplan,DtoSesionFisio dtosesionfisio, DtoSesionNutri dtosesionnutri )
 		{
-			objDaoUsuario.ObtenerDatosSocio(dtoUsuario, dtoplan, dtosesionfisio, dtosesionnutri);
+			objDaoUsuario.ObtenerDatosSocioPlan(dtoUsuario, dtoplan, dtosesionfisio, dtosesionnutri);
 		}
 		public void ObtenerNumCitasRealizadas(DtoUsuario dtoUsuario)
 		{
@@ -43,17 +43,12 @@ namespace CTR
         public DtoUsuario Login(DtoUsuario dtoUsuario)
         {
 
-            //DtoUsuario dtoUsuarioLogin = new DtoUsuario();
-
-
             int persona_id = objDaoUsuario.validacionLogin(dtoUsuario.PK_CU_Dni,  dtoUsuario.VU_Contraseña);
-
-           // if(string.IsNullOrEmpty(persona_id))
+            
            if(persona_id == 0)
             {
                 throw new Exception("Usuario y/o contrase&ntilde;a incorrecta(s)");
             }
-           /* chequear*/
             else
             {
                 return objDaoUsuario.datosUsuario(dtoUsuario.PK_CU_Dni);

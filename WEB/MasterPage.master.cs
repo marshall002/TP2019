@@ -15,9 +15,13 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             if (!IsPostBack)
             {
-                Session["id_perfil"] = 1;
 
+                Log.WriteLog("-------------------------------------------------------------------------------------------------------------");
+                Log.WriteLog("-----------------------------Ingresando a masterpage y Obtener pestañas disponibles--------------------------");
+                Log.WriteLog("-------------------------------------------------------------------------------------------------------------");
                 int perfil = int.Parse(Session["id_perfil"].ToString());
+                Log.WriteLog(" perfil:  " + perfil);
+
                 switch (perfil)
                 {
                     case Constante.ROL_SOCIO:
@@ -38,7 +42,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     default:
                         Session.Clear();
                         Session.Abandon();
-                        Response.Redirect("inicio.aspx");
+                        Response.Redirect("login.aspx");
                         break;
                 }
                 //divname.innerhtml = session["nombre"].tostring();
@@ -50,7 +54,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("inicio.aspx");
+            Response.Redirect("login.aspx");
         }
 
     }
@@ -126,8 +130,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
     protected void btnCerrarSesion_ServerClick(object sender, EventArgs e)
     {
         Session.Clear();
-        //    Session.Abandon();
-        //Response.Redirect("inicio.aspx");
+        Session.Abandon();
+        Response.Redirect("login.aspx");
     }
 
     protected void AdministradorOption_ServerClick(object sender, EventArgs e)

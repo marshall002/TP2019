@@ -11,15 +11,33 @@ using System.Globalization;
 
 public partial class Inscribir_Clase : System.Web.UI.Page
 {
-    DtoUsuario_X_Rutina objdtousuariorutina= new DtoUsuario_X_Rutina();
+    DtoUsuario_X_Rutina objdtousuariorutina = new DtoUsuario_X_Rutina();
     CtrUsuario_X_Rutina objctrusuariorutina = new CtrUsuario_X_Rutina();
     protected void Page_Load(object sender, EventArgs e)
     {
         txtfecha.Text = System.DateTime.Now.ToShortDateString();
         if (!IsPostBack)
         {
-            ddlMes.SelectedValue = DateTime.Now.Month.ToString();
-            encontrarsemanas();
+            if (Session["id_perfil"] != null)
+            {
+                if (int.Parse(Session["id_perfil"].ToString()) == Constante.ROL_SOCIO)
+                {
+                    ddlMes.SelectedValue = DateTime.Now.Month.ToString();
+                    encontrarsemanas();
+                }
+                else
+                {
+                    Log.WriteLog("Listar rutinas socio - Error en id Perfil");
+                    Response.Redirect("Inicio.aspx");
+                }
+            }
+            else
+            {
+
+                Log.WriteLog("Listar rutinas socio - Error en id Perfil");
+                Response.Redirect("Inicio.aspx");
+
+            }
         }
     }
 
@@ -120,8 +138,8 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         DateTime fechaclase = Fecha + Hora;
         objdtousuariorutina.FK_CU_Dni = Session["SessionUsuario"].ToString();
 
-        Log.WriteLog("dni"+ Session["SessionUsuario"].ToString());
-        Log.WriteLog("cod rutina" + objctrusuariorutina.retornaRutinaId(Fecha.ToString("yyyy/MM/dd"),int.Parse(Session["Tipo_Rutina"].ToString())));
+        Log.WriteLog("dni" + Session["SessionUsuario"].ToString());
+        Log.WriteLog("cod rutina" + objctrusuariorutina.retornaRutinaId(Fecha.ToString("yyyy/MM/dd"), int.Parse(Session["Tipo_Rutina"].ToString())));
         objdtousuariorutina.FK_IR_Cod = objctrusuariorutina.retornaRutinaId(Fecha.ToString("yyyy/MM/dd"), int.Parse(Session["Tipo_Rutina"].ToString()));
         objdtousuariorutina.DR_FechaHora = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
         Log.WriteLog("fechahora " + fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
@@ -155,7 +173,7 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + "exede el número de rutinas por dia" + "', 'bottom', 'center', null, null);", true);
         }
-        
+
         Log.WriteLog("Fecha y hora clase" + fechaclase);
 
     }
@@ -224,7 +242,7 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         DateTime dia = DateTime.Parse(fecha);
         CultureInfo test = new System.Globalization.CultureInfo("es-ES");
         string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
-        txtfechaClase.Text = fecha + ", " +diaespaniol;
+        txtfechaClase.Text = fecha + ", " + diaespaniol;
         txtfechaClase.Enabled = false;
 
         upFecha_Rutina.Update();
@@ -297,6 +315,6 @@ public partial class Inscribir_Clase : System.Web.UI.Page
             i = new ListItem("9:00 PM", "21:00");
             ddlHoras.Items.Add(i);
         }
-            Udp_ddlhoras.Update();
+        Udp_ddlhoras.Update();
     }
 }

@@ -21,9 +21,28 @@ public partial class _Default : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            ListarSolicitudesCita(TipoCitaSol, Session["SessionUsuario"].ToString());
-            //contarCitasxServicio();
-            ValidarfechaFinPlan();
+            if (Session["id_perfil"] != null)
+            {
+                if (int.Parse(Session["id_perfil"].ToString()) == Constante.ROL_SOCIO)
+                {
+                    ListarSolicitudesCita(TipoCitaSol, Session["SessionUsuario"].ToString());
+                    //contarCitasxServicio();
+                    ValidarfechaFinPlan();
+                }
+                else
+                {
+                    Log.WriteLog(" Sol Citas Administracion - Error en id Perfil");
+                    Response.Redirect("Inicio.aspx");
+                }
+            }
+            else
+            {
+
+                Log.WriteLog(" Sol Citas Administracion - Error en id Perfil");
+                Response.Redirect("Inicio.aspx");
+
+            }
+           
         }
     }
     public void ListarSolicitudesCita(int tiposolicitud, string CodigoUsuario)

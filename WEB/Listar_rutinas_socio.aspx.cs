@@ -17,7 +17,27 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            listarRutinasSocio();
+            if (Session["id_perfil"] != null)
+            {
+                if (int.Parse(Session["id_perfil"].ToString()) == Constante.ROL_SOCIO)
+                {
+                    listarRutinasSocio();
+
+                }
+                else
+                {
+                    Log.WriteLog("Listar rutinas socio - Error en id Perfil");
+                    Response.Redirect("Inicio.aspx");
+                }
+            }
+            else
+            {
+
+                Log.WriteLog("Listar rutinas socio - Error en id Perfil");
+                Response.Redirect("Inicio.aspx");
+
+            }
+
         }
     }
     public void listarRutinasSocio()

@@ -13,17 +13,34 @@ using DTO;
 
 public partial class AdministrarRutina : System.Web.UI.Page
 {
-   
+
     protected void Page_Load(object sender, EventArgs e)
     {
         txtfecha.Text = System.DateTime.Now.ToShortDateString();
         if (!IsPostBack)
         {
-            ddlMes.SelectedValue = DateTime.Now.Month.ToString();
-            encontrarsemanas();
-            //CargarTEjercicio();
-            //CargarEjercicio();
-            
+            if (Session["id_perfil"] != null)
+            {
+                if (int.Parse(Session["id_perfil"].ToString()) == Constante.ROL_ENTRENADOR)
+                {
+                    ddlMes.SelectedValue = DateTime.Now.Month.ToString();
+                    encontrarsemanas();
+                    //CargarTEjercicio();
+                    //CargarEjercicio();
+                }
+                else
+                {
+                    Log.WriteLog("Listar rutinas socio - Error en id Perfil");
+                    Response.Redirect("Inicio.aspx");
+                }
+            }
+            else
+            {
+                Log.WriteLog("Listar rutinas socio - Error en id Perfil");
+                Response.Redirect("Inicio.aspx");
+
+            }
+
         }
     }
     protected void Registro_Click(object sender, EventArgs e)
@@ -84,7 +101,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         gvLista.PageIndex = e.NewPageIndex;
         gvLista.DataBind();
     }
-   
+
     protected void ddlMes_SelectedIndexChanged(object sender, EventArgs e)
     {
         upCursos.Update();
@@ -113,7 +130,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
     //    ddlEjercicio.DataBind();
     //    ddlEjercicio.Items.Insert(0, new ListItem("Seleccione", "0"));
     //}
-    
+
     protected void gvLista_RowCommand1(object sender, GridViewCommandEventArgs e)
     {
         if (e.CommandName == "VerC")
@@ -153,9 +170,9 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Crossfit";
-            
+
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal').modal('show');", true);
-            
+
         }
         if (e.CommandName == "RegistrarF")
         {
@@ -212,7 +229,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
     }
     public class ListSelect
     {
-        public List<DtoEjercicio> dtoEjercicios {get;set;}
-        public List<DtoTipo_Ejercicio> dtoTipoEjercicios {get;set;}
+        public List<DtoEjercicio> dtoEjercicios { get; set; }
+        public List<DtoTipo_Ejercicio> dtoTipoEjercicios { get; set; }
     }
 }

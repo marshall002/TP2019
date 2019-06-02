@@ -16,8 +16,26 @@ public partial class Proc_CItas_Sol_Registrar : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            contarCitasxServicio();
-            CargarDatosDniUsuario();
+            if (Session["id_perfil"] != null)
+            {
+                if (int.Parse(Session["id_perfil"].ToString()) == Constante.ROL_ADMINISTRADOR)
+                {
+                    contarCitasxServicio();
+                    CargarDatosDniUsuario();
+                }
+                else
+                {
+                    Log.WriteLog("Proc Citas Sol Registrar - Error en id Perfil");
+                    Response.Redirect("Inicio.aspx");
+                }
+            }
+            else
+            {
+
+                Log.WriteLog("Proc Citas Sol Registrar - Error en id Perfil");
+                Response.Redirect("Inicio.aspx");
+
+            }
         }
     }
     protected void btnGuardar_ServerClick(object sender, EventArgs e)

@@ -18,7 +18,27 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 	{
 		if (!IsPostBack)
 		{
-			cargardatosCitas();
+
+            if (Session["id_perfil"] != null)
+            {
+                if (int.Parse(Session["id_perfil"].ToString()) == Constante.ROL_SOCIO)
+                {
+                    cargardatosCitas();
+                }
+                else
+                {
+                    Log.WriteLog(" Sol Citas Detalles - Error en id Perfil");
+                    Response.Redirect("Inicio.aspx");
+                }
+            }
+            else
+            {
+
+                Log.WriteLog(" Sol Citas Detalles - Error en id Perfil");
+                Response.Redirect("Inicio.aspx");
+
+            }
+           
 			//contarCitasxServicio();
 		}
 

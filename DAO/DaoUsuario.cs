@@ -17,7 +17,7 @@ namespace DAO
         {
             conexion = new SqlConnection(ConexionBD.CadenaConexion);
         }
-        public void ObtenerDatosSocio(DtoUsuario usuario, DtoPlan plan, DtoSesionFisio sesionfisio, DtoSesionNutri sesionnutri)
+        public void ObtenerDatosSocioPlan(DtoUsuario usuario, DtoPlan plan, DtoSesionFisio sesionfisio, DtoSesionNutri sesionnutri)
         {
             SqlCommand cmd = new SqlCommand("sp_ObtenerDatosUsuario", conexion);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -30,14 +30,6 @@ namespace DAO
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                usuario.PK_CU_Dni = reader[0].ToString();
-                usuario.VU_Nombre = reader[1].ToString();
-                usuario.VU_APaterno = reader[2].ToString();
-                usuario.VU_AMaterno = reader[3].ToString();
-                usuario.CU_Celular = reader[4].ToString();
-                usuario.DU_FechaNacimiento = Convert.ToDateTime(reader[5].ToString());
-                usuario.FK_IP_Cod = Convert.ToInt32(reader[6].ToString());
-                usuario.FK_ITU_Cod = Convert.ToInt32(reader[7].ToString());
                 plan.DP_Fecha_Fin = Convert.ToDateTime(reader[8].ToString());
                 sesionfisio.ISF_Cantidad = int.Parse(reader[9].ToString());
                 sesionnutri.ISN_Cantidad = int.Parse(reader[10].ToString());
@@ -113,11 +105,21 @@ namespace DAO
             SqlCommand cmd = new SqlCommand("select U.FK_ITU_Cod," +
                 "U.VU_Nombre," +
                 "U.VU_APaterno," +
-                "U.VU_Correo " +
-                "from T_Usuario as U " +
+                "U.VU_AMaterno," +
+                "U.VU_Correo, " +
+                "U.PK_CU_Dni,"+
+                "U.VU_Direccion," +
+                "U.CU_Celular," +
+                "U.FK_IP_Cod," +
+                "U.DU_FechaNacimiento" +
+                " from T_Usuario as U " +
                 "where U.PK_CU_Dni = '" + usuario + "'", conexion);
 
             DtoUsuario usuarioDto = new DtoUsuario();
+            DtoPlan planDto = new DtoPlan();
+            DtoTipoUsuario tipousuarioDto = new DtoTipoUsuario();
+
+
 
             conexion.Open();
 
@@ -125,15 +127,23 @@ namespace DAO
 
             if (reader.Read())
             {
+                tipousuarioDto.PK_TU_Cod = int.Parse(reader[0].ToString());
                 usuarioDto.FK_ITU_Cod = int.Parse(reader[0].ToString());
                 usuarioDto.VU_Nombre = reader[1].ToString();
                 usuarioDto.VU_APaterno = reader[2].ToString();
-                usuarioDto.VU_Correo = reader[3].ToString();
+                usuarioDto.VU_AMaterno = reader[3].ToString();
+                usuarioDto.VU_Correo = reader[4].ToString();
+                usuarioDto.PK_CU_Dni = reader[5].ToString();
+                usuarioDto.VU_Direccion = reader[6].ToString();
+                usuarioDto.CU_Celular = reader[7].ToString();
+                usuarioDto.FK_IP_Cod = int.Parse(reader[8].ToString());
+                planDto.PK_IP_Cod = int.Parse(reader[8].ToString());
+                usuarioDto.DU_FechaNacimiento = DateTime.Parse(reader[9].ToString());
 
             }
             conexion.Close();
 
-            return usuarioDto;
+            return (usuarioDto);
         }
     }
 }

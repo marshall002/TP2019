@@ -37,10 +37,12 @@ namespace DTO
 		public const int ROL_NUTRICIONISTA = 3;
 		public const int ROL_FISIOTERAPEUTA = 4;
 		public const int ROL_ADMINISTRADOR_SISTEMA = 5;
-		#endregion
+        public const int ROL_ENTRENADOR = 6;
 
-		#region COLORES
-		public const string COLOR_ROJO = "bg-red";
+        #endregion
+
+        #region COLORES
+        public const string COLOR_ROJO = "bg-red";
 		public const string COLOR_ROSA = "bg-pink";
 		public const string COLOR_PURPURA = "bg-purple";
 		public const string COLOR_MORADO = "bg-deep-purple";
