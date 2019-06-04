@@ -56,18 +56,27 @@
                                                 OnRowCommand="gvLista_RowCommand1" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" PageSize="7" OnPageIndexChanging="gvLista_PageIndexChanging">
                                                 <Columns>
                                                     <asp:BoundField DataField="n1" HeaderText="Inicio de Semana" />
-                                                    <asp:ButtonField ButtonType="button" HeaderText="Crossfit" CommandName="RegistrarC" Text="Registrar">
-                                                        <ControlStyle CssClass="btn btn-success" />
-                                                    </asp:ButtonField>
-                                                    <asp:ButtonField ButtonType="button" CommandName="VerC" Text="Ver">
-                                                        <ControlStyle CssClass="btn btn-warning" />
-                                                    </asp:ButtonField>
-                                                    <asp:ButtonField ButtonType="button" HeaderText="Functional" CommandName="RegistrarF" Text="Registrar">
-                                                        <ControlStyle CssClass="btn btn-success" />
-                                                    </asp:ButtonField>
-                                                    <asp:ButtonField ButtonType="button" CommandName="VerF" Text="Ver">
-                                                        <ControlStyle CssClass="btn btn-warning" />
-                                                    </asp:ButtonField>
+                                                    <asp:TemplateField HeaderText="Crossfit">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton CssClass="btn bg-green waves-effect" ID="btnRegistrarC" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="RegistrarC" data-toggle="tooltip" data-placement="right" title="Registrar Crossfit" Text="Registrar">
+                                                                 <i class="material-icons">add</i>
+                                                            </asp:LinkButton>
+                                                            <asp:LinkButton CssClass="btn bg-orange waves-effect" ID="btnVerC" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="VerC" data-toggle="tooltip" data-placement="right" title="Ver Crossfit" Text="Ver rutina">
+                                                                 <i class="material-icons">create</i>
+                                                            </asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderText="Functional">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton CssClass="btn bg-green waves-effect" ID="btnRegistrarF" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="RegistrarF" data-toggle="tooltip" data-placement="right" title="Registrar Functional" Text="Registrar">
+                                                                 <i class="material-icons">add</i>
+                                                            </asp:LinkButton>
+                                                            <asp:LinkButton CssClass="btn bg-orange waves-effect" ID="btnVerF" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="VerF" data-toggle="tooltip" data-placement="right" title="Actualizar Functional" Text="Ver rutina">
+                                                                 <i class="material-icons">create</i>
+                                                            </asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                 </Columns>
 
                                             </asp:GridView>
@@ -75,7 +84,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
@@ -92,72 +100,87 @@
                             <asp:Label ID="TituloTRut" runat="server"></asp:Label>
                         </h4>
                     </div>
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                        <ContentTemplate>
+                            <!-- Modal body -->
+                            <div class="modal-body" id="modal-rutina">
+                                <div class="row">
 
-                    <!-- Modal body -->
-                    <div class="modal-body" id="modal-rutina">
-                        <%--<div class="row">
-                            <div class="col-lg-11"></div>
-                            <div class="row">
-                                <br />--%>
-                        <%--<div class="col-md-2"></div><div class="col-lg-4">
-                      <div class="liveExample"> 
-                  <table data-bind='visible: gifts().length > 0'>
-            <thead>
-                 <tr>
-                    <th>Gift name</th>
-                    <th>Price</th>
-                    <th />
-                </tr>
-            </thead>
-            <tbody data-bind='foreach: gifts'>
-                <tr>
-                    <td><input class='required' data-bind='value: name, uniqueName: true' /></td>
-                    <td><input class='required number' data-bind='value: price, uniqueName: true' /></td>
-                    <td><a href='#' data-bind='click: $root.removeGift'>Delete</a></td>
-                </tr>
-            </tbody>
-        </table>
-    
-        <button onclick="return false;" data-bind='click: addGift'>Add Gift</button>
-        <button onclick="return false;" data-bind='enable: gifts().length > 0' type='submit'>Submit</button>
-                          <script src="js/AdmRut.js"></script>
-                  </div>
-                      </div>
-                  <br />--%>
-                        <div class="row">
-                            <div class="col-md-3">
-                               <label for="lblCliente">Tipo Ejercicio: </label>
-                                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control" Width="180px" Height="30px" AutoPostBack="false">
-                                    <asp:ListItem Value="0">Seleccione </asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-3">
-                                 <label for="lblCliente">Ejercicio: </label>
-                                <asp:DropDownList ID="ddlEjercicio" runat="server" CssClass="form-control" Width="180px" Height="30px" AutoPostBack="false">
-                                    <asp:ListItem Value="0">Seleccione </asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="lblDocumento">Descripción: </label>
-                                <br />
-                                <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" Width="180" Height="30px"></asp:TextBox>
-                            </div>
-                            <div class="col-md-3">
-                                <button id="btnlist" type="button" class="btn btn-success" style="margin-top: 23px" >+</button>
-                            </div>
-                        </div>
-                        <!-- Modal footer -->
-                        <br />
-                    </div>
-                    <div class="modal-footer">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha</label>
+                                        <div class="form-line">
+                                            <asp:TextBox ID="txtfechaRuti" runat="server" CssClass="form-control"></asp:TextBox>
+                                        </div>
 
-                        <button type="button" class="btn btn-success"><span class="fa fa-floppy-o">Guardar</button>
-                    </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Descripción</label>
+
+                                            <div class="form-line">
+                                                <asp:TextBox ID="txtdescripcion" runat="server" TextMode="multiline" Rows="4" class="form-control no-resize" placeholder="Ingrese la descripción"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <br />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-link waves-effect waves-grey btn-success" id="btnGuardar" runat="server" data-dismiss="modal" data-type="success" onserverclick="btnGuardar_ServerClick">GUARDAR</button>
+                                </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </div>
         </div>
+        </div>
+
+         <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+             <div class="modal-dialog" style="width: 1000px">
+                 <div class="modal-content">
+
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                         <h4 class="modal-title">
+                             <asp:Label ID="Label1" runat="server"></asp:Label>
+                         </h4>
+                     </div>
+                     <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                         <ContentTemplate>
+                             <!-- Modal body -->
+                             <div class="modal-body" id="test">
+                                 <div class="row">
+
+                                     <div class="form-group">
+                                         <label class="form-label">Fecha</label>
+                                         <div class="form-line">
+                                             <asp:TextBox ID="txtfechaVer" runat="server" CssClass="form-control"></asp:TextBox>
+                                         </div>
+
+                                         <div class="form-group">
+                                             <label class="form-label">Descripción</label>
+
+                                             <div class="form-line">
+                                                 <asp:TextBox ID="txtVerDesc" runat="server" TextMode="multiline" Rows="4" class="form-control no-resize" placeholder="Ingrese la descripción"></asp:TextBox>
+                                             </div>
+                                         </div>
+                                     </div>
+
+                                     <!-- Modal footer -->
+                                     <br />
+                                 </div>
+                                 <div class="modal-footer">
+                                     <button type="button" class="btn btn-link waves-effect waves-grey btn-success" id="btnactualizar" runat="server" data-dismiss="modal" data-type="success" onserverclick="btnactualizar_ServerClick">Actualizar</button>
+                                     <button type="button" class="btn btn-link waves-effect waves-grey btn-success" id="btneliminar" runat="server" data-dismiss="modal" data-type="success" onserverclick="btneliminar_ServerClick">Eliminar</button>
+                                
+                                     </div>
+                         </ContentTemplate>
+                     </asp:UpdatePanel>
+                 </div>
+             </div>
+         </div>
+
     </section>
-    <script src="js/Rutina.js"></script>
+    <%--<script src="js/Rutina.js"></script>--%>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
 </asp:Content>

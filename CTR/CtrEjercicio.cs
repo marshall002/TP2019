@@ -18,9 +18,9 @@ namespace CTR
             objDaoEjercicio = new DaoEjercicio();
         }
 
-        public DataTable CargaDatosEjercicio()
+        public DataTable CargaDatosEjercicio(int TipoEjercicio)
         {
-            return objDaoEjercicio.CDatosEJercicios();
+            return objDaoEjercicio.CDatosEJercicios(TipoEjercicio);
         }
         public DataTable CargaDatosEjercicioXT(int TypeEjerId)
         {

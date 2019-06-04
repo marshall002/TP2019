@@ -39,6 +39,9 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     case Constante.ROL_ADMINISTRADOR_SISTEMA:
                         perfil_Administrador();
                         break;
+                    case Constante.ROL_ENTRENADOR:
+                        perfil_Entrenador();
+                        break;
                     default:
                         Session.Clear();
                         Session.Abandon();
@@ -117,6 +120,18 @@ public partial class MasterPage : System.Web.UI.MasterPage
                        <a href='#' onclick='modal('modalEnConstruccion');'>
                             <i class='material-icons'>content_paste</i>
                             <span>Mis citas</span>
+                        </a>
+                    </li>
+                    ");
+        this.Literal1.Text = html;
+    }
+    public void perfil_Entrenador()
+    {
+        string html = string.Format(@"
+                   <li>
+                        <a href='AdministrarRutina.aspx'>
+                            <i class='material-icons'>content_paste</i>
+                            <span>Administra las rutinas</span>
                         </a>
                     </li>
                     ");

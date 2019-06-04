@@ -17,11 +17,13 @@ namespace DAO
             conexion = new SqlConnection(ConexionBD.CadenaConexion);
         }
 
-        public DataTable CDatosEJercicios()
+        public DataTable CDatosEJercicios(int TipoEjercicio)
         {
             try
             {
                 SqlCommand cmd = new SqlCommand("sp_CargarEjercicio", conexion);
+                cmd.Parameters.AddWithValue("@FK_Ejercicio", TipoEjercicio);
+
                 cmd.CommandType = CommandType.StoredProcedure;
                 DataTable dt = new DataTable();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

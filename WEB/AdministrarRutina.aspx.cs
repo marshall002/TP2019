@@ -10,9 +10,11 @@ using System.Web.Script.Services;
 using CTR;
 using DAO;
 using DTO;
+using System.Globalization;
 
 public partial class AdministrarRutina : System.Web.UI.Page
 {
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -25,8 +27,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
                 {
                     ddlMes.SelectedValue = DateTime.Now.Month.ToString();
                     encontrarsemanas();
-                    //CargarTEjercicio();
-                    //CargarEjercicio();
+
                 }
                 else
                 {
@@ -109,27 +110,6 @@ public partial class AdministrarRutina : System.Web.UI.Page
         upCursos.Update();
     }
 
-    //private void CargarTEjercicio()
-    //{
-    //    CtrTipo_Ejercicio objCtrTipo_Ejercicio = new CtrTipo_Ejercicio();
-
-    //    ddlTEjercicio.DataSource = objCtrTipo_Ejercicio.CargaDatosTEjercicio();
-    //    ddlTEjercicio.DataTextField = "VTE_Nombre";
-    //    ddlTEjercicio.DataValueField = "PK_ITE_Cod";
-    //    ddlTEjercicio.DataBind();
-    //    ddlTEjercicio.Items.Insert(0, new ListItem("Seleccione","0"));
-    //}
-
-    //private void CargarEjercicio()
-    //{
-    //    CtrEjercicio objCtrEjercicio = new CtrEjercicio();
-
-    //    ddlEjercicio.DataSource = objCtrEjercicio.CargaDatosEjercicio();
-    //    ddlEjercicio.DataTextField = "VE_Nombre";
-    //    ddlEjercicio.DataValueField = "PK_IE_Cod";
-    //    ddlEjercicio.DataBind();
-    //    ddlEjercicio.Items.Insert(0, new ListItem("Seleccione", "0"));
-    //}
 
     protected void gvLista_RowCommand1(object sender, GridViewCommandEventArgs e)
     {
@@ -144,7 +124,8 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Crossfit";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal').modal('show');", true);
+            consultarDatos();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal2').modal('show');", true);
         }
         if (e.CommandName == "VerF")
         {
@@ -157,7 +138,8 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Funcional";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal').modal('show');", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal2').modal('show');", true);
+
         }
         if (e.CommandName == "RegistrarC")
         {
@@ -170,7 +152,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Crossfit";
-
+            obtener_Rutina_Fecha();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal').modal('show');", true);
 
         }
@@ -185,34 +167,35 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Funcional";
+            obtener_Rutina_Fecha();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal').modal('show');", true);
         }
     }
     [System.Web.Services.WebMethod]
-    public static ListSelect GetList()
-    {
-        CtrTipo_Ejercicio objCtrTipo_Ejercicio = new CtrTipo_Ejercicio();
-        var Tipoejercicio = objCtrTipo_Ejercicio.CargaDatosTEjercicio();
-        CtrEjercicio objCtrEjercicio = new CtrEjercicio();
-        var ejercicio = objCtrEjercicio.CargaDatosEjercicio();
-        var a = ejercicio.AsEnumerable().ToList();
-        List<DtoTipo_Ejercicio> listTipoEjercicio = Tipoejercicio.AsEnumerable().Select(m => new DtoTipo_Ejercicio()
-        {
-            PK_ITE_Cod = Convert.ToInt32(m.ItemArray[0]),
-            VTE_Nombre = m.ItemArray[1].ToString()
-        }).ToList();
-        List<DtoEjercicio> listEjercicio = ejercicio.AsEnumerable().Select(m => new DtoEjercicio()
-        {
-            PK_IE_Cod = Convert.ToInt32(m.ItemArray[0]),
-            FK_ITE_Cod = Convert.ToInt32(m.ItemArray[2]),
-            VE_Nombre = m.ItemArray[1].ToString(),
-        }).ToList();
-        var list = new ListSelect();
-        list.dtoEjercicios = listEjercicio;
-        list.dtoTipoEjercicios = listTipoEjercicio;
-        return list;
-    }
-    [System.Web.Services.WebMethod]
+    //public static ListSelect GetList()
+    //{
+    //    CtrTipo_Ejercicio objCtrTipo_Ejercicio = new CtrTipo_Ejercicio();
+    //    var Tipoejercicio = objCtrTipo_Ejercicio.CargaDatosTEjercicio();
+    //    CtrEjercicio objCtrEjercicio = new CtrEjercicio();
+    //    var ejercicio = objCtrEjercicio.CargaDatosEjercicio();
+    //    var a = ejercicio.AsEnumerable().ToList();
+    //    List<DtoTipo_Ejercicio> listTipoEjercicio = Tipoejercicio.AsEnumerable().Select(m => new DtoTipo_Ejercicio()
+    //    {
+    //        PK_ITE_Cod = Convert.ToInt32(m.ItemArray[0]),
+    //        VTE_Nombre = m.ItemArray[1].ToString()
+    //    }).ToList();
+    //    List<DtoEjercicio> listEjercicio = ejercicio.AsEnumerable().Select(m => new DtoEjercicio()
+    //    {
+    //        PK_IE_Cod = Convert.ToInt32(m.ItemArray[0]),
+    //        FK_ITE_Cod = Convert.ToInt32(m.ItemArray[2]),
+    //        VE_Nombre = m.ItemArray[1].ToString(),
+    //    }).ToList();
+    //    var list = new ListSelect();
+    //    list.dtoEjercicios = listEjercicio;
+    //    list.dtoTipoEjercicios = listTipoEjercicio;
+    //    return list;
+    //}
+    //[System.Web.Services.WebMethod]
     public static ListSelect GetEjercicioByTipoEjercicio(int idTipoUsuario)
     {
         CtrEjercicio objCtrEjercicio = new CtrEjercicio();
@@ -231,5 +214,145 @@ public partial class AdministrarRutina : System.Web.UI.Page
     {
         public List<DtoEjercicio> dtoEjercicios { get; set; }
         public List<DtoTipo_Ejercicio> dtoTipoEjercicios { get; set; }
+    }
+
+    public void obtener_Rutina_Fecha()
+    {
+        string fecha = Session["PrimerDia"].ToString();
+        string TRutina = Session["Tipo_Rutina"].ToString();
+
+        DateTime dia = DateTime.Parse(fecha);
+        CultureInfo test = new System.Globalization.CultureInfo("es-ES");
+        string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
+        txtfechaRuti.Text = fecha + ", " + diaespaniol;
+        txtfechaRuti.Enabled = false;
+
+        UpdatePanel1.Update();
+
+
+    }
+
+    protected void btnGuardar_ServerClick(object sender, EventArgs e)
+    {
+        try
+        {
+            if (txtfechaRuti.Text != "" || txtdescripcion.Text != "")
+            {
+
+                CtrRutina objctrRutina = new CtrRutina();
+                DtoRutina objdtoRutina = new DtoRutina();
+                string fecha = Session["PrimerDia"].ToString();
+                DateTime Fecha = DateTime.Parse(fecha);
+
+                DateTime fechaclase = Fecha;
+                objdtoRutina.DR_FechaRutina = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+
+                objdtoRutina.FK_ITR_Cod = int.Parse(Session["Tipo_Rutina"].ToString());
+                objdtoRutina.VR_Descripcion = txtdescripcion.Text;
+                objctrRutina.Registrar_Rutina(objdtoRutina);
+                txtdescripcion.Text = "";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Registrado correctamente', 'bottom', 'center', null, null);", true);
+
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.WriteLog("Error: " + ex.Message);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red','" + ex.Message + "', 'bottom', 'center', null, null);", true);
+
+        }
+
+    }
+
+    protected void btnactualizar_ServerClick(object sender, EventArgs e)
+    {
+        try
+        {
+            actualizarRutina();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Actualizado correctamente', 'bottom', 'center', null, null);", true);
+
+        }
+        catch (Exception ex)
+        {
+            Log.WriteLog("Ex acutalizar error:  " + ex.Message);
+        }
+
+    }
+
+    protected void btneliminar_ServerClick(object sender, EventArgs e)
+    {
+        try
+        {
+            EliminarRutina();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Eliminado correctamente', 'bottom', 'center', null, null);", true);
+
+        }
+        catch (Exception ex)
+        {
+            Log.WriteLog("Ex eliminar error:  " + ex.Message);
+        }
+    }
+    public void consultarDatos()
+    {
+        DtoRutina objdtoRutina = new DtoRutina();
+        CtrRutina objctrRutina = new CtrRutina();
+        string fecha = Session["PrimerDia"].ToString();
+        DateTime Fecha = DateTime.Parse(fecha);
+
+        DateTime fechaclase = Fecha;
+        objdtoRutina.DR_FechaRutina = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+
+        objdtoRutina.FK_ITR_Cod = int.Parse(Session["Tipo_Rutina"].ToString());
+        objctrRutina.Obtener_Rutina(objdtoRutina);
+
+        Log.WriteLog("objdotioRutina" + objdtoRutina.PK_IR_Cod);
+        Log.WriteLog("objdotioRutina" + objdtoRutina.VR_Descripcion);
+
+
+        DateTime dia = DateTime.Parse(fecha);
+        CultureInfo test = new System.Globalization.CultureInfo("es-ES");
+        string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
+        txtfechaVer.Text = fecha + ", " + diaespaniol;
+        txtfechaRuti.Enabled = false;
+        txtVerDesc.Text = objdtoRutina.VR_Descripcion;
+        UpdatePanel2.Update();
+    }
+    public void actualizarRutina()
+    {
+        DtoRutina objdtoRutina = new DtoRutina();
+        CtrRutina objctrRutina = new CtrRutina();
+        string fecha = Session["PrimerDia"].ToString();
+        DateTime Fecha = DateTime.Parse(fecha);
+
+        DateTime fechaclase = Fecha;
+        objdtoRutina.DR_FechaRutina = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+
+        objdtoRutina.FK_ITR_Cod = int.Parse(Session["Tipo_Rutina"].ToString());
+        objctrRutina.Obtener_Rutina(objdtoRutina);
+
+        Log.WriteLog("objdotioRutina" + objdtoRutina.PK_IR_Cod);
+        Log.WriteLog("objdotioRutina" + objdtoRutina.VR_Descripcion);
+        objdtoRutina.VR_Descripcion = txtVerDesc.Text;
+
+        objctrRutina.Actualizar_Rutina(objdtoRutina);
+
+    }
+    public void EliminarRutina()
+    {
+        DtoRutina objdtoRutina = new DtoRutina();
+        CtrRutina objctrRutina = new CtrRutina();
+        string fecha = Session["PrimerDia"].ToString();
+        DateTime Fecha = DateTime.Parse(fecha);
+
+        DateTime fechaclase = Fecha;
+        objdtoRutina.DR_FechaRutina = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+
+        objdtoRutina.FK_ITR_Cod = int.Parse(Session["Tipo_Rutina"].ToString());
+        objctrRutina.Obtener_Rutina(objdtoRutina);
+
+        Log.WriteLog("objdotioRutina" + objdtoRutina.PK_IR_Cod);
+
+        objctrRutina.Eliminar_Rutina(objdtoRutina);
+
     }
 }

@@ -31,16 +31,75 @@ namespace DAO
 			return dtDatos;
 		}
 
-        public void RegistrarRutina(DateTime fechaHoraInicio, DateTime fechaHoraFin)
+        public void RegistrarRutina(DtoRutina objDtoRutina)
         {
-            SqlCommand command = new SqlCommand("sp_RegistrarRutina", conexion);
+            SqlCommand command = new SqlCommand("SP_RegistrarRutina", conexion);
             command.CommandType = CommandType.StoredProcedure;
             //command.Parameters.AddWithValue("@CodigoCita", cita.IC_Cod);
-            command.Parameters.AddWithValue("@FechaHoraInicio", fechaHoraInicio);
-            command.Parameters.AddWithValue("@FechaHoraFin", fechaHoraFin);
+            command.Parameters.AddWithValue("@DR_FechaRutina", objDtoRutina.DR_FechaRutina);
+            command.Parameters.AddWithValue("@FK_ITR_Cod", objDtoRutina.FK_ITR_Cod);
+            command.Parameters.AddWithValue("@VR_Descripcion", objDtoRutina.VR_Descripcion);
+
             conexion.Open();
             command.ExecuteNonQuery();
             conexion.Close();
+        }
+        public void ActualizarRutina(DtoRutina objDtoRutina)
+        {
+            SqlCommand command = new SqlCommand("SP_ActualizarRutina", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            //command.Parameters.AddWithValue("@CodigoCita", cita.IC_Cod);
+            command.Parameters.AddWithValue("@pk_IR_Cod", objDtoRutina.PK_IR_Cod);
+            command.Parameters.AddWithValue("@vc_Descripcion", objDtoRutina.VR_Descripcion);
+
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
+        public void EliminarRutina(DtoRutina objDtoRutina)
+        {
+            SqlCommand command = new SqlCommand("SP_EliminarRutina", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@pk_IR_Cod", objDtoRutina.PK_IR_Cod);
+
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
+        public void ObtenerRutina(DtoRutina objDtoRutina)
+        {
+            SqlCommand cmd = new SqlCommand("SP_ObtenerRutina", conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+            //command.Parameters.AddWithValue("@CodigoCita", cita.IC_Cod);
+            cmd.Parameters.AddWithValue("@DR_FechaRutina", objDtoRutina.DR_FechaRutina);
+            cmd.Parameters.AddWithValue("@FK_ITR_Cod", objDtoRutina.FK_ITR_Cod);
+            DataSet ds = new DataSet();
+            conexion.Open();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.Fill(ds);
+            da.Dispose();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+
+                objDtoRutina.PK_IR_Cod = int.Parse(reader[0].ToString());
+
+                if (reader[1] != DBNull.Value)
+                {
+                    objDtoRutina.VR_Descripcion = reader[1].ToString();
+                }
+                else
+                {
+                    objDtoRutina.VR_Descripcion = reader[1].ToString();
+                }
+
+
+            }
+
+            conexion.Close();
+            conexion.Dispose();
         }
         public void RegistrarEjercicio(String nombre, Double duracion, String observacion)
         {

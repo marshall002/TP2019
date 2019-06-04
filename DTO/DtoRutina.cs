@@ -12,6 +12,8 @@ namespace DTO
         public DateTime DR_FechaRutina { get; set; }
         public DateTime DR_FechaHoraRegistro { get; set; }
         public int FK_ITR_Cod { get; set; }
+        public string VR_Descripcion{ get; set; }
+
 
     }
 }
