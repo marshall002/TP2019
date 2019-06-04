@@ -92,7 +92,9 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
                 int index = Convert.ToInt32(e.CommandArgument);
                 var colsNoVisible = gvRutinasinscritas.DataKeys[index].Values;
                 int codrutina = Convert.ToInt32(colsNoVisible[0]);
+                string fechahora = colsNoVisible[2].ToString();
                 Session["cor_R"] = codrutina;
+                Session["fechaHora"] = fechahora;
 
                 string script = @"<script type='text/javascript'>
                                       $('#modalconfirmacioneliminarIns').modal('show');
@@ -166,6 +168,9 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
         {
             objdtousuarioxrutina.FK_CU_Dni = Session["SessionUsuario"].ToString();
             objdtousuarioxrutina.FK_IR_Cod = int.Parse(Session["cor_R"].ToString());
+            DateTime hora = DateTime.Parse(Session["fechahora"].ToString());
+            String H = hora.ToString("HH:mm");
+            objdtousuarioxrutina.FK_IH_Cod=objctrusuarioxrutina.retornaHoraId(H);
             objctrusuarioxrutina.eliminarUsuario_rutina(objdtousuarioxrutina);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "se elimino correctamente" + "', 'bottom', 'center', null, null);", true);
             listarRutinasSocio();
