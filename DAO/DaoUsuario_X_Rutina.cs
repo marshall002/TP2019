@@ -190,6 +190,7 @@ namespace DAO
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@dni", ObjDtoUsuarioXRutina.FK_CU_Dni);
             command.Parameters.AddWithValue("@codR", ObjDtoUsuarioXRutina.FK_IR_Cod);
+            command.Parameters.AddWithValue("@idhora", ObjDtoUsuarioXRutina.FK_IH_Cod);
             conexion.Open();
             command.ExecuteNonQuery();
             conexion.Close();
