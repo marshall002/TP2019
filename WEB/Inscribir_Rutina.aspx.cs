@@ -66,7 +66,7 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
                 //if (estadosol != "2")
                 //{
-
+                consultarDatos();
                 obtener_Rutina_Fecha();
 
                 string script = @"<script type='text/javascript'>
@@ -101,6 +101,7 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 Session["Primerdia"] = id;
                 Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
                 Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+                consultarDatos();
                 obtener_Rutina_Fecha();
 
                 string script = @"<script type='text/javascript'>
@@ -316,5 +317,29 @@ public partial class Inscribir_Clase : System.Web.UI.Page
             ddlHoras.Items.Add(i);
         }
         Udp_ddlhoras.Update();
+    }
+    public void consultarDatos()
+    {
+        DtoRutina objdtoRutina = new DtoRutina();
+        CtrRutina objctrRutina = new CtrRutina();
+        string fecha = Session["PrimerDia"].ToString();
+        DateTime Fecha = DateTime.Parse(fecha);
+
+        DateTime fechaclase = Fecha;
+        objdtoRutina.DR_FechaRutina = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+
+        objdtoRutina.FK_ITR_Cod = int.Parse(Session["Tipo_Rutina"].ToString());
+        objctrRutina.Obtener_Rutina(objdtoRutina);
+
+        Log.WriteLog("objdotioRutina" + objdtoRutina.PK_IR_Cod);
+        Log.WriteLog("objdotioRutina" + objdtoRutina.VR_Descripcion);
+
+
+        DateTime dia = DateTime.Parse(fecha);
+        CultureInfo test = new System.Globalization.CultureInfo("es-ES");
+        string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
+        
+        txtEjercicios.Text = objdtoRutina.VR_Descripcion;
+        upEjercicios.Update();
     }
 }

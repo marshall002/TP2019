@@ -72,6 +72,7 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
                 Session["Tipo_Rutina"] = tipor;
                 Session["fecha"] = fecha;
                 Session["fechahora"] = fechahora;
+                consultarDatos();
                 obtener_Rutina_Fecha();
                 string script = @"<script type='text/javascript'>
                                       $('#modalActualizacion').modal('show');
@@ -288,5 +289,38 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
         int idH = objctrusuarioxrutina.retornaHoraId(ddlHoras.Text);
         bool rep = objctrusuarioxrutina.validarHoraRepetida(dni, idr, idH);
         return rep;
+    }
+    public void consultarDatos()
+    {
+        DtoRutina objdtoRutina = new DtoRutina();
+        CtrRutina objctrRutina = new CtrRutina();
+        string fecha = Session["fecha"].ToString();
+        DateTime Fecha = DateTime.Parse(fecha);
+
+        DateTime fechaclase = Fecha;
+        objdtoRutina.DR_FechaRutina = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+
+        string TRutina = Session["Tipo_Rutina"].ToString();
+        if (TRutina == "Crossfit")
+        {
+            objdtoRutina.FK_ITR_Cod = 1;
+        }
+        else
+        {
+            objdtoRutina.FK_ITR_Cod = 2;
+        }
+        
+        objctrRutina.Obtener_Rutina(objdtoRutina);
+
+        Log.WriteLog("objdotioRutina" + objdtoRutina.PK_IR_Cod);
+        Log.WriteLog("objdotioRutina" + objdtoRutina.VR_Descripcion);
+
+
+        DateTime dia = DateTime.Parse(fecha);
+        CultureInfo test = new System.Globalization.CultureInfo("es-ES");
+        string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
+
+        txtEjercicios.Text = objdtoRutina.VR_Descripcion;
+        upEjercicios.Update();
     }
 }

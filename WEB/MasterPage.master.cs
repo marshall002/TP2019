@@ -79,7 +79,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     <li>
                         <a href='Listar_rutinas_socio.aspx'>
                             <i class='material-icons'>content_paste</i>
-                            <span>Administra tus inscripciones a clase</span>
+                            <span>Administra tus inscripciones a rutina</span>
                         </a>
                     </li>
                     ");
