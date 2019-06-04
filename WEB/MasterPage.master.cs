@@ -20,7 +20,17 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 Log.WriteLog("-----------------------------Ingresando a masterpage y Obtener pestañas disponibles--------------------------");
                 Log.WriteLog("-------------------------------------------------------------------------------------------------------------");
                 int perfil = int.Parse(Session["id_perfil"].ToString());
+
                 Log.WriteLog(" perfil:  " + perfil);
+
+                string nombre = Session["NombreUsuario"].ToString() + " " + Session["APaternoUsuario"].ToString()
+                                 + " " + Session["AMaternoUsuario"].ToString();
+
+                nombreUsuario.Text = nombre;
+
+                string email = Session["correo"].ToString();
+
+                emailUsuario.Text = email;
 
                 switch (perfil)
                 {

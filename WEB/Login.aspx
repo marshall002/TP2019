@@ -136,7 +136,7 @@
                                     <a href="#" data-dismiss="modal" onclick="changeToRemember($(this));">&iquest;Olvidaste tu contraseña?</a>
                                 </div>
                             </div>-->
-                            <asp:Label ID="Label1" runat="server" ForeColor="#CC0000"></asp:Label>
+                            <asp:Label ID="mostrarMensaje" runat="server" ForeColor="#CC0000"></asp:Label>
                         </div>
                     </div>
                 </div>
