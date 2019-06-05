@@ -100,8 +100,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
         string html = string.Format(@"
                    
                    
-                    <li>
-                       <a href='#' onclick='modal('modalEnConstruccion');'>
+                   <li>
+                        <a href='Proc_Citas_Sol_Listar.aspx'>
                             <i class='material-icons'>content_paste</i>
                             <span>Gestionar las solicitudes</span>
                         </a>
@@ -161,13 +161,10 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void AdministradorOption_ServerClick(object sender, EventArgs e)
     {
-        Session["id_perfil"] = 2;
-        Page.Response.Redirect(Page.Request.Url.ToString(), true);
+        
     }
 
     protected void UsuarioOption_ServerClick(object sender, EventArgs e)
     {
-        Session["id_perfil"] = 1;
-        Page.Response.Redirect(Page.Request.Url.ToString(), true);
     }
 }

@@ -109,7 +109,7 @@
                                     <i class="material-icons">lock</i>
                                 </span>
                                 <div class="form-line">
-                                     <asp:TextBox ID="textPassword" TextMode="Password" CssClass="form-control" runat="server" MaxLength="20" placeholder="Usuario"></asp:TextBox>
+                                     <asp:TextBox ID="textPassword" TextMode="Password" CssClass="form-control" runat="server" MaxLength="20" placeholder="Contraseña"></asp:TextBox>
 
                                 </div>
                             </div>

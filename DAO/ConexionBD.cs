@@ -13,7 +13,7 @@ namespace DAO
         {
             get
             {
-                return @"data source=DEVELOPER; initial catalog=BD_SCLAP; integrated security=SSPI;";
+                return @"data source=LACING202A-21; initial catalog=BD_SCLAP; integrated security=SSPI;";
                 //return @"data Source=DEVELOPER;Initial Catalog=DB_SCLAP;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=True;";
 
             }
