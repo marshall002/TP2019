@@ -68,13 +68,19 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 //{
                 consultarDatos();
                 obtener_Rutina_Fecha();
-
-                string script = @"<script type='text/javascript'>
+                DateTime fecha = Convert.ToDateTime(Session["Primerdia"].ToString());
+                // VALIDACION FECHA 
+                if (fecha>DateTime.Now) {
+                    string script = @"<script type='text/javascript'>
                                       $('#modalInscripcion').modal('show');
                                   </script>";
-                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
-                cargarddlHoras();
-
+                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
+                    cargarddlHoras();
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Usted no puede registrase en rutinas anteriores al dia de hoy', 'bottom', 'center', null, null);", true);
+                }
                 //}
                 //else
                 //{
@@ -103,12 +109,20 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
                 consultarDatos();
                 obtener_Rutina_Fecha();
-
-                string script = @"<script type='text/javascript'>
+                DateTime fecha = Convert.ToDateTime(Session["Primerdia"].ToString());
+                // VALIDACION FECHA 
+                if (fecha > DateTime.Now)
+                {
+                    string script = @"<script type='text/javascript'>
                                       $('#modalInscripcion').modal('show');
                                   </script>";
-                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
-                cargarddlHoras();
+                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
+                    cargarddlHoras();
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Usted no puede registrase en citas anteriores al dia de hoy', 'bottom', 'center', null, null);", true);
+                }
             }
             catch (Exception ex)
             {

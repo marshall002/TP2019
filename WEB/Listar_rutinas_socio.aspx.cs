@@ -74,11 +74,17 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
                 Session["fechahora"] = fechahora;
                 consultarDatos();
                 obtener_Rutina_Fecha();
-                string script = @"<script type='text/javascript'>
+                if (Convert.ToDateTime(fecha)> DateTime.Now)
+                {
+                    string script = @"<script type='text/javascript'>
                                       $('#modalActualizacion').modal('show');
                                   </script>";
-                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
-                cargarddlHoras();
+                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
+                    cargarddlHoras(); }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Usted no puede actualizar en las rutinas anteriores al dia de hoy', 'bottom', 'center', null, null);", true);
+                }
             }
             catch (Exception ex)
             {
@@ -94,14 +100,21 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
                 var colsNoVisible = gvRutinasinscritas.DataKeys[index].Values;
                 int codrutina = Convert.ToInt32(colsNoVisible[0]);
                 string fechahora = colsNoVisible[2].ToString();
+                string fecha = colsNoVisible[1].ToString();
                 Session["cor_R"] = codrutina;
                 Session["fechaHora"] = fechahora;
-
-                string script = @"<script type='text/javascript'>
+                Session["fecha"] = fecha;
+                if (Convert.ToDateTime(fecha) > DateTime.Now)
+                {
+                    string script = @"<script type='text/javascript'>
                                       $('#modalconfirmacioneliminarIns').modal('show');
                                   </script>";
-                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
-
+                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Usted no puede eliminar en las rutinas anteriores al dia de hoy', 'bottom', 'center', null, null);", true);
+                }
             }
             catch (Exception ex)
             {
