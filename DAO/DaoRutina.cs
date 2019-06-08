@@ -113,5 +113,21 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+
+        public void registroRuti(DtoRuti objdtoRuti)
+        {
+            
+            conexion.Open();
+            string query = "INSERT INTO T_Ruti (DR_FechaRutina,DR_FechaRegistro,VR_DescripcionE,ITR_TipoRutina,VR_Duracion,IR_Repeticion) VALUES (@DR_FechaRutina,@DR_FechaRegistro,@VR_DescripcionE,@ITR_TipoRutina,@VR_Duracion,@IR_Repeticion)";
+            SqlCommand sqlCmd = new SqlCommand(query, conexion);
+            sqlCmd.Parameters.AddWithValue("@DR_FechaRutina", objdtoRuti.DR_FechaRutina);
+            sqlCmd.Parameters.AddWithValue("@VR_DescripcionE", objdtoRuti.VR_DescripcionE);
+            sqlCmd.Parameters.AddWithValue("@IR_TipoRutina", objdtoRuti.FK_ITR_Cod);
+            sqlCmd.Parameters.AddWithValue("@VR_Duracion", objdtoRuti.VR_Duracion);
+            sqlCmd.Parameters.AddWithValue("@VR_Repeticion", objdtoRuti.IR_Repeticion);
+
+            sqlCmd.ExecuteNonQuery();
+            
+        }
     }
 }

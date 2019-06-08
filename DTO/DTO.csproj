@@ -44,6 +44,7 @@
     <Compile Include="DtoCita.cs" />
     <Compile Include="DtoEjercicio.cs" />
     <Compile Include="DtoPlan.cs" />
+    <Compile Include="DtoRuti.cs" />
     <Compile Include="DtoRutina.cs" />
     <Compile Include="DtoRutinaXEjericio.cs" />
     <Compile Include="DtoTipoUsuario.cs" />
