@@ -125,7 +125,7 @@ namespace DAO
             sqlCmd.Parameters.AddWithValue("@IR_TipoRutina", objdtoRuti.FK_ITR_Cod);
             sqlCmd.Parameters.AddWithValue("@VR_Duracion", objdtoRuti.VR_Duracion);
             sqlCmd.Parameters.AddWithValue("@VR_Repeticion", objdtoRuti.IR_Repeticion);
-
+            //test
             sqlCmd.ExecuteNonQuery();
             
         }
