@@ -51,7 +51,7 @@
                                         <Columns>
                                             <asp:TemplateField HeaderText="FechaRutina">
                                                 <ItemTemplate>
-                                                    <asp:Label Text='<%# Eval("FechaRutina") %>' runat="server" />
+                                                    <asp:Label Text='<%# Eval("DR_FechaRutina") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
                                                     <asp:TextBox ID="txtfechaRutina" Text='<%# Eval("DR_FechaRutina") %>' runat="server" />
@@ -60,13 +60,13 @@
                                                     <asp:TextBox ID="txtFirstNameFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                           
+
                                             <asp:TemplateField HeaderText="Descripcion">
                                                 <ItemTemplate>
-                                                    <asp:Label Text='<%# Eval("Descripcion") %>' runat="server" />
+                                                    <asp:Label Text='<%# Eval("DR_FechaRegistro") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtdescripcion" Text='<%# Eval("VR_DescripcionE") %>' runat="server" />
+                                                    <asp:TextBox ID="txtdescripcion" Text='<%# Eval("DR_FechaRegistro") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                     <asp:TextBox ID="txtdescripcionFooter" runat="server" />
@@ -74,7 +74,29 @@
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Duracion">
                                                 <ItemTemplate>
-                                                    <asp:Label Text='<%# Eval("Duracion") %>' runat="server" />
+                                                    <asp:Label Text='<%# Eval("VR_DescripcionE") %>' runat="server" />
+                                                </ItemTemplate>
+                                                <EditItemTemplate>
+                                                    <asp:TextBox ID="txtduracion" Text='<%# Eval("VR_DescripcionE") %>' runat="server" />
+                                                </EditItemTemplate>
+                                                <FooterTemplate>
+                                                    <asp:TextBox ID="txtduracionFooter" runat="server" />
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Repeticion">
+                                                <ItemTemplate>
+                                                    <asp:Label Text='<%# Eval("FK_ITR_Cod") %>' runat="server" />
+                                                </ItemTemplate>
+                                                <EditItemTemplate>
+                                                    <asp:TextBox ID="txtrepeticion" Text='<%# Eval("FK_ITR_Cod") %>' runat="server" />
+                                                </EditItemTemplate>
+                                                <FooterTemplate>
+                                                    <asp:TextBox ID="txtrepeticionFooter" runat="server" />
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="VR_Duracion">
+                                                <ItemTemplate>
+                                                    <asp:Label Text='<%# Eval("VR_Duracion") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
                                                     <asp:TextBox ID="txtduracion" Text='<%# Eval("VR_Duracion") %>' runat="server" />
@@ -83,9 +105,9 @@
                                                     <asp:TextBox ID="txtduracionFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Repeticion">
+                                            <asp:TemplateField HeaderText="IR_Repeticion">
                                                 <ItemTemplate>
-                                                    <asp:Label Text='<%# Eval("Repeticion") %>' runat="server" />
+                                                    <asp:Label Text='<%# Eval("IR_Repeticion") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
                                                     <asp:TextBox ID="txtrepeticion" Text='<%# Eval("IR_Repeticion") %>' runat="server" />
@@ -95,7 +117,6 @@
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField>
-
                                                 <ItemTemplate>
                                                     <asp:ImageButton ImageUrl="~/Images/edit.png" runat="server" CommandName="Edit" ToolTip="Edit" Width="20px" Height="20px" />
                                                     <asp:ImageButton ImageUrl="~/Images/delete.png" runat="server" CommandName="Delete" ToolTip="Delete" Width="20px" Height="20px" />
