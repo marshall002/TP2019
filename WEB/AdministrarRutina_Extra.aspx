@@ -57,7 +57,7 @@
                                                     <asp:TextBox ID="txtfechaRutina" Text='<%# Eval("DR_FechaRutina") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtFirstNameFooter" runat="server" />
+                                                    <asp:TextBox ID="txtfechaRutinaFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
 
@@ -66,10 +66,10 @@
                                                     <asp:Label Text='<%# Eval("DR_FechaRegistro") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtdescripcion" Text='<%# Eval("DR_FechaRegistro") %>' runat="server" />
+                                                    <asp:TextBox ID="txtfecharegistro" Text='<%# Eval("DR_FechaRegistro") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtdescripcionFooter" runat="server" />
+                                                    <asp:TextBox ID="txtfecharegistroFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Duracion">
@@ -77,10 +77,10 @@
                                                     <asp:Label Text='<%# Eval("VR_DescripcionE") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtduracion" Text='<%# Eval("VR_DescripcionE") %>' runat="server" />
+                                                    <asp:TextBox ID="txtdescripcion" Text='<%# Eval("VR_DescripcionE") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtduracionFooter" runat="server" />
+                                                    <asp:TextBox ID="txtdescripcionFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Repeticion">
@@ -88,10 +88,10 @@
                                                     <asp:Label Text='<%# Eval("FK_ITR_Cod") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtrepeticion" Text='<%# Eval("FK_ITR_Cod") %>' runat="server" />
+                                                    <asp:TextBox ID="txtFK_ITR_Cod" Text='<%# Eval("FK_ITR_Cod") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtrepeticionFooter" runat="server" />
+                                                    <asp:TextBox ID="txtFK_ITR_CodFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="VR_Duracion">

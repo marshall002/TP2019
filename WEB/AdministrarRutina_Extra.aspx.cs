@@ -17,8 +17,9 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-        Log.WriteLog("Page");
+            Log.WriteLog("Page");
             PopulateGridview();
+
         }
     }
     void PopulateGridview()
@@ -46,7 +47,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
             gvRutina.Rows[0].Cells[0].Text = "No Data Found ..!";
             gvRutina.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Center;
         }
-
+        Log.WriteLog("ingreso a popular el gridview");
     }
     //protected void gvPhoneBook_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
     //{
@@ -192,13 +193,46 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
 
     protected void gvRutina_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-       
+        try
+        {
+            if (e.CommandName.Equals("AddNew"))
+            {
+                Log.WriteLog("entro a funcion add new");
+                using (SqlConnection sqlCon = new SqlConnection(connectionString))
+                {
+                    sqlCon.Open();
+                    string query = "INSERT INTO T_Ruti (DR_FechaRutina,DR_FechaRegistro,VR_DescripcionE,FK_ITR_Cod,VR_Duracion,IR_Repeticion) VALUES (@Fecharutina,GETDATE(),@descripcion,@fkitrcod,@duracion,@repetic)";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@Fecharutina", DateTime.Parse((gvRutina.FooterRow.FindControl("txtfechaRutinaFooter") as TextBox).Text.Trim()));
+                    //sqlCmd.Parameters.AddWithValue("@Fecharegistro", (gvRutina.FooterRow.FindControl("txtfecharegistroFooter") as TextBox).Text.Trim());
+                    sqlCmd.Parameters.AddWithValue("@descripcion", (gvRutina.FooterRow.FindControl("txtdescripcionFooter") as TextBox).Text.Trim());
+                    sqlCmd.Parameters.AddWithValue("@fkitrcod", (gvRutina.FooterRow.FindControl("txtFK_ITR_CodFooter") as TextBox).Text.Trim());
+                    sqlCmd.Parameters.AddWithValue("@duracion", (gvRutina.FooterRow.FindControl("txtduracionFooter") as TextBox).Text.Trim());
+                    sqlCmd.Parameters.AddWithValue("@repetic", (gvRutina.FooterRow.FindControl("txtrepeticionFooter") as TextBox).Text.Trim());
+
+
+
+                    sqlCmd.ExecuteNonQuery();
+                    PopulateGridview();
+                    lblSuccessMessage.Text = "New Record Added";
+                    lblErrorMessage.Text = "";
+                    UPGridview.Update();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            lblSuccessMessage.Text = "";
+            lblErrorMessage.Text = ex.Message;
+            Log.WriteLog("error en add new: " + ex.Message);
+        }
     }
 
     protected void gvRutina_RowEditing(object sender, GridViewEditEventArgs e)
     {
         gvRutina.EditIndex = e.NewEditIndex;
         PopulateGridview();
+        UPGridview.Update();
 
     }
 
@@ -206,35 +240,56 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
     {
         gvRutina.EditIndex = -1;
         PopulateGridview();
+        UPGridview.Update();
     }
 
     protected void gvRutina_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-
+        Log.WriteLog("entro a funcion Actualizar");
+        try
+        {
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                string query = "UPDATE T_Ruti SET DR_FechaRutina=@Fecharutina,VR_DescripcionE=@descripcion,FK_ITR_Cod=@fkitrcod,VR_Duracion=@duracion,IR_Repeticion=@repetic WHERE PK_IR_Cod = @id";
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                sqlCmd.Parameters.AddWithValue("@Fecharutina", DateTime.Parse((gvRutina.Rows[e.RowIndex].FindControl("txtfechaRutina") as TextBox).Text.Trim()));
+                sqlCmd.Parameters.AddWithValue("@descripcion", (gvRutina.Rows[e.RowIndex].FindControl("txtdescripcion") as TextBox).Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@fkitrcod", (gvRutina.Rows[e.RowIndex].FindControl("txtFK_ITR_Cod") as TextBox).Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@duracion", (gvRutina.Rows[e.RowIndex].FindControl("txtduracion") as TextBox).Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@repetic", (gvRutina.Rows[e.RowIndex].FindControl("txtrepeticion") as TextBox).Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@id", Convert.ToInt32(gvRutina.DataKeys[e.RowIndex].Value.ToString()));
+                sqlCmd.ExecuteNonQuery();
+                gvRutina.EditIndex = -1;
+                UPGridview.Update();
+                PopulateGridview();
+                UPGridview.Update();
+                lblSuccessMessage.Text = "Selected Record Updated";
+                lblErrorMessage.Text = "";
+            }
+        }
+        catch (Exception ex)
+        {
+            lblSuccessMessage.Text = "";
+            Log.WriteLog("Error en el actualizar : " + ex.Message);
+        }
     }
 
     protected void gvRutina_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
+        Log.WriteLog("entro a funcion eliminar");
         try
         {
-            Log.WriteLog("entro a funcion eliminar");
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
-            Log.WriteLog("1");
                 sqlCon.Open();
-                Log.WriteLog("2");
 
                 string query = "DELETE FROM T_Ruti WHERE PK_IR_Cod = @id";
-                Log.WriteLog("3");
 
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-            Log.WriteLog("4");
                 sqlCmd.Parameters.AddWithValue("@id", Convert.ToInt32(gvRutina.DataKeys[e.RowIndex].Value.ToString()));
-            Log.WriteLog("5");
                 sqlCmd.ExecuteNonQuery();
-            Log.WriteLog("6");
                 PopulateGridview();
-            Log.WriteLog("7");
                 lblSuccessMessage.Text = "Selected Record Deleted";
                 lblErrorMessage.Text = "";
                 UPGridview.Update();
