@@ -115,6 +115,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
     {
         if (e.CommandName == "VerC")
         {
+            Response.Redirect("AdministrarRutina_Extra.aspx");
             int index = Convert.ToInt32(e.CommandArgument);
             var colsNoVisible = gvLista.DataKeys[index].Values;
             string id = colsNoVisible[0].ToString();
@@ -129,6 +130,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         }
         if (e.CommandName == "VerF")
         {
+            Response.Redirect("AdministrarRutina_Extra.aspx");
             int index = Convert.ToInt32(e.CommandArgument);
             var colsNoVisible = gvLista.DataKeys[index].Values;
             string id = colsNoVisible[0].ToString();
@@ -143,6 +145,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         }
         if (e.CommandName == "RegistrarC")
         {
+            Response.Redirect("AdministrarRutina_Extra.aspx");
             int index = Convert.ToInt32(e.CommandArgument);
             var colsNoVisible = gvLista.DataKeys[index].Values;
             string id = colsNoVisible[0].ToString();
@@ -158,6 +161,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         }
         if (e.CommandName == "RegistrarF")
         {
+            Response.Redirect("AdministrarRutina_Extra.aspx");
             int index = Convert.ToInt32(e.CommandArgument);
             var colsNoVisible = gvLista.DataKeys[index].Values;
             string id = colsNoVisible[0].ToString();

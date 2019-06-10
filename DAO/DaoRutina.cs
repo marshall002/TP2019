@@ -12,6 +12,7 @@ namespace DAO
     public class DaoRutina
     {
         SqlConnection conexion;
+        DtoRuti objdtoruti = new DtoRuti();
         public DaoRutina()
         {
             conexion = new SqlConnection(ConexionBD.CadenaConexion);
@@ -114,11 +115,12 @@ namespace DAO
             conexion.Close();
         }
 
-        public void registroRuti(DtoRuti objdtoRuti)
+        ///
+        public void registrarRuti(DtoRuti objdtoRuti)
         {
             
             conexion.Open();
-            string query = "INSERT INTO T_Ruti (DR_FechaRutina,DR_FechaRegistro,VR_DescripcionE,ITR_TipoRutina,VR_Duracion,IR_Repeticion) VALUES (@DR_FechaRutina,@DR_FechaRegistro,@VR_DescripcionE,@ITR_TipoRutina,@VR_Duracion,@IR_Repeticion)";
+            string query = "INSERT INTO T_Ruti (DR_FechaRutina,VR_DescripcionE,ITR_TipoRutina,VR_Duracion,IR_Repeticion) VALUES (@DR_FechaRutina,@VR_DescripcionE,@ITR_TipoRutina,@VR_Duracion,@IR_Repeticion)";
             SqlCommand sqlCmd = new SqlCommand(query, conexion);
             sqlCmd.Parameters.AddWithValue("@DR_FechaRutina", objdtoRuti.DR_FechaRutina);
             sqlCmd.Parameters.AddWithValue("@VR_DescripcionE", objdtoRuti.VR_DescripcionE);
@@ -128,6 +130,31 @@ namespace DAO
             //test
             sqlCmd.ExecuteNonQuery();
             
+        }
+
+        public void actualizarRuti(DateTime fechaRutina, string descripcion, string duracion, int repeticion)
+        {
+            conexion.Open();
+            DtoRuti objdtoruti = new DtoRuti();
+            
+            string query = "UPDATE T_Ruti SET DR_FechaRutina=@DR_FechaRutina,VR_DescripcionE=@VR_DescripcionE,VR_Duracion=@VR_Duracion,IR_Repeticion=@IR_Repeticion WHERE PK_IR_Cod = @id";
+            //SqlCommand command = new SqlCommand(query, conexion);
+            SqlCommand sqlCmd = new SqlCommand(query, conexion);
+            sqlCmd.Parameters.AddWithValue("@DR_FechaRutina", fechaRutina);
+            sqlCmd.Parameters.AddWithValue("@VR_DescripcionE", descripcion);
+            sqlCmd.Parameters.AddWithValue("@VR_Duracion", duracion);
+            sqlCmd.Parameters.AddWithValue("@IR_Repeticion", Convert.ToInt32(repeticion.ToString()));
+            sqlCmd.ExecuteNonQuery();
+            conexion.Close();
+        }
+
+        public void eliminarRuti(int codigoRuti)
+        {
+            conexion.Open();
+            string query = "DELETE FROM T_Ruti WHERE FK_IR_Cod = @id";
+            SqlCommand sqlCmd = new SqlCommand(query, conexion);
+            sqlCmd.Parameters.AddWithValue("@id", Convert.ToInt32(codigoRuti.ToString()));
+            sqlCmd.ExecuteNonQuery();
         }
     }
 }

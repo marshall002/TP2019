@@ -12,6 +12,7 @@ namespace CTR
     public class CtrRutina
     {
         DaoRutina objdaorutina;
+       
         public CtrRutina()
         {
             objdaorutina = new DaoRutina();
@@ -32,7 +33,22 @@ namespace CTR
         public void Eliminar_Rutina(DtoRutina objdtorutina)
         {
             objdaorutina.EliminarRutina(objdtorutina);
+        }
+        /////////////////////////////////////////////////////////
 
+        public void registrarRuti(DtoRuti objdtoRuti)
+        {
+            objdaorutina.registrarRuti(objdtoRuti);
+        }
+
+        //public void actualizarRuti(DtoRuti objdtoRuti)
+        //{
+        //    objdaorutina.actualizarRuti(objdtoRuti);
+        //}
+
+        public void eliminarRuti(DtoRuti objdtoRuti)
+        {
+            objdaorutina.eliminarRuti(objdtoRuti.PK_IR_Cod);
         }
     }
 }

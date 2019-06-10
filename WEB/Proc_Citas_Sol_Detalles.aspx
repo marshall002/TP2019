@@ -8,7 +8,7 @@
             $("[id*=txtFecha]").prop('disabled', true);
             $("[id*=txtHoras]").prop('disabled', true);
             $("[id*=txtDudaConsulta]").prop('disabled', true);
-            $("[id*=ddlHoras]").prop('disabled', true);
+            $("[id*=ddlHoras]").prop('disabled', true);vez?
             $("[id*=txtFechaProNueva]").prop('disabled', false);
             $("[id*=txtUsuarioSolicitante]").prop('disabled', true);
             $("[id*=txtEstadoSolicitud]").prop('disabled', true);

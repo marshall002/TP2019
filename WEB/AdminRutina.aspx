@@ -1,9 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AdministrarRutina_Extra.aspx.cs" Inherits="AdministrarRutina_Extra" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AdminRutina.aspx.cs" Inherits="AdminRutina" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="cph_header" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="cph_header" Runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="Server">
-    <section>
+<asp:Content ID="Content2" ContentPlaceHolderID="cph_body" Runat="Server">
+
+        <section>
         <div class="container-fluid">
             <div class="block-header">
                 <h1>Administrar Rutinas</h1>
@@ -32,10 +33,10 @@
 
                                 </div>
                                 <div class="body table-responsive ">
-                                    <asp:GridView ID="gvRutina" runat="server" AutoGenerateColumns="false" ShowFooter="true" DataKeyNames="PK_IR_Cod"
+                                    <asp:GridView ID="gvPhoneBook" runat="server" AutoGenerateColumns="false" ShowFooter="true" DataKeyNames="PhoneBookID"
                                         ShowHeaderWhenEmpty="true"
-                                        OnRowCommand="gvRutina_RowCommand" OnRowEditing="gvRutina_RowEditing" OnRowCancelingEdit="gvRutina_RowCancelingEdit"
-                                        OnRowUpdating="gvRutina_RowUpdating" OnRowDeleting="gvRutina_RowDeleting"
+                                        OnRowCommand="gvPhoneBook_RowCommand1" OnRowEditing="gvPhoneBook_RowEditing1" OnRowCancelingEdit="gvPhoneBook_RowCancelingEdit1"
+                                        OnRowUpdating="gvPhoneBook_RowUpdating1" OnRowDeleting="gvPhoneBook_RowDeleting1"
                                         BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
                                         <%-- Theme Properties --%>
                                         <FooterStyle BackColor="White" ForeColor="#000066" />
@@ -49,53 +50,51 @@
                                         <SortedDescendingHeaderStyle BackColor="#00547E" />
 
                                         <Columns>
-                                            <asp:TemplateField HeaderText="FechaRutina">
+                                            <asp:TemplateField HeaderText="First Name">
                                                 <ItemTemplate>
-                                                    <asp:Label Text='<%# Eval("FechaRutina") %>' runat="server" />
+                                                    <asp:Label Text='<%# Eval("FirstName") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtfechaRutina" Text='<%# Eval("DR_FechaRutina") %>' runat="server" />
+                                                    <asp:TextBox ID="txtFirstName" Text='<%# Eval("FirstName") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                     <asp:TextBox ID="txtFirstNameFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                           
-                                            <asp:TemplateField HeaderText="Descripcion">
+                                            <asp:TemplateField HeaderText="Last Name">
                                                 <ItemTemplate>
-                                                    <asp:Label Text='<%# Eval("Descripcion") %>' runat="server" />
+                                                    <asp:Label Text='<%# Eval("LastName") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtdescripcion" Text='<%# Eval("VR_DescripcionE") %>' runat="server" />
+                                                    <asp:TextBox ID="txtLastName" Text='<%# Eval("LastName") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtdescripcionFooter" runat="server" />
+                                                    <asp:TextBox ID="txtLastNameFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Duracion">
+                                            <asp:TemplateField HeaderText="Contact">
                                                 <ItemTemplate>
-                                                    <asp:Label Text='<%# Eval("Duracion") %>' runat="server" />
+                                                    <asp:Label Text='<%# Eval("Contact") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtduracion" Text='<%# Eval("VR_Duracion") %>' runat="server" />
+                                                    <asp:TextBox ID="txtContact" Text='<%# Eval("Contact") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtduracionFooter" runat="server" />
+                                                    <asp:TextBox ID="txtContactFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Repeticion">
+                                            <asp:TemplateField HeaderText="Email">
                                                 <ItemTemplate>
-                                                    <asp:Label Text='<%# Eval("Repeticion") %>' runat="server" />
+                                                    <asp:Label Text='<%# Eval("Email") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtrepeticion" Text='<%# Eval("IR_Repeticion") %>' runat="server" />
+                                                    <asp:TextBox ID="txtEmail" Text='<%# Eval("Email") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtrepeticionFooter" runat="server" />
+                                                    <asp:TextBox ID="txtEmailFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField>
-
                                                 <ItemTemplate>
                                                     <asp:ImageButton ImageUrl="~/Images/edit.png" runat="server" CommandName="Edit" ToolTip="Edit" Width="20px" Height="20px" />
                                                     <asp:ImageButton ImageUrl="~/Images/delete.png" runat="server" CommandName="Delete" ToolTip="Delete" Width="20px" Height="20px" />
@@ -129,9 +128,10 @@
             </div>
         </div>
     </section>
+
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
+<asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" Runat="Server">
 </asp:Content>
-<asp:Content ID="Content4" ContentPlaceHolderID="cph_Js" runat="Server">
+<asp:Content ID="Content4" ContentPlaceHolderID="cph_Js" Runat="Server">
 </asp:Content>
 

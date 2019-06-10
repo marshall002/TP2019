@@ -6,79 +6,82 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
+using CTR;
 
 public partial class AdministrarRutina_Extra : System.Web.UI.Page
 {
-    string connectionString = @"Data Source=LAPTOP-TG82GILV;Integrated Security=true;Initial Catalog=PhoneBookDB";
+    //string connectionString = @"Data Source=LAPTOP-TG82GILV;Integrated Security=true;Initial Catalog=PhoneBookDB";
+    DAO.DaoRutina obj = new DAO.DaoRutina();
+    DTO.DtoRuti dtoR = new DTO.DtoRuti();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            PopulateGridview();
+            //PopulateGridview();
         }
     }
-    void PopulateGridview()
-    {
-        DataTable dtbl = new DataTable();
-        using (SqlConnection sqlCon = new SqlConnection(connectionString))
-        {
-            sqlCon.Open();
-            SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM T_Ruti", sqlCon);
-            sqlDa.Fill(dtbl);
-        }
-        if (dtbl.Rows.Count > 0)
-        {
-            gvRutina.DataSource = dtbl;
-            gvRutina.DataBind();
-        }
-        else
-        {
-            dtbl.Rows.Add(dtbl.NewRow());
-            gvRutina.DataSource = dtbl;
-            gvRutina.DataBind();
-            gvRutina.Rows[0].Cells.Clear();
-            gvRutina.Rows[0].Cells.Add(new TableCell());
-            gvRutina.Rows[0].Cells[0].ColumnSpan = dtbl.Columns.Count;
-            gvRutina.Rows[0].Cells[0].Text = "No Data Found ..!";
-            gvRutina.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Center;
-        }
-    }
+    //void PopulateGridview()
+    //{
+    //    DataTable dtbl = new DataTable();
+    //    //SqlConnection sqlCon = new SqlConnection(conexion);
+    //    {
+    //        conexion.Open();
+    //        SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM T_Ruti", sqlCon);
+    //        sqlDa.Fill(dtbl);
+    //    }
+    //    if (dtbl.Rows.Count > 0)
+    //    {
+    //        gvRutina.DataSource = dtbl;
+    //        gvRutina.DataBind();
+    //    }
+    //    else
+    //    {
+    //        dtbl.Rows.Add(dtbl.NewRow());
+    //        gvRutina.DataSource = dtbl;
+    //        gvRutina.DataBind();
+    //        gvRutina.Rows[0].Cells.Clear();
+    //        gvRutina.Rows[0].Cells.Add(new TableCell());
+    //        gvRutina.Rows[0].Cells[0].ColumnSpan = dtbl.Columns.Count;
+    //        gvRutina.Rows[0].Cells[0].Text = "No Data Found ..!";
+    //        gvRutina.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Center;
+    //    }
+    //}
     protected void gvPhoneBook_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
     {
         gvRutina.EditIndex = -1;
-        PopulateGridview();
+        //PopulateGridview();
     }
 
-    protected void gvPhoneBook_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-        try
-        {
-            using (SqlConnection sqlCon = new SqlConnection(connectionString))
-            {
-                sqlCon.Open();
-                string query = "DELETE FROM PhoneBook WHERE PhoneBookID = @id";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@id", Convert.ToInt32(gvRutina.DataKeys[e.RowIndex].Value.ToString()));
-                sqlCmd.ExecuteNonQuery();
-                PopulateGridview();
-                lblSuccessMessage.Text = "Selected Record Deleted";
-                lblErrorMessage.Text = "";
-                UPGridview.Update();
-            }
-        }
-        catch (Exception ex)
-        {
-            lblSuccessMessage.Text = "";
-            lblErrorMessage.Text = ex.Message;
-        }
-    }
+    //protected void gvPhoneBook_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    //{
+    //    try
+    //    {
+    //        using (SqlConnection sqlCon = new SqlConnection(connectionString))
+    //        {
+    //            sqlCon.Open();
+    //            string query = "DELETE FROM PhoneBook WHERE PhoneBookID = @id";
+    //            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+    //            sqlCmd.Parameters.AddWithValue("@id", Convert.ToInt32(gvRutina.DataKeys[e.RowIndex].Value.ToString()));
+    //            sqlCmd.ExecuteNonQuery();
+    //            PopulateGridview();
+    //            lblSuccessMessage.Text = "Selected Record Deleted";
+    //            lblErrorMessage.Text = "";
+    //            UPGridview.Update();
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        lblSuccessMessage.Text = "";
+    //        lblErrorMessage.Text = ex.Message;
+    //    }
+    //}
 
-    protected void gvPhoneBook_RowEditing(object sender, GridViewEditEventArgs e)
-    {
-        gvRutina.EditIndex = e.NewEditIndex;
-        PopulateGridview();
+    //protected void gvPhoneBook_RowEditing(object sender, GridViewEditEventArgs e)
+    //{
+    //    gvRutina.EditIndex = e.NewEditIndex;
+    //    PopulateGridview();
 
-    }
+    //}
 
     //protected void gvPhoneBook_RowCommand(object sender, GridViewCommandEventArgs e)
     //{
@@ -141,11 +144,6 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
     //    }
     //}
 
-    protected void btnRegistrar_Click(object sender, EventArgs e)
-    {
-
-    }
-
     protected void gvRutina_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
@@ -156,12 +154,10 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
                 DTO.DtoRuti objdtoruti = new DTO.DtoRuti();
                 objdtoruti.DR_FechaRutina=Convert.ToDateTime((gvRutina.FooterRow.FindControl("txtfechaRutina") as TextBox).ToString());
                 objdtoruti.VR_DescripcionE = (gvRutina.FooterRow.FindControl("txtdescripcionE") as TextBox).ToString();
-
                 objdtoruti.VR_Duracion= (gvRutina.FooterRow.FindControl("txtduracion") as TextBox).Text.Trim().ToString();
-
                 objdtoruti.IR_Repeticion=int.Parse((gvRutina.FooterRow.FindControl("txtrepeticion") as TextBox).ToString());
                 
-                PopulateGridview();
+                ////PopulateGridview();
             }
         }
         catch (Exception ex)
@@ -169,25 +165,26 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
             lblSuccessMessage.Text = "";
             lblErrorMessage.Text = ex.Message;
         }
+        obj.registrarRuti(dtoR);
     }
 
     protected void gvRutina_RowEditing(object sender, GridViewEditEventArgs e)
     {
-
+        gvRutina.EditIndex = e.NewEditIndex;
     }
 
     protected void gvRutina_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
     {
-
+        gvRutina.EditIndex = -1;
     }
 
     protected void gvRutina_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-
+        obj.actualizarRuti(dtoR.DR_FechaRutina, dtoR.VR_DescripcionE,dtoR.VR_Duracion,dtoR.IR_Repeticion);
     }
 
     protected void gvRutina_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-
+        obj.eliminarRuti(dtoR.PK_IR_Cod);
     }
 }

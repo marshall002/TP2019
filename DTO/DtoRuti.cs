@@ -10,7 +10,7 @@ namespace DTO
     {
         public int PK_IR_Cod { get; set; }
         public DateTime DR_FechaRutina { get; set; }
-        public DateTime DR_FechaHoraRegistro { get; set; }
+        public DateTime DR_FechaRegistro { get; set; }
         public string VR_DescripcionE { get; set; }
         public int FK_ITR_Cod { get; set; }
         public string VR_Duracion { get; set; }
