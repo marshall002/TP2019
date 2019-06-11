@@ -44,6 +44,18 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+        public DataTable VerCitasNutri()
+        {
+            DataTable dtDatos = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("sp_ListarCitaNutri", conexion);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtDatos = new DataTable();
+            daAdaptador.Fill(dtDatos);
+            conexion.Close();
+            return dtDatos;
+        }
         public void ActualizarSolCita(int codigoCita, DateTime FechaHoraSolicitada, string ObservacionDuda, int codigoTipoCita)
         {
             SqlCommand command = new SqlCommand("sp_ActualizarSolicitudCita", conexion);
