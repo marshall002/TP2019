@@ -29,10 +29,10 @@
 
                                         </li>
                                     </ul>
-
+                                    <asp:TextBox ID="txt" Text='<%# Eval("txt") %>' runat="server" />
                                 </div>
                                 <div class="body table-responsive ">
-                                    <asp:GridView ID="gvRutina" runat="server" AutoGenerateColumns="false" ShowFooter="true" DataKeyNames="PK_IR_Cod"
+                                    <asp:GridView ID="gvRutina" runat="server" AutoGenerateColumns="false" ShowFooter="true" DataKeyNames="PK_IR_Cod, DR_FechaRutina"
                                         ShowHeaderWhenEmpty="true"
                                         OnRowCommand="gvRutina_RowCommand" OnRowEditing="gvRutina_RowEditing" OnRowCancelingEdit="gvRutina_RowCancelingEdit"
                                         OnRowUpdating="gvRutina_RowUpdating" OnRowDeleting="gvRutina_RowDeleting"
@@ -48,8 +48,10 @@
                                         <SortedDescendingCellStyle BackColor="#CAC9C9" />
                                         <SortedDescendingHeaderStyle BackColor="#00547E" />
 
+
+
                                         <Columns>
-                                            <asp:TemplateField HeaderText="FechaRutina">
+                                            <asp:TemplateField HeaderText="Fecha Rutina">
                                                 <ItemTemplate>
                                                     <asp:Label Text='<%# Eval("DR_FechaRutina") %>' runat="server" />
                                                 </ItemTemplate>
@@ -57,11 +59,11 @@
                                                     <asp:TextBox ID="txtfechaRutina" Text='<%# Eval("DR_FechaRutina") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtfechaRutinaFooter" runat="server" />
+                                                    <asp:TextBox ID="txtfechaRutinaFooter" runat="server" Text='<%# Eval(Session["Primerdia"].ToString()) %>' />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
 
-                                            <asp:TemplateField HeaderText="Descripcion">
+                                            <asp:TemplateField HeaderText="Fecha Registro">
                                                 <ItemTemplate>
                                                     <asp:Label Text='<%# Eval("DR_FechaRegistro") %>' runat="server" />
                                                 </ItemTemplate>
@@ -72,7 +74,7 @@
                                                     <asp:TextBox ID="txtfecharegistroFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Duracion">
+                                            <asp:TemplateField HeaderText="Descripcion">
                                                 <ItemTemplate>
                                                     <asp:Label Text='<%# Eval("VR_DescripcionE") %>' runat="server" />
                                                 </ItemTemplate>
@@ -83,7 +85,7 @@
                                                     <asp:TextBox ID="txtdescripcionFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Repeticion">
+                                            <asp:TemplateField HeaderText="Tipo Rutina">
                                                 <ItemTemplate>
                                                     <asp:Label Text='<%# Eval("FK_ITR_Cod") %>' runat="server" />
                                                 </ItemTemplate>
@@ -94,7 +96,7 @@
                                                     <asp:TextBox ID="txtFK_ITR_CodFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="VR_Duracion">
+                                            <asp:TemplateField HeaderText="Duracion">
                                                 <ItemTemplate>
                                                     <asp:Label Text='<%# Eval("VR_Duracion") %>' runat="server" />
                                                 </ItemTemplate>
@@ -105,7 +107,7 @@
                                                     <asp:TextBox ID="txtduracionFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="IR_Repeticion">
+                                            <asp:TemplateField HeaderText="Repeticion">
                                                 <ItemTemplate>
                                                     <asp:Label Text='<%# Eval("IR_Repeticion") %>' runat="server" />
                                                 </ItemTemplate>
@@ -149,6 +151,13 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+         function validar() {
+             alert("a");
+         }
+        </script>
+
+
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
