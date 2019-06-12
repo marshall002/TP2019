@@ -41,7 +41,6 @@ public partial class AdministrarRutina : System.Web.UI.Page
                 Response.Redirect("Inicio.aspx");
 
             }
-
         }
     }
     protected void Registro_Click(object sender, EventArgs e)
@@ -115,22 +114,31 @@ public partial class AdministrarRutina : System.Web.UI.Page
     {
         if (e.CommandName == "VerC")
         {
-            Response.Redirect("AdministrarRutina_Extra.aspx");
+            Log.WriteLog("1");
             int index = Convert.ToInt32(e.CommandArgument);
+            Log.WriteLog("2");
             var colsNoVisible = gvLista.DataKeys[index].Values;
+            Log.WriteLog("3");
             string id = colsNoVisible[0].ToString();
+            Log.WriteLog("4");
 
+            DateTime fec = Convert.ToDateTime(id);
             Session["Tipo_Rutina"] = 1;
-            Session["Primerdia"] = id;
+            Session["Primerdia"] = fec;
+            Log.WriteLog("5");
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
+
+            //Session["Fecha_Seleccionada"] = a;
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Crossfit";
             consultarDatos();
+            Log.WriteLog("6");
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal2').modal('show');", true);
+            Response.Redirect("AdministrarRutina_Extra.aspx");
         }
         if (e.CommandName == "VerF")
         {
-            Response.Redirect("AdministrarRutina_Extra.aspx");
+
             int index = Convert.ToInt32(e.CommandArgument);
             var colsNoVisible = gvLista.DataKeys[index].Values;
             string id = colsNoVisible[0].ToString();
@@ -141,7 +149,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Funcional";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal2').modal('show');", true);
-
+            Response.Redirect("AdministrarRutina_Extra.aspx");
         }
         if (e.CommandName == "RegistrarC")
         {
