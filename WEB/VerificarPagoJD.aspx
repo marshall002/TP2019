@@ -55,7 +55,6 @@
                            <asp:BoundField DataField="VCP_Estado_Pago" HeaderText="Estado"/>  
                            <asp:ButtonField ButtonType="button"  HeaderText="Accion 1" CommandName="Ver evaluacion" Text="Aceptar Pago Realizado">
                            <ControlStyle CssClass= "btn btn-success" />
-
                            </asp:ButtonField>        
                            <asp:ButtonField ButtonType="button"  HeaderText="Accion 2" CommandName="Ver" Text="Reportar Pago Usuario">
                            <ControlStyle CssClass= "btn btn-danger" />
