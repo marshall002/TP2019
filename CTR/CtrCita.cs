@@ -37,6 +37,10 @@ namespace CTR
 		{
 			objDaoCita.ActualizarSolCita(Codigo, fechahorasolicitada, dudaconsulta, idTipoCita);
 		}
+        public DataTable LCitaNutri()
+        {
+            return objDaoCita.VerCitasNutri();
+        }
         public void ActualizarSolCitaAdmin(DtoCita CitaSolAdmin)
         {
             objDaoCita.ActualizarSolCitaAdmin(CitaSolAdmin);
