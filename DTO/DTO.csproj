@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Constante.cs" />
     <Compile Include="DtoCita.cs" />
+    <Compile Include="DtoCPago.cs" />
     <Compile Include="DtoEjercicio.cs" />
     <Compile Include="DtoPlan.cs" />
     <Compile Include="DtoRuti.cs" />
