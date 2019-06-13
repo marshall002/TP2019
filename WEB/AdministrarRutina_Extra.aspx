@@ -30,6 +30,8 @@
                                         </li>
                                     </ul>
                                     <asp:TextBox ID="txt" Text='<%# Eval("txt") %>' runat="server" />
+                                    <asp:TextBox ID="txt2" Text='<%# Eval("txt2") %>' runat="server" />
+                                     <asp:TextBox ID="txt3" Text='<%# Eval("txt3") %>' runat="server" />
                                 </div>
                                 <div class="body table-responsive ">
                                     <asp:GridView ID="gvRutina" runat="server" AutoGenerateColumns="false" ShowFooter="true" DataKeyNames="PK_IR_Cod, DR_FechaRutina"
@@ -90,7 +92,7 @@
                                                     <asp:Label Text='<%# Eval("FK_ITR_Cod") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtFK_ITR_Cod" Text='<%# Eval("FK_ITR_Cod") %>' runat="server" />
+                                                    <asp:TextBox ID="txtFK_ITR_Cod" Text='<%# Eval(Session["Tipo_Rutina"].ToString()) %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                     <asp:TextBox ID="txtFK_ITR_CodFooter" runat="server" />
@@ -134,6 +136,7 @@
                                         </Columns>
                                     </asp:GridView>
                                     <br />
+                                    <asp:Button Text="Volver" runat="server" OnClick="Unnamed_Click"/>
                                     <asp:Label ID="lblSuccessMessage" Text="" runat="server" ForeColor="Green" />
                                     <br />
                                     <asp:Label ID="lblErrorMessage" Text="" runat="server" ForeColor="Red" />
@@ -152,11 +155,23 @@
             </div>
         </div>
         <script type="text/javascript">
-         function validar() {
-             alert("a");
-         }
+            $(function () {
+
+                $("#cph_body_gvRutina_txtfechaRutinaFooter").val($("#cph_body_txt").val());
+            });
         </script>
 
+        <script type="text/javascript">
+            $(function () {
+                $("#cph_body_gvRutina_txtFK_ITR_CodFooter").val($("#cph_body_txt2").val());
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(function () {
+                $("#cph_body_gvRutina_txtfecharegistroFooter").val($("#cph_body_txt3").val());
+            });
+        </script>
 
     </section>
 </asp:Content>

@@ -10,7 +10,7 @@ using CTR;
 
 public partial class AdministrarRutina_Extra : System.Web.UI.Page
 {
-    string connectionString = @"Data Source=LAPTOP-TG82GILV;Integrated Security=true;Initial Catalog=BD_SCLAP";
+    string connectionString = @"Data Source=DESKTOP-UH5SKAR\LENOVOPC;Integrated Security=true;Initial Catalog=BD_SCLAP";
     //DAO.DaoRutina obj = new DAO.DaoRutina();
     //DTO.DtoRuti dtoR = new DTO.DtoRuti();
     protected void Page_Load(object sender, EventArgs e)
@@ -21,10 +21,16 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
 
             Log.WriteLog("Page");
             PopulateGridview();
-            string fecha = Session["Primerdia"].ToString();
-            //Session["Primerdia"]
-            obtener_Rutina_Fecha(fecha);
+            //string fecha = Session["Primerdia"].ToString();
+            DateTime fecha = Convert.ToDateTime(Session["Primerdia"].ToString());
+            string today = System.DateTime.Now.ToShortDateString();
 
+            string tipoR = Session["Tipo_Rutina"].ToString();
+
+            //Session["Primerdia"]
+            string f = fecha.ToString("yyyy/MM/dd");
+            //obtener_Rutina_Fecha(fecha, tipoR, today);
+            obtener_Rutina_Fecha(f, tipoR, today);
         }
     }
     void PopulateGridview()
@@ -34,7 +40,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         using (SqlConnection sqlCon = new SqlConnection(connectionString))
         {
             sqlCon.Open();
-            SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM T_RUTI", sqlCon);
+            SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM T_Ruti", sqlCon);
             sqlDa.Fill(dtbl);
         }
         if (dtbl.Rows.Count > 0)
@@ -94,11 +100,9 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
                     sqlCmd.Parameters.AddWithValue("@Fecharutina", DateTime.Parse((gvRutina.FooterRow.FindControl("txtfechaRutinaFooter") as TextBox).Text.Trim()));
                     //sqlCmd.Parameters.AddWithValue("@Fecharegistro", (gvRutina.FooterRow.FindControl("txtfecharegistroFooter") as TextBox).Text.Trim());
                     sqlCmd.Parameters.AddWithValue("@descripcion", (gvRutina.FooterRow.FindControl("txtdescripcionFooter") as TextBox).Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@fkitrcod", (gvRutina.FooterRow.FindControl("txtFK_ITR_CodFooter") as TextBox).Text.Trim());
+                    sqlCmd.Parameters.AddWithValue("@fkitrcod", validarTipo());
                     sqlCmd.Parameters.AddWithValue("@duracion", (gvRutina.FooterRow.FindControl("txtduracionFooter") as TextBox).Text.Trim());
                     sqlCmd.Parameters.AddWithValue("@repetic", (gvRutina.FooterRow.FindControl("txtrepeticionFooter") as TextBox).Text.Trim());
-
-
 
                     sqlCmd.ExecuteNonQuery();
                     PopulateGridview();
@@ -117,10 +121,35 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         }
     }
 
+    public int validarTipo()
+    {
+        if ((gvRutina.FooterRow.FindControl("txtFK_ITR_CodFooter") as TextBox).Text.Trim().Equals("Crossfit"))
+        {
+            
+            return 1;
+        }
+        else
+            return 2;
+    }
+
+    public String validarTipo2()
+    {
+        if (int.Parse((gvRutina.FooterRow.FindControl("txtFK_ITR_CodFooter") as TextBox).Text.Trim()) == 1)
+        {
+            return "Crossfit";
+        }
+        else
+            return "Functional";
+    }
+
     protected void gvRutina_RowEditing(object sender, GridViewEditEventArgs e)
     {
+        Log.WriteLog("editar");
+        Log.WriteLog("1");
         gvRutina.EditIndex = e.NewEditIndex;
+        Log.WriteLog("2");
         PopulateGridview();
+        Log.WriteLog("3");
         UPGridview.Update();
 
     }
@@ -134,17 +163,19 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
 
     protected void gvRutina_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
+        
         Log.WriteLog("entro a funcion Actualizar");
         try
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
                 sqlCon.Open();
-                string query = "UPDATE T_Ruti SET DR_FechaRutina=@Fecharutina,VR_DescripcionE=@descripcion,FK_ITR_Cod=@fkitrcod,VR_Duracion=@duracion,IR_Repeticion=@repetic WHERE PK_IR_Cod = @id";
+                string query = "UPDATE T_Ruti SET DR_FechaRutina,DR_FechaRegistro,VR_DescripcionE=@descripcion,FK_ITR_Cod=@fkitrcod,VR_Duracion=@duracion,IR_Repeticion=@repetic WHERE PK_IR_Cod = @id";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@Fecharutina", DateTime.Parse((gvRutina.Rows[e.RowIndex].FindControl("txtfechaRutina") as TextBox).Text.Trim()));
+                Log.WriteLog("EL TIPO ES:" + Session["Tipo_Rutina"]);
+                sqlCmd.Parameters.AddWithValue("@Fecharutina", Convert.ToDateTime((gvRutina.Rows[e.RowIndex].FindControl("txtfechaRutina") as TextBox).Text.Trim()));
                 sqlCmd.Parameters.AddWithValue("@descripcion", (gvRutina.Rows[e.RowIndex].FindControl("txtdescripcion") as TextBox).Text.Trim());
-                sqlCmd.Parameters.AddWithValue("@fkitrcod", (gvRutina.Rows[e.RowIndex].FindControl("txtFK_ITR_Cod") as TextBox).Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@fkitrcod", Session["Tipo_Rutina"]);
                 sqlCmd.Parameters.AddWithValue("@duracion", (gvRutina.Rows[e.RowIndex].FindControl("txtduracion") as TextBox).Text.Trim());
                 sqlCmd.Parameters.AddWithValue("@repetic", (gvRutina.Rows[e.RowIndex].FindControl("txtrepeticion") as TextBox).Text.Trim());
                 sqlCmd.Parameters.AddWithValue("@id", Convert.ToInt32(gvRutina.DataKeys[e.RowIndex].Value.ToString()));
@@ -192,31 +223,49 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
             Log.WriteLog("Error al borrar" + ex.Message);
         }
     }
+    
 
-
-    public void obtener_Rutina_Fecha(string a)
+    public void obtener_Rutina_Fecha(string a, string b, string c)
     {
         //string a = (gvRutina.Rows[e.RowIndex].FindControl("txtFK_ITR_Cod") as TextBox).Text.Trim();
         //string TRutina = Session["Tipo_Rutina"].ToString();
         //string f = Session["Fecha_Seleccionada"].ToString();
 
         txt.Text = a;
-        //if (TRutina == "1")
-        //{
-        //    txtFK_ITR_Cod.Text= "Crossfit";
-        //    txtFK_ITR_Cod.Enabled = false;
-        //}
-        //else
-        //{
-        //    txtTipoR.Text = "Functional";
-        //    txtTipoR.Enabled = false;
-        //}
+        txt2.Text = b;
+        txt3.Text = c;
+        TextBox t = new TextBox();
+
+        if (b == "1")
+        {
+            txt2.Text = "Crossfit";
+            
+        }
+        else
+        {
+            txt2.Text = "Functional";
+           
+        }
         //DateTime dia = DateTime.Parse(fecha);
         //CultureInfo test = new System.Globalization.CultureInfo("es-ES");
         //string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
         //txtfechaClase.Text = fecha + ", " + diaespaniol;
         //txtfechaClase.Enabled = false;
+    }
+
+    //metodo para sacar el valor 1 de la tabla cn editItemTemplate
+    //public string sacar(int row, int col)
+    //{
+    //    TextBox sacar;
+    //    int valor;
+    //    sacar = gvRutina.Rows[row].Cells[col].Controls[1]; // en esta linea me da error =No se puede convertir implícitamente el tipo TextBox'. Ya existe una conversión explícita (compruebe si le falta una conversión), en la grilla tengo un itemtemplate y un edititemtemplate los dos con textbox  que se asocian por medio De Bind("campo").
+
+    //    return valor;
+    //}
 
 
+    protected void Unnamed_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("AdministrarRutina.aspx");
     }
 }
