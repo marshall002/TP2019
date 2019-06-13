@@ -40,7 +40,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         using (SqlConnection sqlCon = new SqlConnection(connectionString))
         {
             sqlCon.Open();
-            SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM T_Ruti", sqlCon);
+            SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM T_RUTI", sqlCon);
             sqlDa.Fill(dtbl);
         }
         if (dtbl.Rows.Count > 0)
@@ -65,6 +65,128 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         Log.WriteLog("ingreso a popular el gridview");
         //  Log.WriteLog("el valor de la session es:"+Session["PrimerDia"].ToString());
     }
+    //protected void gvPhoneBook_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    //{
+    //    gvRutina.EditIndex = -1;
+    //    //PopulateGridview();
+    //}
+
+    //protected void gvPhoneBook_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    //{
+    //    try
+    //    {
+    //        using (SqlConnection sqlCon = new SqlConnection(connectionString))
+    //        {
+    //            sqlCon.Open();
+    //            string query = "DELETE FROM PhoneBook WHERE PhoneBookID = @id";
+    //            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+    //            sqlCmd.Parameters.AddWithValue("@id", Convert.ToInt32(gvRutina.DataKeys[e.RowIndex].Value.ToString()));
+    //            sqlCmd.ExecuteNonQuery();
+    //            PopulateGridview();
+    //            lblSuccessMessage.Text = "Selected Record Deleted";
+    //            lblErrorMessage.Text = "";
+    //            UPGridview.Update();
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        lblSuccessMessage.Text = "";
+    //        lblErrorMessage.Text = ex.Message;
+    //    }
+    //}
+
+    //protected void gvPhoneBook_RowEditing(object sender, GridViewEditEventArgs e)
+    //{
+    //    gvRutina.EditIndex = e.NewEditIndex;
+    //    PopulateGridview();
+
+    //}
+
+    //protected void gvPhoneBook_RowCommand(object sender, GridViewCommandEventArgs e)
+    //{
+    //    try
+    //    {
+    //        if (e.CommandName.Equals("AddNew"))
+    //        {
+    //            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+    //            {
+    //                sqlCon.Open();
+    //                string query = "INSERT INTO PhoneBook (FirstName,LastName,Contact,Email) VALUES (@FirstName,@LastName,@Contact,@Email)";
+    //                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+    //                sqlCmd.Parameters.AddWithValue("@FirstName", (gvPhoneBook.FooterRow.FindControl("txtFirstNameFooter") as TextBox).Text.Trim());
+    //                sqlCmd.Parameters.AddWithValue("@LastName", (gvPhoneBook.FooterRow.FindControl("txtLastNameFooter") as TextBox).Text.Trim());
+    //                sqlCmd.Parameters.AddWithValue("@Contact", (gvPhoneBook.FooterRow.FindControl("txtContactFooter") as TextBox).Text.Trim());
+    //                sqlCmd.Parameters.AddWithValue("@Email", (gvPhoneBook.FooterRow.FindControl("txtEmailFooter") as TextBox).Text.Trim());
+    //                sqlCmd.ExecuteNonQuery();
+    //                PopulateGridview();
+    //                lblSuccessMessage.Text = "New Record Added";
+    //                lblErrorMessage.Text = "";
+    //                UPGridview.Update();
+    //            }
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        lblSuccessMessage.Text = "";
+    //        lblErrorMessage.Text = ex.Message;
+    //    }
+
+    //}
+
+    //protected void gvPhoneBook_RowUpdating(object sender, GridViewUpdateEventArgs e)
+    //{
+    //    try
+    //    {
+    //        using (SqlConnection sqlCon = new SqlConnection(connectionString))
+    //        {
+    //            sqlCon.Open();
+    //            string query = "UPDATE PhoneBook SET FirstName=@FirstName,LastName=@LastName,Contact=@Contact,Email=@Email WHERE PhoneBookID = @id";
+    //            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+    //            sqlCmd.Parameters.AddWithValue("@FirstName", (gvPhoneBook.Rows[e.RowIndex].FindControl("txtFirstName") as TextBox).Text.Trim());
+    //            sqlCmd.Parameters.AddWithValue("@LastName", (gvPhoneBook.Rows[e.RowIndex].FindControl("txtLastName") as TextBox).Text.Trim());
+    //            sqlCmd.Parameters.AddWithValue("@Contact", (gvPhoneBook.Rows[e.RowIndex].FindControl("txtContact") as TextBox).Text.Trim());
+    //            sqlCmd.Parameters.AddWithValue("@Email", (gvPhoneBook.Rows[e.RowIndex].FindControl("txtEmail") as TextBox).Text.Trim());
+    //            sqlCmd.Parameters.AddWithValue("@id", Convert.ToInt32(gvPhoneBook.DataKeys[e.RowIndex].Value.ToString()));
+    //            sqlCmd.ExecuteNonQuery();
+    //            gvRutina.EditIndex = -1;
+    //            UPGridview.Update();
+    //            PopulateGridview();
+    //            UPGridview.Update();
+    //            lblSuccessMessage.Text = "Selected Record Updated";
+    //            lblErrorMessage.Text = "";
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        lblSuccessMessage.Text = "";
+    //        lblErrorMessage.Text = ex.Message;
+    //    }
+    //}
+
+    //protected void gvRutina_RowCommand(object sender, GridViewCommandEventArgs e)
+    //{
+    //    try
+    //    {
+    //        if (e.CommandName.Equals("AddNew"))
+    //        {
+
+    //            DTO.DtoRuti objdtoruti = new DTO.DtoRuti();
+    //            objdtoruti.DR_FechaRutina=Convert.ToDateTime((gvRutina.FooterRow.FindControl("txtfechaRutina") as TextBox).ToString());
+    //            objdtoruti.VR_DescripcionE = (gvRutina.FooterRow.FindControl("txtdescripcionE") as TextBox).ToString();
+    //            objdtoruti.VR_Duracion= (gvRutina.FooterRow.FindControl("txtduracion") as TextBox).Text.Trim().ToString();
+    //            objdtoruti.IR_Repeticion=int.Parse((gvRutina.FooterRow.FindControl("txtrepeticion") as TextBox).ToString());
+
+    //            ////PopulateGridview();
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        lblSuccessMessage.Text = "";
+    //        lblErrorMessage.Text = ex.Message;
+    //    }
+    //    obj.registrarRuti(dtoR);
+    //}
+
     //protected void gvRutina_RowEditing(object sender, GridViewEditEventArgs e)
     //{
     //    gvRutina.EditIndex = e.NewEditIndex;
@@ -85,6 +207,16 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
     //    obj.eliminarRuti(dtoR.PK_IR_Cod);
     //}
 
+    public int validarTipo()
+    {
+        if ((gvRutina.FooterRow.FindControl("txtFK_ITR_CodFooter") as TextBox).Text.Trim().Equals("Crossfit"))
+        {
+            return 1;
+        }
+        else
+            return 2;
+    }
+
     protected void gvRutina_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
@@ -100,7 +232,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
                     sqlCmd.Parameters.AddWithValue("@Fecharutina", DateTime.Parse((gvRutina.FooterRow.FindControl("txtfechaRutinaFooter") as TextBox).Text.Trim()));
                     //sqlCmd.Parameters.AddWithValue("@Fecharegistro", (gvRutina.FooterRow.FindControl("txtfecharegistroFooter") as TextBox).Text.Trim());
                     sqlCmd.Parameters.AddWithValue("@descripcion", (gvRutina.FooterRow.FindControl("txtdescripcionFooter") as TextBox).Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@fkitrcod", validarTipo());
+                    sqlCmd.Parameters.AddWithValue("@fkitrcod", (gvRutina.FooterRow.FindControl("txtFK_ITR_CodFooter") as TextBox).Text.Trim());
                     sqlCmd.Parameters.AddWithValue("@duracion", (gvRutina.FooterRow.FindControl("txtduracionFooter") as TextBox).Text.Trim());
                     sqlCmd.Parameters.AddWithValue("@repetic", (gvRutina.FooterRow.FindControl("txtrepeticionFooter") as TextBox).Text.Trim());
 
@@ -121,35 +253,10 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         }
     }
 
-    public int validarTipo()
-    {
-        if ((gvRutina.FooterRow.FindControl("txtFK_ITR_CodFooter") as TextBox).Text.Trim().Equals("Crossfit"))
-        {
-            
-            return 1;
-        }
-        else
-            return 2;
-    }
-
-    public String validarTipo2()
-    {
-        if (int.Parse((gvRutina.FooterRow.FindControl("txtFK_ITR_CodFooter") as TextBox).Text.Trim()) == 1)
-        {
-            return "Crossfit";
-        }
-        else
-            return "Functional";
-    }
-
     protected void gvRutina_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        Log.WriteLog("editar");
-        Log.WriteLog("1");
         gvRutina.EditIndex = e.NewEditIndex;
-        Log.WriteLog("2");
         PopulateGridview();
-        Log.WriteLog("3");
         UPGridview.Update();
 
     }
@@ -163,19 +270,17 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
 
     protected void gvRutina_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        
         Log.WriteLog("entro a funcion Actualizar");
         try
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
                 sqlCon.Open();
-                string query = "UPDATE T_Ruti SET DR_FechaRutina,DR_FechaRegistro,VR_DescripcionE=@descripcion,FK_ITR_Cod=@fkitrcod,VR_Duracion=@duracion,IR_Repeticion=@repetic WHERE PK_IR_Cod = @id";
+                string query = "UPDATE T_Ruti SET DR_FechaRutina=@Fecharutina,VR_DescripcionE=@descripcion,FK_ITR_Cod=@fkitrcod,VR_Duracion=@duracion,IR_Repeticion=@repetic WHERE PK_IR_Cod = @id";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                Log.WriteLog("EL TIPO ES:" + Session["Tipo_Rutina"]);
-                sqlCmd.Parameters.AddWithValue("@Fecharutina", Convert.ToDateTime((gvRutina.Rows[e.RowIndex].FindControl("txtfechaRutina") as TextBox).Text.Trim()));
+                sqlCmd.Parameters.AddWithValue("@Fecharutina", DateTime.Parse((gvRutina.Rows[e.RowIndex].FindControl("txtfechaRutina") as TextBox).Text.Trim()));
                 sqlCmd.Parameters.AddWithValue("@descripcion", (gvRutina.Rows[e.RowIndex].FindControl("txtdescripcion") as TextBox).Text.Trim());
-                sqlCmd.Parameters.AddWithValue("@fkitrcod", Session["Tipo_Rutina"]);
+                sqlCmd.Parameters.AddWithValue("@fkitrcod", (gvRutina.Rows[e.RowIndex].FindControl("txtFK_ITR_Cod") as TextBox).Text.Trim());
                 sqlCmd.Parameters.AddWithValue("@duracion", (gvRutina.Rows[e.RowIndex].FindControl("txtduracion") as TextBox).Text.Trim());
                 sqlCmd.Parameters.AddWithValue("@repetic", (gvRutina.Rows[e.RowIndex].FindControl("txtrepeticion") as TextBox).Text.Trim());
                 sqlCmd.Parameters.AddWithValue("@id", Convert.ToInt32(gvRutina.DataKeys[e.RowIndex].Value.ToString()));
@@ -223,7 +328,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
             Log.WriteLog("Error al borrar" + ex.Message);
         }
     }
-    
+
 
     public void obtener_Rutina_Fecha(string a, string b, string c)
     {
@@ -234,36 +339,8 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         txt.Text = a;
         txt2.Text = b;
         txt3.Text = c;
-        TextBox t = new TextBox();
 
-        if (b == "1")
-        {
-            txt2.Text = "Crossfit";
-            
-        }
-        else
-        {
-            txt2.Text = "Functional";
-           
-        }
-        //DateTime dia = DateTime.Parse(fecha);
-        //CultureInfo test = new System.Globalization.CultureInfo("es-ES");
-        //string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
-        //txtfechaClase.Text = fecha + ", " + diaespaniol;
-        //txtfechaClase.Enabled = false;
     }
-
-    //metodo para sacar el valor 1 de la tabla cn editItemTemplate
-    //public string sacar(int row, int col)
-    //{
-    //    TextBox sacar;
-    //    int valor;
-    //    sacar = gvRutina.Rows[row].Cells[col].Controls[1]; // en esta linea me da error =No se puede convertir implícitamente el tipo TextBox'. Ya existe una conversión explícita (compruebe si le falta una conversión), en la grilla tengo un itemtemplate y un edititemtemplate los dos con textbox  que se asocian por medio De Bind("campo").
-
-    //    return valor;
-    //}
-
-
     protected void Unnamed_Click(object sender, EventArgs e)
     {
         Response.Redirect("AdministrarRutina.aspx");

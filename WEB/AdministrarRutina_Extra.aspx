@@ -3,15 +3,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_header" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="Server">
-    <section>
+
+        <section>
         <div class="container-fluid">
             <div class="block-header">
                 <h1>Administrar Rutinas</h1>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-                    <asp:UpdatePanel ID="UPGridview" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                    <asp:scriptmanager id="ScriptManager1" runat="server"></asp:scriptmanager>
+                    <asp:updatepanel id="UPGridview" runat="server" updatemode="Conditional" childrenastriggers="false">
                         <ContentTemplate>
                             <div class="card">
                                 <div class="header">
@@ -29,9 +30,9 @@
 
                                         </li>
                                     </ul>
-                                    <asp:TextBox ID="txt" Text='<%# Eval("txt") %>' runat="server" />
-                                    <asp:TextBox ID="txt2" Text='<%# Eval("txt2") %>' runat="server" />
-                                     <asp:TextBox ID="txt3" Text='<%# Eval("txt3") %>' runat="server" />
+                                    <asp:TextBox ID="txt" Text='<%# Eval("txt") %>' hidden="true"  runat="server" />
+                                     <asp:TextBox ID="txt2" Text='<%# Eval("txt2") %>' hidden="true" runat="server" />
+                                     <asp:TextBox ID="txt3" Text='<%# Eval("txt3") %>' hidden="true" runat="server" />
                                 </div>
                                 <div class="body table-responsive ">
                                     <asp:GridView ID="gvRutina" runat="server" AutoGenerateColumns="false" ShowFooter="true" DataKeyNames="PK_IR_Cod, DR_FechaRutina"
@@ -49,9 +50,9 @@
                                         <SortedAscendingHeaderStyle BackColor="#007DBB" />
                                         <SortedDescendingCellStyle BackColor="#CAC9C9" />
                                         <SortedDescendingHeaderStyle BackColor="#00547E" />
-
-
-
+                                        
+                                        
+                                               
                                         <Columns>
                                             <asp:TemplateField HeaderText="Fecha Rutina">
                                                 <ItemTemplate>
@@ -78,7 +79,7 @@
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Descripcion">
                                                 <ItemTemplate>
-                                                    <asp:Label Text='<%# Eval("VR_DescripcionE") %>' runat="server" />
+                                                    <asp:Label Text='<%# Eval("VR_DescripcionE")%>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
                                                     <asp:TextBox ID="txtdescripcion" Text='<%# Eval("VR_DescripcionE") %>' runat="server" />
@@ -92,7 +93,7 @@
                                                     <asp:Label Text='<%# Eval("FK_ITR_Cod") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtFK_ITR_Cod" Text='<%# Eval(Session["Tipo_Rutina"].ToString()) %>' runat="server" />
+                                                    <asp:TextBox ID="txtFK_ITR_Cod" Text='<%# Eval("FK_ITR_Cod") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                     <asp:TextBox ID="txtFK_ITR_CodFooter" runat="server" />
@@ -114,7 +115,7 @@
                                                     <asp:Label Text='<%# Eval("IR_Repeticion") %>' runat="server" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtrepeticion" Text='<%# Eval("IR_Repeticion") %>' runat="server" />
+                                                    <asp:TextBox ID="txtrepeticion"  Text='<%# Eval("IR_Repeticion") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                     <asp:TextBox ID="txtrepeticionFooter" runat="server" />
@@ -130,13 +131,14 @@
                                                     <asp:ImageButton ImageUrl="~/Images/cancel.png" runat="server" CommandName="Cancel" ToolTip="Cancel" Width="20px" Height="20px" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:ImageButton ImageUrl="~/Images/addnew.png" runat="server" CommandName="AddNew" ToolTip="Add New" Width="20px" Height="20px" />
+                                                    <asp:ImageButton ImageUrl="~/Images/addnew.png"  id="anadir" runat="server" CommandName="AddNew" ToolTip="Add New" Width="20px" Height="20px" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                         </Columns>
                                     </asp:GridView>
                                     <br />
                                     <asp:Button Text="Volver" runat="server" OnClick="Unnamed_Click"/>
+                                    
                                     <asp:Label ID="lblSuccessMessage" Text="" runat="server" ForeColor="Green" />
                                     <br />
                                     <asp:Label ID="lblErrorMessage" Text="" runat="server" ForeColor="Red" />
@@ -150,30 +152,50 @@
                             <asp:AsyncPostBackTrigger ControlID="btnRechazar" />--%>
                         </Triggers>
 
-                    </asp:UpdatePanel>
+                    </asp:updatepanel>
                 </div>
             </div>
         </div>
         <script type="text/javascript">
             $(function () {
-
                 $("#cph_body_gvRutina_txtfechaRutinaFooter").val($("#cph_body_txt").val());
+                   $("#cph_body_gvRutina_txtfechaRutinaFooter").prop("readonly",true);
             });
         </script>
-
         <script type="text/javascript">
             $(function () {
                 $("#cph_body_gvRutina_txtFK_ITR_CodFooter").val($("#cph_body_txt2").val());
+                    $("#cph_body_gvRutina_txtFK_ITR_CodFooter").prop("readonly",true);
             });
         </script>
-
         <script type="text/javascript">
             $(function () {
                 $("#cph_body_gvRutina_txtfecharegistroFooter").val($("#cph_body_txt3").val());
+                    $("#cph_body_gvRutina_txtfecharegistroFooter").prop("readonly",true);
             });
         </script>
 
+        <script>
+                $("#cph_body_gvRutina_anadir").click(function(){
+                var campo_des = $("#cph_body_gvRutina_txtdescripcionFooter").val().trim();
+                var campo_dur = $("#cph_body_gvRutina_txtduracionFooter").val().trim();
+                var campo_rep =$("#cph_body_gvRutina_txtrepeticionFooter").val().trim();
+              
+                if (campo_des.length == 0 || campo_dur.length == 0|| campo_rep.length == 0) {
+                    alert("No puede haber campos vacios");
+                    return false;
+                }
+                else{
+                    alert("Todo correcto");
+                }
+
+            });
+        </script>
+
+
+
     </section>
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
 </asp:Content>

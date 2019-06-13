@@ -61,7 +61,7 @@
                                                             <asp:LinkButton CssClass="btn bg-green waves-effect" ID="btnRegistrarC" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="RegistrarC" data-toggle="tooltip" data-placement="right" title="Registrar Crossfit" Text="Registrar">
                                                                  <i class="material-icons">add</i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton CssClass="btn bg-orange waves-effect" ID="btnVerC" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="VerC" data-toggle="tooltip" data-placement="right" title="Ver Crossfit" Text="Ver rutina">
+                                                            <asp:LinkButton CssClass="btn bg-orange waves-effect" ID="btnVerC" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="VerC" data-toggle="tooltip" data-placement="right"  title="Administrar Crossfit" Text="Ver rutina">
                                                                  <i class="material-icons">create</i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
