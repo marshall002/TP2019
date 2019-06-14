@@ -88,6 +88,15 @@
                                                                             <div class="form-group">
                                                                                 <asp:TextBox ID="txtEjercicios" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
                                                                             </div>
+                                                                            <asp:GridView ID="GvEjercicios" runat="server" AutoGenerateColumns="False" DataKeyNames="PK_IR_Cod,VR_DescripcionE,VR_Duracion,IR_Repeticion"
+                                                                                    GridLines="None" AllowPaging="true" CssClass="table table-striped table-hover" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
+                                                                                    <Columns>
+                                                                                        <asp:BoundField DataField="PK_IR_Cod" HeaderText="cod rutina" Visible="false" />
+                                                                                        <asp:BoundField DataField="VR_DescripcionE" HeaderText="Ejercicio" />
+                                                                                        <asp:BoundField DataField="VR_Duracion" HeaderText="Duracion" />
+                                                                                        <asp:BoundField DataField="IR_Repeticion" HeaderText="Repeticion" />
+                                                                                    </Columns>
+                                                                                </asp:GridView>
                                                                         </ContentTemplate>
                                                                     </asp:UpdatePanel>
                                                                 </div>

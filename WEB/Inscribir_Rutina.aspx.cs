@@ -12,6 +12,9 @@ using System.Globalization;
 public partial class Inscribir_Clase : System.Web.UI.Page
 {
     DtoUsuario_X_Rutina objdtousuariorutina = new DtoUsuario_X_Rutina();
+        CtrRutina objctrRutina = new CtrRutina();
+    DtoRutina objdtoRutina = new DtoRutina();
+
     CtrUsuario_X_Rutina objctrusuariorutina = new CtrUsuario_X_Rutina();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -71,6 +74,9 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 DateTime fecha = Convert.ToDateTime(Session["Primerdia"].ToString());
                 // VALIDACION FECHA 
                 if (fecha>DateTime.Now) {
+                    GvEjercicios.DataSource = objctrRutina.verRutinaE(objdtoRutina);
+                    GvEjercicios.DataBind();
+                    upEjercicios.Update();
                     string script = @"<script type='text/javascript'>
                                       $('#modalInscripcion').modal('show');
                                   </script>";
@@ -334,8 +340,8 @@ public partial class Inscribir_Clase : System.Web.UI.Page
     }
     public void consultarDatos()
     {
-        DtoRutina objdtoRutina = new DtoRutina();
-        CtrRutina objctrRutina = new CtrRutina();
+        //DtoRutina objdtoRutina = new DtoRutina();
+        //CtrRutina objctrRutina = new CtrRutina();
         string fecha = Session["PrimerDia"].ToString();
         DateTime Fecha = DateTime.Parse(fecha);
 
@@ -354,6 +360,17 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
         
         txtEjercicios.Text = objdtoRutina.VR_Descripcion;
+
+       
         upEjercicios.Update();
     }
+
+    protected void GvEjercicios_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        upEjercicios.Update();
+        consultarDatos();
+        upEjercicios.Update();
+    }
+
+   
 }

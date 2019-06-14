@@ -14,7 +14,7 @@ namespace DAO
             get
             {
 
-                return @"data source=LACING202A-10; initial catalog=BD_SCLAP; integrated security=SSPI;";
+                return @"data source=LACING202A-09; initial catalog=BD_SCLAP; integrated security=SSPI;";
 
                 //return @"data source=LACING202A-06; initial catalog=BD_SCLAP; integrated security=SSPI;";
 
