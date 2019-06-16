@@ -4,7 +4,12 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="Server">
  
-    <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    
+    <!-- Jquery Core Js -->
+	<script src="plugins/jquery/jquery.min.js"></script>
+
+	<!-- Bootstrap Core Js -->
+	<script src="plugins/bootstrap/js/bootstrap.js"></script>
     <asp:ScriptManager ID="ScriptManager1"
                                  runat="server"></asp:ScriptManager>
     <asp:UpdatePanel ID="UpdatePanel" runat="server"></asp:UpdatePanel>
@@ -27,7 +32,7 @@
                     
                         
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <br />
                          <button class="btn btn-primary" runat="server" >
                           <span class="glyphicon glyphicon-search"></span> Buscar</button>
@@ -41,7 +46,7 @@
                  <div class="col-lg-10">
             <asp:Panel ID="Panel1" runat="server" CssClass="auto-style1">
                 <asp:GridView ID="gvLista" runat="server" AutoGenerateColumns="False" GridLines="None"  
-                AllowPaging="true" CssClass="table table-striped table-hover" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
+                AllowPaging="true" CssClass="table table-striped table-hover" OnRowCommand="gvLista_RowCommand" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
                 PageSize="9">
            <Columns>
                          
@@ -53,11 +58,11 @@
                            <ControlStyle CssClass= "btn btn-warning" />
                            </asp:ButtonField> 
                            <asp:BoundField DataField="VCP_Estado_Pago" HeaderText="Estado"/>  
-                           <asp:ButtonField ButtonType="button"  HeaderText="Accion 1" CommandName="Ver evaluacion" Text="Aceptar Pago Realizado">
+                           <asp:ButtonField ButtonType="button"  HeaderText="Accion 1" CommandName="AceptarPago" Text="Aceptar Pago Realizado">
                            <ControlStyle CssClass= "btn btn-success" />
 
                            </asp:ButtonField>        
-                           <asp:ButtonField ButtonType="button"  HeaderText="Accion 2" CommandName="Ver" Text="Reportar Pago Usuario">
+                           <asp:ButtonField ButtonType="button"  HeaderText="Accion 2" CommandName="ReportarPago" Text="Reportar Pago Usuario">
                            <ControlStyle CssClass= "btn btn-danger" />
                            </asp:ButtonField> 
                             
@@ -79,18 +84,23 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-
-                                        <h4 class="modal-title" id="DescModalEliminarCurso" runat="server">Detalle Cita</h4>
+                                        <h4 class="modal-title" id="ModalVerPago" runat="server">Verificar Pago</h4>
                                     </div>
                                     <div class="modal-body">
+                                        <div class="form-line"><div class=" col-lg-8">
+                                          <div class=" col-lg-3">  <asp:Image runat="server" />
+                                             <label for="textFecha">Fecha:</label>
+                                                </div></div>
+                                        </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <%--<div class="form-line"><div class=" col-lg-3">
+                                            <asp:Image runat="server" />
+                                                </div>
+                                        </div>--%>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <div class="input-group colorpicker">
 
-                                        <div class="form-line">
-                                            <label for="textNombre">Nombres:</label>
-                                            <asp:TextBox ID="textNombre" runat="server" CssClass="form-control"></asp:TextBox>
-                                        </div>
+                                        
                                         <span class="input-group-addon">
                                             <i></i>
                                         </span>
@@ -124,10 +134,7 @@
                                            
                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <div class="input-group colorpicker">
-                                        <div class="form-line">
-                                            <label for="textHora">Hora:</label>
-                                             <asp:TextBox ID="textHora" runat="server" CssClass="form-control"></asp:TextBox>
-                                        </div>
+                                        
                                         <span class="input-group-addon">
                                             <i></i>
                                         </span>
