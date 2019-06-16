@@ -10,21 +10,20 @@ using CTR;
 
 public partial class AdministrarRutina_Extra : System.Web.UI.Page
 {
-    string connectionString = @"Data Source=LAPTOP-TG82GILV;Integrated Security=true;Initial Catalog=BD_SCLAP";
-    //DAO.DaoRutina obj = new DAO.DaoRutina();
-    //DTO.DtoRuti dtoR = new DTO.DtoRuti();
+    string connectionString = @"Data Source=LACING202A-10;Integrated Security=true;Initial Catalog=BD_SCLAP";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            //txtfechaRutinaFooter.Text = Session["Primerdia"].ToString();
-
             Log.WriteLog("Page");
             PopulateGridview();
-            string fecha = Session["Primerdia"].ToString();
-            //Session["Primerdia"]
-            obtener_Rutina_Fecha(fecha);
+            DateTime fecha = Convert.ToDateTime(Session["Primerdia"].ToString());
+            string today = System.DateTime.Now.ToShortDateString();
 
+            string tipoR = Session["Tipo_Rutina"].ToString();
+            
+            string f = fecha.ToString("yyyy/MM/dd");
+            obtener_Rutina_Fecha(f, tipoR, today);
         }
     }
     void PopulateGridview()
@@ -57,27 +56,17 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
             gvRutina.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Center;
         }
         Log.WriteLog("ingreso a popular el gridview");
-        //  Log.WriteLog("el valor de la session es:"+Session["PrimerDia"].ToString());
     }
-    //protected void gvRutina_RowEditing(object sender, GridViewEditEventArgs e)
-    //{
-    //    gvRutina.EditIndex = e.NewEditIndex;
-    //}
 
-    //protected void gvRutina_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-    //{
-    //    gvRutina.EditIndex = -1;
-    //}
-
-    //protected void gvRutina_RowUpdating(object sender, GridViewUpdateEventArgs e)
-    //{
-    //    obj.actualizarRuti(dtoR.DR_FechaRutina, dtoR.VR_DescripcionE,dtoR.VR_Duracion,dtoR.IR_Repeticion);
-    //}
-
-    //protected void gvRutina_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    //{
-    //    obj.eliminarRuti(dtoR.PK_IR_Cod);
-    //}
+    public int validarTipo()
+    {
+        if ((gvRutina.FooterRow.FindControl("txtFK_ITR_CodFooter") as TextBox).Text.Trim().Equals("Crossfit"))
+        {
+            return 1;
+        }
+        else
+            return 2;
+    }
 
     protected void gvRutina_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -92,13 +81,10 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
                     string query = "INSERT INTO T_Ruti (DR_FechaRutina,DR_FechaRegistro,VR_DescripcionE,FK_ITR_Cod,VR_Duracion,IR_Repeticion) VALUES (@Fecharutina,GETDATE(),@descripcion,@fkitrcod,@duracion,@repetic)";
                     SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                     sqlCmd.Parameters.AddWithValue("@Fecharutina", DateTime.Parse((gvRutina.FooterRow.FindControl("txtfechaRutinaFooter") as TextBox).Text.Trim()));
-                    //sqlCmd.Parameters.AddWithValue("@Fecharegistro", (gvRutina.FooterRow.FindControl("txtfecharegistroFooter") as TextBox).Text.Trim());
                     sqlCmd.Parameters.AddWithValue("@descripcion", (gvRutina.FooterRow.FindControl("txtdescripcionFooter") as TextBox).Text.Trim());
                     sqlCmd.Parameters.AddWithValue("@fkitrcod", (gvRutina.FooterRow.FindControl("txtFK_ITR_CodFooter") as TextBox).Text.Trim());
                     sqlCmd.Parameters.AddWithValue("@duracion", (gvRutina.FooterRow.FindControl("txtduracionFooter") as TextBox).Text.Trim());
                     sqlCmd.Parameters.AddWithValue("@repetic", (gvRutina.FooterRow.FindControl("txtrepeticionFooter") as TextBox).Text.Trim());
-
-
 
                     sqlCmd.ExecuteNonQuery();
                     PopulateGridview();
@@ -194,29 +180,15 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
     }
 
 
-    public void obtener_Rutina_Fecha(string a)
+    public void obtener_Rutina_Fecha(string a, string b, string c)
     {
-        //string a = (gvRutina.Rows[e.RowIndex].FindControl("txtFK_ITR_Cod") as TextBox).Text.Trim();
-        //string TRutina = Session["Tipo_Rutina"].ToString();
-        //string f = Session["Fecha_Seleccionada"].ToString();
-
         txt.Text = a;
-        //if (TRutina == "1")
-        //{
-        //    txtFK_ITR_Cod.Text= "Crossfit";
-        //    txtFK_ITR_Cod.Enabled = false;
-        //}
-        //else
-        //{
-        //    txtTipoR.Text = "Functional";
-        //    txtTipoR.Enabled = false;
-        //}
-        //DateTime dia = DateTime.Parse(fecha);
-        //CultureInfo test = new System.Globalization.CultureInfo("es-ES");
-        //string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
-        //txtfechaClase.Text = fecha + ", " + diaespaniol;
-        //txtfechaClase.Enabled = false;
+        txt2.Text = b;
+        txt3.Text = c;
 
-
+    }
+    protected void Unnamed_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("AdministrarRutina.aspx");
     }
 }

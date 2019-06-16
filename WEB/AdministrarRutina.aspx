@@ -11,8 +11,8 @@
             <div class="row clearfix">
                 <div class="col-md-11">
                     <script src="plugins/bootstrap/js/bootstrap.js"></script>
-                    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-                    <asp:UpdatePanel ID="upCursos" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                    <asp:scriptmanager id="ScriptManager1" runat="server"></asp:scriptmanager>
+                    <asp:updatepanel id="upCursos" runat="server" updatemode="Conditional" childrenastriggers="false">
                         <ContentTemplate>
                             <div class="card">
                                 <!-- form start -->
@@ -61,7 +61,7 @@
                                                             <asp:LinkButton CssClass="btn bg-green waves-effect" ID="btnRegistrarC" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="RegistrarC" data-toggle="tooltip" data-placement="right" title="Registrar Crossfit" Text="Registrar">
                                                                  <i class="material-icons">add</i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton CssClass="btn bg-orange waves-effect" ID="btnVerC" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="VerC" data-toggle="tooltip" data-placement="right" title="Ver Crossfit" Text="Ver rutina">
+                                                            <asp:LinkButton CssClass="btn bg-orange waves-effect" ID="btnVerC" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="VerC" data-toggle="tooltip" data-placement="right"  title="Administrar Crossfit" Text="Ver rutina">
                                                                  <i class="material-icons">create</i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                         </ContentTemplate>
-                    </asp:UpdatePanel>
+                    </asp:updatepanel>
                 </div>
             </div>
         </div>
@@ -97,10 +97,10 @@
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h4 class="modal-title">
-                            <asp:Label ID="TituloTRut" runat="server"></asp:Label>
+                            <asp:label id="TituloTRut" runat="server"></asp:label>
                         </h4>
                     </div>
-                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                    <asp:updatepanel id="UpdatePanel1" runat="server" updatemode="Conditional" childrenastriggers="false">
                         <ContentTemplate>
                             <!-- Modal body -->
                             <div class="modal-body" id="modal-rutina">
@@ -127,24 +127,27 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-link waves-effect waves-grey btn-success" id="btnGuardar" runat="server" data-dismiss="modal" data-type="success" onserverclick="btnGuardar_ServerClick">GUARDAR</button>
                                 </div>
+                               
                         </ContentTemplate>
-                    </asp:UpdatePanel>
+                    </asp:updatepanel>
                 </div>
             </div>
         </div>
         </div>
 
-         <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
-             <div class="modal-dialog" style="width: 1000px">
-                 <div class="modal-content">
+        
 
-                     <!-- Modal Header -->
-                     <div class="modal-header">
-                         <h4 class="modal-title">
-                             <asp:Label ID="Label1" runat="server"></asp:Label>
-                         </h4>
-                     </div>
-                     <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+            <div class="modal-dialog" style="width: 1000px">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <asp:label id="Label1" runat="server"></asp:label>
+                        </h4>
+                    </div>
+                    <asp:updatepanel id="UpdatePanel2" runat="server" updatemode="Conditional" childrenastriggers="false">
                          <ContentTemplate>
                              <!-- Modal body -->
                              <div class="modal-body" id="test">
@@ -174,10 +177,10 @@
                                 
                                      </div>
                          </ContentTemplate>
-                     </asp:UpdatePanel>
-                 </div>
-             </div>
-         </div>
+                     </asp:updatepanel>
+                </div>
+            </div>
+        </div>
 
     </section>
     <%--<script src="js/Rutina.js"></script>--%>

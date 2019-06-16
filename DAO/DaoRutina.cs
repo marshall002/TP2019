@@ -18,13 +18,14 @@ namespace DAO
             conexion = new SqlConnection(ConexionBD.CadenaConexion);
         }
 
-        public DataTable VerRutina(string CodigoTipoRutina)
+        public DataTable VerRutina(DtoRutina objr)
 		{
 			DataTable dtDatos = null;
 			conexion.Open();
-			SqlCommand command = new SqlCommand("sp_ListarRutina", conexion);
-			command.Parameters.AddWithValue("@CodigoTipoRutina", CodigoTipoRutina);
-			SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+			SqlCommand command = new SqlCommand("SP_ObtenerRutina", conexion);
+			command.Parameters.AddWithValue("@DR_FechaRutina", objr.DR_FechaRutina);
+            command.Parameters.AddWithValue("@FK_ITR_Cod", objr.FK_ITR_Cod);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
 			command.CommandType = CommandType.StoredProcedure;
 			dtDatos = new DataTable();
 			daAdaptador.Fill(dtDatos);

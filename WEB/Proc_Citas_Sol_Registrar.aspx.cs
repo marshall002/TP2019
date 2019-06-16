@@ -133,6 +133,7 @@ public partial class Proc_CItas_Sol_Registrar : System.Web.UI.Page
         catch (Exception ex)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No tiene los permisos para actualizar', 'bottom', 'center', null, null);", true);
+            
         }
     }
 

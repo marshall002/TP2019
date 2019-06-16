@@ -17,6 +17,10 @@ namespace CTR
         {
             objdaorutina = new DaoRutina();
         }
+        public DataTable verRutinaE(DtoRutina objr)
+        {
+            return objdaorutina.VerRutina(objr);
+        }
         public void Registrar_Rutina(DtoRutina objdtorutina)
         {
             objdaorutina.RegistrarRutina(objdtorutina);
