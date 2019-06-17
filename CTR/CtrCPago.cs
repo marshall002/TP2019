@@ -1,4 +1,5 @@
 ﻿using DAO;
+using DTO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,9 +16,13 @@ namespace CTR
         {
             objDaoCPago = new DaoCPago();
         }
-        public DataTable VComPago()
+        public DataTable VComPago(string name)
         {
-            return objDaoCPago.VerCPagos();
+            return objDaoCPago.VerCPagos(name);
+        }
+        public DtoCPago ComprobanteP(int codigo)
+        {
+            return objDaoCPago.VerComprobante(codigo);
         }
     }
 }
