@@ -24,5 +24,9 @@ namespace CTR
         {
             return objDaoCPago.VerComprobante(codigo);
         }
+        public void AceptP(int idCompro)
+        {
+            objDaoCPago.AceptPago(idCompro);
+        }
     }
 }

@@ -50,14 +50,14 @@
                            <asp:BoundField DataField="DCP_FechaHoraRealizada" HeaderText="Fecha"/>
                            <asp:BoundField DataField="ICP_NNutri" HeaderText="N° Nutri"/>  
                            <asp:BoundField DataField="ICP_NFisio" HeaderText="N° Fisio"/>  
-                           <asp:ButtonField ButtonType="button"  HeaderText="Evaluacion" CommandName="Ver evaluacion" Text="Ver">
+                           <asp:ButtonField ButtonType="button"  HeaderText="Evaluacion"  CommandName="Ver Pago" Text="Ver">
                            <ControlStyle CssClass= "btn btn-warning" />
                            </asp:ButtonField> 
                            <asp:BoundField DataField="VCP_Estado_Pago" HeaderText="Estado"/>  
-                           <asp:ButtonField ButtonType="button"  HeaderText="Accion 1" CommandName="Ver evaluacion" Text="Aceptar Pago Realizado">
+                           <asp:ButtonField ButtonType="button"  HeaderText="Accion 1" CommandName="AceptarP" Text="Aceptar Pago Realizado">
                            <ControlStyle CssClass= "btn btn-success" />
                            </asp:ButtonField>        
-                           <asp:ButtonField ButtonType="button"  HeaderText="Accion 2" CommandName="Ver" Text="Reportar Pago Usuario">
+                           <asp:ButtonField ButtonType="button"  HeaderText="Accion 2" CommandName="ReportarP" Text="Reportar Pago Usuario">
                            <ControlStyle CssClass= "btn btn-danger" />
                            </asp:ButtonField> 
            </Columns>
@@ -84,9 +84,9 @@
                                     <div class="modal-body">
                                         <div class="input-group colorpicker">
                                         <div class="form-line">
-                                            <label for="textComprobante">Comprobante:</label>
-                                             <asp:Image ID="textImagen" runat="server" CssClass="form-control"></asp:Image>
-                                        </div>
+                                            <label for="textComprobante">Comprobante:</label><br /><div class="col-lg-4">
+                                             <asp:Image ID="textImagen" Width="250" Height="200" runat="server" CssClass="form-control"></asp:Image>
+                                        </div></div>
                                         <span class="input-group-addon">
                                             <i></i>
                                         </span>

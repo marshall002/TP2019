@@ -63,6 +63,15 @@ namespace DAO
 
             return ms.ToArray();
         }
+        public void AceptPago(int codigoCompr)
+        {
+            SqlCommand command = new SqlCommand("sp_AEstadoCompro", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@idCom", codigoCompr);
 
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
     }
 }

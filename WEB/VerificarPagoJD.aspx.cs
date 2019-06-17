@@ -19,7 +19,7 @@ public partial class VerificarPagoJD : System.Web.UI.Page
     }
     protected void gvLista_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        if (e.CommandName == "Ver evaluacion")
+        if (e.CommandName == "Ver Pago")
         {
             int index = Convert.ToInt32(e.CommandArgument);
             var colsNoVisible = gvLista.DataKeys[index].Values;
@@ -27,22 +27,32 @@ public partial class VerificarPagoJD : System.Web.UI.Page
             string Nnutri = colsNoVisible[1].ToString();
             string Nfisio = colsNoVisible[2].ToString();
 
-            Session["CodigoSolicitudCita"] = id;
+            Session["CodigoComprobante"] = id;
             Session["NuNutri"] = Nnutri;
             Session["NuFisio"] = Nfisio;
             txtNnutri.Text = Nnutri;
             txtFisio.Text = Nfisio;
             CtrCPago obj = new CtrCPago();
             var p = obj.ComprobanteP(Convert.ToInt32(id));
-            textImagen.ImageUrl = "data:image/jpg;base64,"+p.IMC_Imagen;
+            textImagen.ImageUrl = "data:image/jpg;base64," + p.IMC_Imagen;
             txtMonto.Text = p.DCP_Monto.ToString();
             txtOpera.Text = p.VCP_NOperacion.ToString();
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#VerPago').modal('show');", true);
         }
-
+        if (e.CommandName == "AceptarP")
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            var colsNoVisible = gvLista.DataKeys[index].Values;
+            string id = colsNoVisible[0].ToString();
+            Session["CodigoComprobante"] = id;
+            CtrCPago obj = new CtrCPago();
+            obj.AceptP(Convert.ToInt32(id));
+            string mensaje = "Datos actualizados";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+            Response.Redirect("~/VerificarPagoJD.aspx");
+        }
     }
-
     protected void Unnamed_ServerClick(object sender, EventArgs e)
     {
         CtrCPago ct = new CtrCPago();
