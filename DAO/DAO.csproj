@@ -44,6 +44,7 @@
     <Compile Include="DaoCita.cs" />
     <Compile Include="DaoCPago.cs" />
     <Compile Include="DaoEjercicio.cs" />
+    <Compile Include="DaoMonitorearCitaFisio.cs" />
     <Compile Include="DaoRutina.cs" />
     <Compile Include="DaoRutinaXEjercicio.cs" />
     <Compile Include="DaoTipo_Ejercicio.cs" />

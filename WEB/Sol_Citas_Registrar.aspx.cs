@@ -56,6 +56,7 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
             Log.WriteLog("---------------------------------------------------------------------------------------------");
 
 
+
             if (valorRadiobuttonentxt == "1")//Nutri
             {
                 if (int.Parse(objdtousuario.IC_Citas_Nutri_Usadas.ToString()) >= int.Parse(Session["ISN_Cantidad"].ToString()))
@@ -78,6 +79,7 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
                     RegistrarCodigo(valorRadiobuttonentxt);
                 }
             }
+
         }
         catch (Exception ex)
         {
@@ -101,12 +103,28 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
         objdtoCita.FK_IEC_Cod = IECCod;
         objdtoCita.FK_ITC_Cod = int.Parse(valorRadiobuttonentxt);
         objdtoCita.FK_CU_DNI = Sesion;
+        bool valHoraCita = objctrCita.ExisteCita(fechasolitada.ToString("yyyy-MM-dd'T'HH':'mm':'ss"), Sesion);
 
+        if (Fecha > DateTime.Now)
+        {
+            if (valHoraCita == false)
+            {
+                string mensaje = "Registrado con exito";
+                objctrCita.registrarSolicitudCita(objdtoCita);
 
-        string mensaje = "Registrado con exito";
-        objctrCita.registrarSolicitudCita(objdtoCita);
-
-        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+            }
+            else
+            {
+                string mensaje = "Existe Cita en esa hora";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+            }
+        }
+        else
+        {
+            string mensaje = "selecione fecha correctamente";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+        }
     }
     protected void btnCancelar_ServerClick(object sender, EventArgs e)
     {
@@ -121,4 +139,5 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
     protected void ddlHoras_SelectedIndexChanged(object sender, EventArgs e)
     {
     }
+    
 }
