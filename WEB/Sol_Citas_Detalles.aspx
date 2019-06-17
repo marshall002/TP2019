@@ -40,6 +40,7 @@
 												<div class="form-line focused">
 													<div class="form-line">
 														<asp:TextBox ID="txtFecha" class="form-control" runat="server" TextMode="Date" MaxLength="10"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator ID="RFV_txtFecha" runat="server" class="text-danger" ErrorMessage="Fecha Vacia" ControlToValidate="txtFecha" Font-Bold="True"></asp:RequiredFieldValidator>
 													</div>
 												</div>
 											</div>
@@ -81,6 +82,8 @@
 														<asp:AsyncPostBackTrigger ControlID="ddlHoras" EventName="selectedindexchanged" />
 													</Triggers>
 												</asp:UpdatePanel>
+                                                <asp:RequiredFieldValidator ID="rfvddlHora" runat="server" ControlToValidate="ddlHoras"
+                                                            InitialValue="NULO" ErrorMessage="seleccione hora de solicitud de cita" class="text-danger" Font-Bold="True"></asp:RequiredFieldValidator>
 												<%--</div>--%>
 												<%--</div>--%>
 											</div>
