@@ -62,7 +62,7 @@
                                                     <asp:TextBox ID="txtfechaRutina" Text='<%# Eval("DR_FechaRutina") %>' runat="server" />
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtfechaRutinaFooter" runat="server" Text='<%# Eval(Session["Primerdia"].ToString()) %>' />
+                                                    <asp:TextBox ID="txtfechaRutinaFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
 

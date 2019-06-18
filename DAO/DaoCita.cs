@@ -176,6 +176,27 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+        public bool ExisteCitaFecha(string fechahora,string dni)
+        {
+            int valor_retornado = 0;
+            string query = "SELECT COUNT (*) FROM T_Cita inner join T_Usuario on PK_CU_Dni = FK_CU_Dni WHERE DC_FechaHoraSolicitada='" + fechahora + "' and FK_CU_Dni='" + dni + "'";
+            SqlCommand cmd = new SqlCommand(query, conexion);
+            Console.WriteLine(cmd);
+            conexion.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {    //valor_retornado = reader[0].ToString();
+                valor_retornado = int.Parse(reader[0].ToString());
+
+            }
+            conexion.Close();
+
+            if (valor_retornado == 0)
+                return false;
+            else
+                return true;
+        }
 
     }
 }

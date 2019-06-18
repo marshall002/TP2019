@@ -61,6 +61,10 @@ namespace CTR
         {
             objDaoCita.EvalReprogramarCita(objdtoCita);
         }
+        public bool ExisteCita(string fecha,string dni)
+        {
+            return objDaoCita.ExisteCitaFecha(fecha, dni);
+        }
 
         
     }

@@ -18,19 +18,37 @@ namespace DAO
             conexion = new SqlConnection(ConexionBD.CadenaConexion);
         }
 
-        public DataTable VerRutina(string CodigoTipoRutina)
+        public DataTable VerRutina(DtoRutina objr,string fecha)
 		{
-			DataTable dtDatos = null;
-			conexion.Open();
-			SqlCommand command = new SqlCommand("sp_ListarRutina", conexion);
-			command.Parameters.AddWithValue("@CodigoTipoRutina", CodigoTipoRutina);
-			SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
-			command.CommandType = CommandType.StoredProcedure;
-			dtDatos = new DataTable();
-			daAdaptador.Fill(dtDatos);
-			conexion.Close();
-			return dtDatos;
-		}
+            DataTable dtDatos = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_ObtenerRutina", conexion);
+            command.Parameters.AddWithValue("@DR_FechaRutina", fecha);
+            command.Parameters.AddWithValue("@FK_ITR_Cod", objr.FK_ITR_Cod);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtDatos = new DataTable();
+            daAdaptador.Fill(dtDatos);
+            conexion.Close();
+            return dtDatos;
+
+            //try
+            //    {
+            //    SqlCommand command = new SqlCommand("SP_ObtenerRutina", conexion);
+            //    command.Parameters.AddWithValue("@DR_FechaRutina", fecha);
+            
+            //    command.Parameters.AddWithValue("@FK_ITR_Cod", objr.FK_ITR_Cod);
+            //    command.CommandType = CommandType.StoredProcedure;
+            //    DataTable dt = new DataTable();
+            //    SqlDataAdapter da = new SqlDataAdapter(command);
+            //    da.Fill(dt);
+            //    return dt;
+            //}
+            //catch
+            //{
+            //    return null;
+            //}
+        }
 
         public void RegistrarRutina(DtoRutina objDtoRutina)
         {
