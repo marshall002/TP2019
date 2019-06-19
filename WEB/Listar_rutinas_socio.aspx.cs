@@ -333,7 +333,7 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
         CultureInfo test = new System.Globalization.CultureInfo("es-ES");
         string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
 
-        txtEjercicios.Text = objdtoRutina.VR_Descripcion;
-        upEjercicios.Update();
+        //txtEjercicios.Text = objdtoRutina.VR_Descripcion;
+        //upEjercicios.Update();
     }
 }
