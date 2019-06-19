@@ -77,11 +77,12 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 {
 
                     //upEjercicios.Update();
-                    string script = @"<script type='text/javascript'>
-                                      $('#modalInscripcion').modal('show');
-                                  </script>";
-                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
-                    cargarddlHoras();
+                    //string script = @"<script type='text/javascript'>
+                    //                  $('#modalInscripcion').modal('show');
+                    //              </script>";
+                    //ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
+                    Response.Redirect("InsRutina_2.aspx");
+                    //cargarddlHoras();
                 }
                 else
                 {
@@ -120,12 +121,13 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 if (fecha > DateTime.Now)
                 {
                     DateTime fec = Convert.ToDateTime(id);
-                    BindGrid2(fec.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
-                    string script = @"<script type='text/javascript'>
-                                      $('#modalInscripcion').modal('show');
-                                  </script>";
-                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
-                    cargarddlHoras();
+                    //BindGrid2(fec.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+                    //string script = @"<script type='text/javascript'>
+                    //                  $('#modalInscripcion').modal('show');
+                    //              </script>";
+                    //ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
+                    Response.Redirect("InsRutina_2.aspx");
+                    //cargarddlHoras();
                 }
                 else
                 {

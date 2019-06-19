@@ -49,20 +49,8 @@
                                                                 <h4 class="modal-title" id="ModalActIns" runat="server">Actualizar Hora de Clase</h4>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <div class="col-lg-6">
-                                                                    <asp:UpdatePanel ID="upEjercicios" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
-                                                                        <ContentTemplate>
-                                                                            <div class="form-group">
-                                                                                <label class="form-label">
-                                                                                    Rutina</label>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <asp:TextBox ID="txtEjercicios" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
-                                                                            </div>
-                                                                        </ContentTemplate>
-                                                                    </asp:UpdatePanel>
-                                                                </div>
-                                                                <div class="col-lg-6">
+                                                               
+                                                                  <div class="col-lg-12">
                                                                     <asp:UpdatePanel ID="upFecha_Rutina" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                                                         <ContentTemplate>
                                                                             <div class="form-group">
