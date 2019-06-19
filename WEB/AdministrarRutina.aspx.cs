@@ -27,7 +27,8 @@ public partial class AdministrarRutina : System.Web.UI.Page
                 {
                     ddlMes.SelectedValue = DateTime.Now.Month.ToString();
                     encontrarsemanas();
-
+                    
+                   
                 }
                 else
                 {
@@ -98,8 +99,9 @@ public partial class AdministrarRutina : System.Web.UI.Page
     {
         upCursos.Update();
         encontrarsemanas();
-        gvLista.PageIndex = e.NewPageIndex;
+        gvLista.PageIndex = e.NewPageIndex; 
         gvLista.DataBind();
+        
     }
 
     protected void ddlMes_SelectedIndexChanged(object sender, EventArgs e)
@@ -143,17 +145,19 @@ public partial class AdministrarRutina : System.Web.UI.Page
             var colsNoVisible = gvLista.DataKeys[index].Values;
             string id = colsNoVisible[0].ToString();
 
+            DateTime fec = Convert.ToDateTime(id);
             Session["Tipo_Rutina"] = 2;
-            Session["Primerdia"] = id;
+            //Session["Primerdia"] = id;
+            Session["Primerdia"] = fec;
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Funcional";
+            consultarDatos();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal2').modal('show');", true);
             Response.Redirect("AdministrarRutina_Extra.aspx");
         }
         if (e.CommandName == "RegistrarC")
         {
-            Response.Redirect("AdministrarRutina_Extra.aspx");
             int index = Convert.ToInt32(e.CommandArgument);
             var colsNoVisible = gvLista.DataKeys[index].Values;
             string id = colsNoVisible[0].ToString();
@@ -163,13 +167,14 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Crossfit";
+            consultarDatos();
             obtener_Rutina_Fecha();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal').modal('show');", true);
+            Response.Redirect("AdministrarRutina_Extra.aspx");
 
         }
         if (e.CommandName == "RegistrarF")
         {
-            Response.Redirect("AdministrarRutina_Extra.aspx");
             int index = Convert.ToInt32(e.CommandArgument);
             var colsNoVisible = gvLista.DataKeys[index].Values;
             string id = colsNoVisible[0].ToString();
@@ -179,8 +184,10 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
             Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Funcional";
+            consultarDatos();
             obtener_Rutina_Fecha();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal').modal('show');", true);
+
         }
     }
     [System.Web.Services.WebMethod]
@@ -308,7 +315,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
     {
         DtoRutina objdtoRutina = new DtoRutina();
         CtrRutina objctrRutina = new CtrRutina();
-        string fecha = Session["PrimerDia"].ToString();
+        string fecha = Session["Primerdia"].ToString();
         DateTime Fecha = DateTime.Parse(fecha);
 
         DateTime fechaclase = Fecha;

@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="body table-responsive ">
                                     <asp:GridView ID="gvRutina" runat="server" AutoGenerateColumns="false" ShowFooter="true" DataKeyNames="PK_IR_Cod, DR_FechaRutina"
-                                        ShowHeaderWhenEmpty="true"
+                                        ShowHeaderWhenEmpty="true" GridLines="None" AllowPaging="true" CssClass="table table-striped table-hover"
                                         OnRowCommand="gvRutina_RowCommand" OnRowEditing="gvRutina_RowEditing" OnRowCancelingEdit="gvRutina_RowCancelingEdit"
                                         OnRowUpdating="gvRutina_RowUpdating" OnRowDeleting="gvRutina_RowDeleting"
                                         BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
@@ -77,7 +77,7 @@
                                                     <asp:TextBox ID="txtfecharegistroFooter" runat="server" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Descripcion">
+                                            <asp:TemplateField HeaderText="Descripcion Ejercicio">
                                                 <ItemTemplate>
                                                     <asp:Label Text='<%# Eval("VR_DescripcionE")%>' runat="server" />
                                                 </ItemTemplate>
@@ -137,7 +137,7 @@
                                         </Columns>
                                     </asp:GridView>
                                     <br />
-                                    <asp:Button Text="Volver" runat="server" OnClick="Unnamed_Click"/>
+                                    <asp:Button Text="Volver" CssClass="btn bg-green waves-effect" Width="90px" Height="30px" runat="server" OnClick="Unnamed_Click"/>
                                     
                                     <asp:Label ID="lblSuccessMessage" Text="" runat="server" ForeColor="Green" />
                                     <br />
@@ -190,6 +190,21 @@
                 }
 
             });
+        </script>
+
+        <script>
+                $("#cph_body_gvRutina_anadir").click(function () {
+                    var campo_rep = $("#cph_body_gvRutina_txtrepeticionFooter").val().trim();
+
+                    if (campo_rep.length > 999) {
+                        alert("Ingrese un dato entero permitido.");
+                        return false;
+                    }
+                    else {
+                        alert("Todo correcto.");
+                    }
+
+                });
         </script>
 
 

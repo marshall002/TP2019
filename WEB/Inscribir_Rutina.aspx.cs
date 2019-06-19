@@ -12,7 +12,7 @@ using System.Globalization;
 public partial class Inscribir_Clase : System.Web.UI.Page
 {
     DtoUsuario_X_Rutina objdtousuariorutina = new DtoUsuario_X_Rutina();
-        CtrRutina objctrRutina = new CtrRutina();
+    CtrRutina objctrRutina = new CtrRutina();
     DtoRutina objdtoRutina = new DtoRutina();
 
     CtrUsuario_X_Rutina objctrusuariorutina = new CtrUsuario_X_Rutina();
@@ -73,10 +73,10 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 obtener_Rutina_Fecha();
                 DateTime fecha = Convert.ToDateTime(Session["Primerdia"].ToString());
                 // VALIDACION FECHA 
-                if (fecha>DateTime.Now) {
-                    GvEjercicios.DataSource = objctrRutina.verRutinaE(objdtoRutina);
-                    GvEjercicios.DataBind();
-                    upEjercicios.Update();
+                if (fecha > DateTime.Now)
+                {
+
+                    //upEjercicios.Update();
                     string script = @"<script type='text/javascript'>
                                       $('#modalInscripcion').modal('show');
                                   </script>";
@@ -119,6 +119,8 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 // VALIDACION FECHA 
                 if (fecha > DateTime.Now)
                 {
+                    DateTime fec = Convert.ToDateTime(id);
+                    BindGrid2(fec.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
                     string script = @"<script type='text/javascript'>
                                       $('#modalInscripcion').modal('show');
                                   </script>";
@@ -133,7 +135,7 @@ public partial class Inscribir_Clase : System.Web.UI.Page
             catch (Exception ex)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + ex.Message + "', 'bottom', 'center', null, null);", true);
-
+                Log.WriteLog("Error:  " + ex.Message);
             }
 
         }
@@ -358,10 +360,10 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         DateTime dia = DateTime.Parse(fecha);
         CultureInfo test = new System.Globalization.CultureInfo("es-ES");
         string diaespaniol = test.DateTimeFormat.GetDayName(dia.DayOfWeek);
-        
-        txtEjercicios.Text = objdtoRutina.VR_Descripcion;
 
-       
+        //txtEjercicios.Text = objdtoRutina.VR_Descripcion;
+
+
         upEjercicios.Update();
     }
 
@@ -371,6 +373,47 @@ public partial class Inscribir_Clase : System.Web.UI.Page
         consultarDatos();
         upEjercicios.Update();
     }
+    protected void BindGrid2(string id)
+    {
+        //DataSet ds = new DataSet();
+        //DataTable dt;
+        //DataRow dr;
+        //DataColumn pName;
+        //DataColumn pQty;
+        //DataColumn pPrice;
+        //int i = 0;
+        //dt = new DataTable();
+        //pName = new DataColumn("Product_Name", Type.GetType("System.String"));
+        //pQty = new DataColumn("Quantity", Type.GetType("System.Int32"));
+        //pPrice = new DataColumn("Price", Type.GetType("System.Int32"));
+        //dt.Columns.Add(pName);
+        //dt.Columns.Add(pQty);
+        //dt.Columns.Add(pPrice);
+        //dr = dt.NewRow();
+        //dr["Product_Name"] = "FMCG";
+        //dr["Quantity"] = 2;
+        //dr["Price"] = 200;
+        //dt.Rows.Add(dr);
+        //dr = dt.NewRow();
+        //dr["Product_Name"] = "Cold Drink";
+        //dr["Quantity"] = 5;
+        //dr["Price"] = 480;
+        //dt.Rows.Add(dr);
+        //dr = dt.NewRow();
+        //dr["Product_Name"] = "Biscuits";
+        //dr["Quantity"] = 8;
+        //dr["Price"] = 100;
+        //dt.Rows.Add(dr);
+        //dr = dt.NewRow();
+        //dr["Product_Name"] = "Mixture";
+        //dr["Quantity"] = 2;
+        //dr["Price"] = 500;
+        //dt.Rows.Add(dr);
+        //ds.Tables.Add(dt);
+        //GridView2.DataSource = ds.Tables[0];
+        //GridView2.DataBind();
+        GvEjercicios.DataSource = objctrRutina.verRutinaE(objdtoRutina, id);
+        GvEjercicios.DataBind();
+    }
 
-   
 }

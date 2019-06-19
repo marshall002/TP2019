@@ -33,7 +33,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         using (SqlConnection sqlCon = new SqlConnection(connectionString))
         {
             sqlCon.Open();
-            SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM T_RUTI", sqlCon);
+            SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM T_Ruti", sqlCon);
             sqlDa.Fill(dtbl);
         }
         if (dtbl.Rows.Count > 0)
@@ -89,7 +89,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
                     sqlCmd.ExecuteNonQuery();
                     PopulateGridview();
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "Registro exitoso" + "', 'bottom', 'center', null, null);", true);
-                    lblSuccessMessage.Text = "Registro de rutina con exito.";
+                    //lblSuccessMessage.Text = "Registro de rutina con exito.";
                     lblErrorMessage.Text = "";
                     UPGridview.Update();
                 }
@@ -140,7 +140,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
                 PopulateGridview();
                 UPGridview.Update();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "Actualizacion exitosa" + "', 'bottom', 'center', null, null);", true);
-                lblSuccessMessage.Text = "Rutina Actualizada con exito.";
+                //lblSuccessMessage.Text = "Rutina Actualizada con exito.";
                 lblErrorMessage.Text = "";
             }
         }
@@ -167,9 +167,11 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
                 sqlCmd.ExecuteNonQuery();
                 PopulateGridview();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "Rutina eliminada" + "', 'bottom', 'center', null, null);", true);
-                lblSuccessMessage.Text = "Rutina eliminada con exito";
+                //lblSuccessMessage.Text = "Rutina eliminada con exito";
                 lblErrorMessage.Text = "";
                 UPGridview.Update();
+                
+
             }
         }
         catch (Exception ex)
