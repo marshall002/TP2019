@@ -28,5 +28,9 @@ namespace CTR
         {
             objDaoCPago.AceptPago(idCompro);
         }
+        public void RechaP(int idCompro)
+        {
+            objDaoCPago.RechazarPago(idCompro);
+        }
     }
 }
