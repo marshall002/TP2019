@@ -176,6 +176,7 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+
         public bool ExisteCitaFecha(string fechahora,string dni)
         {
             int valor_retornado = 0;

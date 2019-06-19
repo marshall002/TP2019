@@ -65,7 +65,7 @@
                            <ItemTemplate>
                            <asp:Button runat="server" Text="Rechazar pago" 
                            Visible='<%# ValidacionEstadoCita((string)Eval("VCP_Estado_Pago")) %>'
-                           CommandName="RechazarP" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger" />
+                           CommandName="ReportarP" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger" />
                            </ItemTemplate>
                            </asp:TemplateField>
                           

@@ -50,7 +50,7 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
     }
     protected void gvLista_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        if (e.CommandName == "Ver evaluacion")
+        if (e.CommandName == "Asistencia")
         {
             try
             {
@@ -58,54 +58,44 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
                 var colsNoVisible = gvLista.DataKeys[index].Values;
                 string id = colsNoVisible[0].ToString();
                 //string estadosol = colsNoVisible[1].ToString();
-                Session["Tipo_Rutina"] = 1;
-              
-                Log.WriteLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
-                Log.WriteLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+                Session["CodigoSolicitudCita"] = id;
+                string nombre= colsNoVisible[1].ToString();
+                Session["nombre"] = nombre;
+                string fecha = colsNoVisible[2].ToString();
+                Session["fechaCita"] =fecha ;
+                string obs = colsNoVisible[4].ToString();
+                Session["obs"] = obs ;
                 //if (estadosol != "2")
                 //{
                 //consultarDatos();
                 //obtener_Rutina_Fecha();
-                DateTime fecha = Convert.ToDateTime(Session["Primerdia"].ToString());
-                // VALIDACION FECHA 
-                if (fecha > DateTime.Now)
-                {
-
-                    //upEjercicios.Update();
+                cargardatosCitas();
+                
+                    
+                
                     string script = @"<script type='text/javascript'>
-                                      $('#modalInscripcion').modal('show');
+                                      $('#VerDetalleMod').modal('show');
                                   </script>";
                     ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
                     
-                }
-                else
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Usted no puede registrase....', 'bottom', 'center', null, null);", true);
-                }
+                
                   }
             catch (Exception ex)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + ex.Message + "', 'bottom', 'center', null, null);", true);
 
             }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#VerDetalleMod').modal('show');", true);
+            
         }
 }
 
 
     protected void btnReprogramar_Click(object sender, EventArgs e)
     {
-        string txtareaconsulta = textObs.Text.Trim();
-        //TimeSpan Hora = TimeSpan.Parse(ddlNuevaHora.Text);
-        //DateTime Fecha = Convert.ToDateTime(txtFechaProNueva.Text);
-        //DateTime fechaReprogramada = Fecha + Hora;
-        int codigosol = int.Parse(Session["CodigoSolicitudCita"].ToString());
-        //Log.WriteLog(txtresultadoChecbox.Value);
-        //Log.WriteLog("Fecha reprogramada " + fechaReprogramada);
-        string mensaje = "Datos actualizados";
-        //ct.ReprogramarCita(codigosol, fechaReprogramada);
-        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
-        Response.Redirect("~/Proc_Citas_Sol_Listar.aspx");
+        txtFechaProNueva.Enabled = true;
+        ddlNuevaHora.Enabled = true;
+        btnGuardar.Text = "REPROGRAMAR";
+        upbotones.Update();
     }
 
     public void cargardatosCitas()
@@ -115,25 +105,15 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
             Log.WriteLog("Entro a cargar datos citas");
             objdtocita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
             Log.WriteLog("1");
-
+            btnGuardar.Text = "GUARDAR";
             objctrcita.ObtenerInformacionSolicitudCita(objdtocita);
-         
-            DateTime dtValue = objdtocita.DC_FechaHoraSolicitada;
-            textFecha.Text = dtValue.ToString("yyyy-MM-dd");
-            textHora.Text = dtValue.ToString("HH:mm");     
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script language='javascript'>");
-            sb.Append(@"</script>");
-            System.Web.UI.ScriptManager.RegisterStartupScript(this, this.GetType(), "JCall1", sb.ToString(), false);
-
-
-            textObs.Text = objdtocita.VC_Observacion;
-            textFecha.Text = Convert.ToString(objdtocita.DC_FechaHoraSolicitada.ToString("yyyy-MM-dd"));
-            Log.WriteLog("objdtocita.IC_Cod" + objdtocita.IC_Cod);
-            Log.WriteLog("dtValue" + dtValue);
-            Log.WriteLog("objdtocita.VC_Observacion" + objdtocita.VC_Observacion);
-            Log.WriteLog("objdtocita.FechaHoraSolicitada" + Convert.ToString(objdtocita.DC_FechaHoraSolicitada.ToString("yyyy-MM-dd")));
-
+            textNombre.Text = Session["nombre"].ToString();
+            DateTime dtValue =Convert.ToDateTime(Session["fechaCita"].ToString());
+            txtFechaProNueva.Text = dtValue.ToString("yyyy-MM-dd");
+            //txtFechaProNueva.Enabled = false;
+            ddlNuevaHora.SelectedValue = dtValue.ToString("HH:mm");
+            ddlNuevaHora.Enabled = false;
+            textObs.Text= Session["obs"].ToString();
         }
         catch (Exception ex)
         {
@@ -145,8 +125,8 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
     public void actualizarDatos(string valorRadiobuttonentxt)
     {
         string txtareaconsulta = textObs.Text.Trim();
-        TimeSpan Hora = TimeSpan.Parse(textHora.Text);
-        DateTime Fecha = Convert.ToDateTime(textFecha.Text);
+        TimeSpan Hora = TimeSpan.Parse(ddlNuevaHora.SelectedValue);
+        DateTime Fecha = Convert.ToDateTime(txtFechaProNueva.Text);
         DateTime fechasolitada = Fecha + Hora;
         int codigosol = int.Parse(Session["CodigoSolicitudCita"].ToString());
         
@@ -157,5 +137,54 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
 
     }
 
+
+    protected void btnAsistencia_ServerClick(object sender, EventArgs e)
+    {
+        int cod = Convert.ToInt32(Session["CodigoSolicitudCita"]);
+        actualizardatos(txtasistenciaChecbox.Value);
+        string mensaje = "Cita Actualizada";
+        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+
+    }
+    public void actualizardatos(string valorRadiobuttonentxt)
+    {
+        try
+        {
+
+            int codigosol = int.Parse(Session["CodigoSolicitudCita"].ToString());
+            objdtocita.IC_Cod = codigosol;
+            objdtocita.FK_IEC_Cod = int.Parse(valorRadiobuttonentxt);
+            objctrcita.ActualizarSolCitaAdmin(objdtocita);
+        }
+        catch (Exception ex)
+        {
+            Log.WriteLog("Error en el actualizar aprobar o rechazar :" + ex.Message);
+            throw;
+        }
+
+    }
+
+    protected void btnGuardar_Click(object sender, EventArgs e)
+    {
+        if (btnGuardar.Text == "REPROGRAMAR")
+        {
+            int codigosol = Convert.ToInt32(Session["CodigoSolicitudCita"].ToString());
+            TimeSpan Hora = TimeSpan.Parse(ddlNuevaHora.SelectedValue);
+            DateTime Fecha = Convert.ToDateTime(txtFechaProNueva.Text);
+            DateTime fechaReprogramada = Fecha + Hora;
+            string mensaje = "Datos actualizados";
+            objctrcita.ReprogramarCita(codigosol, fechaReprogramada);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+            Response.Redirect("AdministrarCitaNutri.aspx");
+        }
+        else
+        {
+            int cod = Convert.ToInt32(Session["CodigoSolicitudCita"]);
+            actualizardatos(txtasistenciaChecbox.Value);
+            string mensaje = "Cita Actualizada";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+            Response.Redirect("AdministrarCitaNutri.aspx");
+        }
+    }
 }
 
