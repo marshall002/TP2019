@@ -42,7 +42,7 @@
                  <div class="col-lg-10">
             <asp:Panel ID="Panel1" runat="server" CssClass="auto-style1">
                 <asp:GridView ID="gvLista" runat="server" AutoGenerateColumns="False" GridLines="None"  
-                AllowPaging="true" DataKeyNames="PK_ICP_Cod, ICP_NNutri, ICP_NFisio" CssClass="table table-striped table-hover" OnRowCommand="gvLista_RowCommand" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
+                AllowPaging="true" DataKeyNames="PK_ICP_Cod, ICP_NNutri, ICP_NFisio, VCP_Estado_Pago" CssClass="table table-striped table-hover" OnRowCommand="gvLista_RowCommand" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
                 PageSize="9">
            <Columns>
                            <asp:BoundField DataField="PK_ICP_Cod" HeaderText="Codigo"/> 
@@ -50,16 +50,25 @@
                            <asp:BoundField DataField="DCP_FechaHoraRealizada" HeaderText="Fecha"/>
                            <asp:BoundField DataField="ICP_NNutri" HeaderText="N° Nutri"/>  
                            <asp:BoundField DataField="ICP_NFisio" HeaderText="N° Fisio"/>  
-                           <asp:ButtonField ButtonType="button"  HeaderText="Evaluacion"  CommandName="Ver Pago" Text="Ver">
+                           <asp:ButtonField ButtonType="button"  HeaderText="Evaluacion" CommandName="Ver Pago" Text="Ver">
                            <ControlStyle CssClass= "btn btn-warning" />
                            </asp:ButtonField> 
                            <asp:BoundField DataField="VCP_Estado_Pago" HeaderText="Estado"/>  
-                           <asp:ButtonField ButtonType="button"  HeaderText="Accion 1" CommandName="AceptarP" Text="Aceptar Pago Realizado">
-                           <ControlStyle CssClass= "btn btn-success" />
-                           </asp:ButtonField>        
-                           <asp:ButtonField ButtonType="button"  HeaderText="Accion 2" CommandName="ReportarP" Text="Reportar Pago Usuario">
-                           <ControlStyle CssClass= "btn btn-danger" />
-                           </asp:ButtonField> 
+                           <asp:TemplateField HeaderText="Aprobar Pago">
+                           <ItemTemplate>
+                           <asp:Button runat="server" Text="Aceptar Pago"  CommandName="AceptarP"
+                           Visible='<%# ValidacionEstadoCita((string)Eval("VCP_Estado_Pago")) %>'
+                            CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-success" />
+                           </ItemTemplate>
+                           </asp:TemplateField>
+                           <asp:TemplateField HeaderText="Rechaza Pago">
+                           <ItemTemplate>
+                           <asp:Button runat="server" Text="Rechazar pago" 
+                           Visible='<%# ValidacionEstadoCita((string)Eval("VCP_Estado_Pago")) %>'
+                           CommandName="RechazarP" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger" />
+                           </ItemTemplate>
+                           </asp:TemplateField>
+                          
            </Columns>
                </asp:GridView>
         </asp:Panel> 

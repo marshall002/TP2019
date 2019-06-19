@@ -73,5 +73,15 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+        public void RechazarPago(int codigoCompr)
+        {
+            SqlCommand command = new SqlCommand("sp_REstadoCompro", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@idCom", codigoCompr);
+
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
     }
 }
