@@ -32,5 +32,17 @@ namespace CTR
         {
             objDaoCPago.RechazarPago(idCompro);
         }
+        public DataTable VerComprobante_Pago()
+        {
+            return objDaoCPago.VerComprobantePago();
+        }
+        public void RegistrarComprobante_Pago(DtoCPago objDTOCP, string imag)
+        {
+            objDaoCPago.RegistrarComprobantePago(objDTOCP, imag);
+        }
+        public void ActualizarComprobante_Pago(DtoCPago objDTOCP)
+        {
+            objDaoCPago.ActualizarRegistrarPago(objDTOCP);
+        }
     }
 }

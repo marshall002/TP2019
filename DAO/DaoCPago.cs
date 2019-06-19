@@ -83,5 +83,50 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+        public DataTable VerComprobantePago()
+        {
+            DataTable dtDatos = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("sp_ListarRealizarPagos", conexion);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtDatos = new DataTable();
+            daAdaptador.Fill(dtDatos);
+            conexion.Close();
+            return dtDatos;
+        }
+        public void RegistrarComprobantePago(DtoCPago ObjDTOCP, string imag)
+        {
+
+            SqlCommand command = new SqlCommand("sp_RegistrarComprobantePago", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            //command.Parameters.AddWithValue("@CodigoCita", cita.IC_Cod);command.Parameters.AddWithValue("@FechaHoraSolicitadaCita", ObjDtoCita.DC_FechaHoraSolicitada);
+            command.Parameters.AddWithValue("@Imagen", imag);
+            command.Parameters.AddWithValue("@Noperaciones", ObjDTOCP.VCP_NOperacion);
+            command.Parameters.AddWithValue("@NFisio", ObjDTOCP.ICP_NFisio);
+            command.Parameters.AddWithValue("@NNutri", ObjDTOCP.ICP_NNutri);
+            command.Parameters.AddWithValue("@Monto", ObjDTOCP.DCP_Monto);
+            command.Parameters.AddWithValue("@CodigoUsuarioDNI", ObjDTOCP.FK_CU_Dni);
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
+
+        public void ActualizarRegistrarPago(DtoCPago ObjDTOCP)
+        {
+            SqlCommand command = new SqlCommand("sp_ActualizarComprobantePago", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@CodigoComprobantePago", ObjDTOCP.PK_ICP_Cod);
+            //command.Parameters.AddWithValue("@Imagen", ObjDTOCP);
+            command.Parameters.AddWithValue("@ObservacionComprobantePago", ObjDTOCP.VCP_NOperacion);
+            command.Parameters.AddWithValue("@NFisio", ObjDTOCP.ICP_NFisio);
+            command.Parameters.AddWithValue("@NNutri", ObjDTOCP.ICP_NNutri);
+            command.Parameters.AddWithValue("@Monto", ObjDTOCP.DCP_Monto);
+
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
     }
 }
