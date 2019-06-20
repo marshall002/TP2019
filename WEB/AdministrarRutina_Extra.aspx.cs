@@ -10,7 +10,7 @@ using CTR;
 
 public partial class AdministrarRutina_Extra : System.Web.UI.Page
 {
-    string connectionString = @"Data Source=LACING202A-10;Integrated Security=true;Initial Catalog=BD_SCLAP";
+    string connectionString = @"Data Source=LAPTOP-TG82GILV;Integrated Security=true;Initial Catalog=BD_SCLAP";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -90,6 +90,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
                     PopulateGridview();
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + "Registro exitoso" + "', 'bottom', 'center', null, null);", true);
                     //lblSuccessMessage.Text = "Registro de rutina con exito.";
+                    //var textbox = gvRutina.FindControl("txtFK_ITR_CodFooter");
                     lblErrorMessage.Text = "";
                     UPGridview.Update();
                 }

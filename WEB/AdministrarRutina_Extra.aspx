@@ -185,9 +185,6 @@
                     alert("No puede haber campos vacios");
                     return false;
                 }
-                else{
-                    alert("Todo correcto");
-                }
 
             });
         </script>
@@ -199,9 +196,6 @@
                     if (campo_rep.length > 999) {
                         alert("Ingrese un dato entero permitido.");
                         return false;
-                    }
-                    else {
-                        alert("Todo correcto.");
                     }
 
                 });
