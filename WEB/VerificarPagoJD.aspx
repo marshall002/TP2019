@@ -150,8 +150,7 @@
 
                             <div class="form-group">
                                 <div class="form-group">
-                                    <input type="button" value="Guardar" class="btn btn-success" runat="server">
-                                    <input type="button" value="Cerrar" class="btn btn-danger" onclick="closeModal();">
+                                    <input type="button" value="Cerrar" class="btn btn-danger" onclick="CloseModal()">
                                 </div>
                             </div>
                         </div>
