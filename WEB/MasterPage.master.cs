@@ -98,8 +98,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
     public void perfil_Administrador()
     {
         string html = string.Format(@"
-                   
-                   
+
+
                    <li>
                         <a href='Proc_Citas_Sol_Listar.aspx'>
                             <i class='material-icons'>content_paste</i>
