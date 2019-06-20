@@ -127,7 +127,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     <li>
                        <a href='MonitorearCitaFisio.aspx'>
                             <i class='material-icons'>content_paste</i>
-                            <span>Mis citas</span>
+                            <span>Citas</span>
                         </a>
                     </li>
                     ");
