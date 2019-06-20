@@ -33,7 +33,9 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         using (SqlConnection sqlCon = new SqlConnection(connectionString))
         {
             sqlCon.Open();
-            SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM T_Ruti", sqlCon);
+            DateTime FechaSel = Convert.ToDateTime(Session["PrimerDia"]);
+            string fecha = FechaSel.ToString("yyyy-MM-dd'T'HH':'mm':'ss");
+            SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM T_Rutina where DR_FechaRutina = '"+ fecha + "' and FK_ITR_Cod= "+ Session["Tipo_Rutina"].ToString(), sqlCon);
             sqlDa.Fill(dtbl);
         }
         if (dtbl.Rows.Count > 0)
@@ -78,7 +80,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
                 using (SqlConnection sqlCon = new SqlConnection(connectionString))
                 {
                     sqlCon.Open();
-                    string query = "INSERT INTO T_Ruti (DR_FechaRutina,DR_FechaRegistro,VR_DescripcionE,FK_ITR_Cod,VR_Duracion,IR_Repeticion) VALUES (@Fecharutina,GETDATE(),@descripcion,@fkitrcod,@duracion,@repetic)";
+                    string query = "INSERT INTO T_Rutina (DR_FechaRutina,DR_FechaRegistro,VR_DescripcionE,FK_ITR_Cod,VR_Duracion,IR_Repeticion) VALUES (@Fecharutina,GETDATE(),@descripcion,@fkitrcod,@duracion,@repetic)";
                     SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                     sqlCmd.Parameters.AddWithValue("@Fecharutina", DateTime.Parse((gvRutina.FooterRow.FindControl("txtfechaRutinaFooter") as TextBox).Text.Trim()));
                     sqlCmd.Parameters.AddWithValue("@descripcion", (gvRutina.FooterRow.FindControl("txtdescripcionFooter") as TextBox).Text.Trim());
@@ -127,7 +129,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
                 sqlCon.Open();
-                string query = "UPDATE T_Ruti SET DR_FechaRutina=@Fecharutina,VR_DescripcionE=@descripcion,FK_ITR_Cod=@fkitrcod,VR_Duracion=@duracion,IR_Repeticion=@repetic WHERE PK_IR_Cod = @id";
+                string query = "UPDATE T_Rutina SET DR_FechaRutina=@Fecharutina,VR_DescripcionE=@descripcion,FK_ITR_Cod=@fkitrcod,VR_Duracion=@duracion,IR_Repeticion=@repetic WHERE PK_IR_Cod = @id";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 sqlCmd.Parameters.AddWithValue("@Fecharutina", DateTime.Parse((gvRutina.Rows[e.RowIndex].FindControl("txtfechaRutina") as TextBox).Text.Trim()));
                 sqlCmd.Parameters.AddWithValue("@descripcion", (gvRutina.Rows[e.RowIndex].FindControl("txtdescripcion") as TextBox).Text.Trim());
@@ -161,7 +163,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
             {
                 sqlCon.Open();
 
-                string query = "DELETE FROM T_Ruti WHERE PK_IR_Cod = @id";
+                string query = "DELETE FROM T_Rutina WHERE PK_IR_Cod = @id";
 
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 sqlCmd.Parameters.AddWithValue("@id", Convert.ToInt32(gvRutina.DataKeys[e.RowIndex].Value.ToString()));

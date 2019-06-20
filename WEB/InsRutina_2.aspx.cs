@@ -103,13 +103,26 @@ public partial class InsRutina_2 : System.Web.UI.Page
     }
     public void CargarEjercicios()
     {
-        DtoRutina objdtoRutina = new DtoRutina();
-        objdtoRutina.FK_ITR_Cod= Convert.ToInt32(Session["Tipo_Rutina"]);
-        
-        DateTime FechaSel = Convert.ToDateTime(Session["PrimerDia"]);
-        string fecha = FechaSel.ToString("yyyy-MM-dd'T'HH':'mm':'ss");
-        GvEjercicios.DataSource = objctrRutina.verRutinaE(objdtoRutina, fecha);
-        GvEjercicios.DataBind();
+        try
+        {
+            Log.WriteLog("Entro a funcion cargar ejercicios");
+            DtoRutina objdtoRutina = new DtoRutina();
+            objdtoRutina.FK_ITR_Cod = Convert.ToInt32(Session["Tipo_Rutina"]);
+            Log.WriteLog(" obj dtio rutina "+ objdtoRutina.FK_ITR_Cod);
+
+            DateTime FechaSel = Convert.ToDateTime(Session["PrimerDia"]);
+            string fecha = FechaSel.ToString("yyyy-MM-dd'T'HH':'mm':'ss");
+            Log.WriteLog("fecha " + fecha);
+
+            GvEjercicios.DataSource = objctrRutina.verRutinaE(objdtoRutina, fecha);
+            GvEjercicios.DataBind();
+        }
+        catch (Exception ex)
+        {
+            Log.WriteLog("error cargar ejecricios: " + ex.Message);
+            throw;
+        }
+      
 
     }
     public void cargarddlHoras()

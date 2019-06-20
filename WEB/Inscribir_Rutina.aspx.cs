@@ -72,8 +72,10 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 consultarDatos();
                 obtener_Rutina_Fecha();
                 DateTime fecha = Convert.ToDateTime(Session["Primerdia"].ToString());
+                Log.WriteLog("Fecha   " + fecha);
+
                 // VALIDACION FECHA 
-                if (fecha > DateTime.Now)
+                if (fecha.Day >= DateTime.Now.Day)
                 {
 
                     //upEjercicios.Update();
@@ -118,7 +120,7 @@ public partial class Inscribir_Clase : System.Web.UI.Page
                 obtener_Rutina_Fecha();
                 DateTime fecha = Convert.ToDateTime(Session["Primerdia"].ToString());
                 // VALIDACION FECHA 
-                if (fecha > DateTime.Now)
+                if (fecha.Day >= DateTime.Now.Day)
                 {
                     DateTime fec = Convert.ToDateTime(id);
                     //BindGrid2(fec.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
