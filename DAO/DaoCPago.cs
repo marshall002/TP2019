@@ -138,9 +138,9 @@ namespace DAO
             SqlCommand command = new SqlCommand("sp_ActualizarPago", conexion);
             command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.AddWithValue("@CodigoComprobantePago", ObjDTOCP.PK_ICP_Cod);
-            command.Parameters.AddWithValue("@Imagen", ObjDTOCP.IMC_Imagen);
-            command.Parameters.AddWithValue("@ObservacionComprobantePago", ObjDTOCP.VCP_NOperacion);
+            command.Parameters.AddWithValue("@Cod_P", ObjDTOCP.PK_ICP_Cod);
+            //command.Parameters.AddWithValue("@Imagen", ObjDTOCP.IMC_Imagen);
+            command.Parameters.AddWithValue("@Noperaciones", ObjDTOCP.VCP_NOperacion);
             command.Parameters.AddWithValue("@NFisio", ObjDTOCP.ICP_NFisio);
             command.Parameters.AddWithValue("@NNutri", ObjDTOCP.ICP_NNutri);
             command.Parameters.AddWithValue("@Monto", ObjDTOCP.DCP_Monto);
