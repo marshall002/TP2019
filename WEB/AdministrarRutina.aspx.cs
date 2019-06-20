@@ -68,7 +68,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         Log.WriteLog("Primer dia de mes: " + firstDayOfMonth);
 
         int weeksInMonth = (int)Math.Ceiling((firstDayOfMonth + daysInMonth) / 7.0);
-        Log.WriteLog("weeksInMonth" + weeksInMonth);
+        Log.WriteLog("weeksInMonth" + (int)DateTime.Now.Day);
 
         DataTable dt = new DataTable();
         DataColumn n1 = dt.Columns.Add("n1", typeof(string));
@@ -76,7 +76,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         //DataColumn n3 = dt.Columns.Add("n3", typeof(string));
         //DataColumn n4 = dt.Columns.Add("n9", typeof(Int64));
 
-        for (int i = 1; i <= daysInMonth; i++)
+        for (int i = 1  ; i <= daysInMonth; i++)
         {
             string resultadodia = i.ToString();
             if (i < 10)

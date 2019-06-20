@@ -81,15 +81,21 @@ public partial class MasterPage : System.Web.UI.MasterPage
                         </a>
                     </li>
                     <li>
+                        <a href='Listar_rutinas_socio.aspx'>
+                            <i class='material-icons'>content_paste</i>
+                            <span>Administra tus inscripciones a rutina</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href='Inscribir_Rutina.aspx'>
                             <i class='material-icons'>content_paste</i>
                             <span>Inscribite A rutinas</span>
                         </a>
                     </li>
-                    <li>
-                        <a href='Listar_rutinas_socio.aspx'>
+                     <li>
+                        <a href='Realizar_Pago.aspx'>
                             <i class='material-icons'>content_paste</i>
-                            <span>Administra tus inscripciones a rutina</span>
+                            <span>Mis pagos</span>
                         </a>
                     </li>
                     ");
@@ -104,6 +110,12 @@ public partial class MasterPage : System.Web.UI.MasterPage
                         <a href='Proc_Citas_Sol_Listar.aspx'>
                             <i class='material-icons'>content_paste</i>
                             <span>Gestionar las solicitudes</span>
+                        </a>
+                    </li>
+<li>
+                        <a href='VerificarPagoJD.aspx'>
+                            <i class='material-icons'>content_paste</i>
+                            <span>Verificar los pagos</span>
                         </a>
                     </li>
                     ");
@@ -127,7 +139,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     <li>
                        <a href='MonitorearCitaFisio.aspx'>
                             <i class='material-icons'>content_paste</i>
-                            <span>Citas</span>
+                            <span>Mis citas</span>
                         </a>
                     </li>
                     ");
@@ -159,7 +171,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void AdministradorOption_ServerClick(object sender, EventArgs e)
     {
-        
+
     }
 
     protected void UsuarioOption_ServerClick(object sender, EventArgs e)

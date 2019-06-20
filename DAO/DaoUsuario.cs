@@ -30,6 +30,15 @@ namespace DAO
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
+
+                usuario.PK_CU_Dni = reader[0].ToString();
+                usuario.VU_Nombre = reader[1].ToString();
+                usuario.VU_APaterno = reader[2].ToString();
+                usuario.VU_AMaterno = reader[3].ToString();
+                usuario.CU_Celular = reader[4].ToString();
+                usuario.DU_FechaNacimiento = Convert.ToDateTime(reader[5].ToString());
+                usuario.FK_IP_Cod = Convert.ToInt32(reader[6].ToString());
+                usuario.FK_ITU_Cod = Convert.ToInt32(reader[7].ToString());
                 plan.DP_Fecha_Fin = Convert.ToDateTime(reader[8].ToString());
                 sesionfisio.ISF_Cantidad = int.Parse(reader[9].ToString());
                 sesionnutri.ISN_Cantidad = int.Parse(reader[10].ToString());
