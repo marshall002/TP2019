@@ -39,7 +39,7 @@
                                     <div class="col-lg-3">
                                         <br />
                                         <button class="btn btn-primary" runat="server">
-                                            <span class="glyphicon glyphicon-search"></span>Buscar</button>
+                                            <i class="material-icons">search</i>Buscar</button>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="col-lg-4"></div>
@@ -169,7 +169,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                                <h2 class="card-inside-title form-inline">ASISTENCIA</h2>
+                                                <label for="textHora">Asistencia:</label>
                                                 <div class="switch">
                                                     <label id="rechazadotxt">NO</label>
                                                     <label>

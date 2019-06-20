@@ -9,7 +9,7 @@ using System.Data;
 
 public partial class AdminRutina : System.Web.UI.Page
 {
-    string connectionString = @"Data Source=DESKTOP-UH5SKAR\LENOVOPC;Integrated Security=true;Initial Catalog=PhoneBookDB";
+    string connectionString = @"Data Source=ale\sqlexpress;Integrated Security=true;Initial Catalog=PhoneBookDB";
     protected void Page_Load(object sender, EventArgs e)
     {
 
