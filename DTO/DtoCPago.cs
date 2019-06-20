@@ -9,7 +9,9 @@ namespace DTO
    public class DtoCPago
     {
         public int PK_ICP_Cod { get; set; }
-        public String IMC_Imagen { get; set; }
+
+        public string IMC_Imagen { get; set; }
+
         public string VCP_NOperacion { get; set; }
         public int ICP_NFisio { get; set; }
         public int ICP_NNutri { get; set; }

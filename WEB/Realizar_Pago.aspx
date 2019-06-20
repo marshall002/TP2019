@@ -15,7 +15,7 @@
                             <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" class="btn btn-block btn-md btn-primary waves-effect" aria-hidden="true" OnClick="btnRegistrar_Click" />
                         </div>
                         <div class="body table-responsive ">
-                            <asp:GridView ID="gvRegistrarPago" class="table table-bordered table-hover" runat="server" AutoGenerateColumns="False" EmptyDataText="No tiene pagos registradas" ShowHeaderWhenEmpty="True" OnRowCommand="gvRegistrarPago_RowCommand" OnSelectedIndexChanged="gvRegistrarPago_SelectedIndexChanged">
+                            <asp:GridView ID="gvRegistrarPago" class="table table-bordered table-hover" runat="server" AutoGenerateColumns="False" DataKeyNames="PK_ICP_Cod, DCP_FechaHoraRealizada, ICP_NFisio, ICP_NNutri, VCP_Estado_Pago" EmptyDataText="No tiene pagos registradas" ShowHeaderWhenEmpty="True" OnRowCommand="gvRegistrarPago_RowCommand" OnSelectedIndexChanged="gvRegistrarPago_SelectedIndexChanged">
                                 <Columns>
                                     <asp:BoundField DataField="PK_ICP_Cod" HeaderText="Codigo" />
                                     <asp:BoundField DataField="DCP_FechaHoraRealizada" HeaderText="Fecha de Pago" />

@@ -35,6 +35,10 @@ public partial class Realizar_Pago : System.Web.UI.Page
     {
         if (e.CommandName == "Actualizar")
         {
+            int index = Convert.ToInt32(e.CommandArgument);
+            var colsNoVisible = gvRegistrarPago.DataKeys[index].Values;
+            int codComp = Convert.ToInt32(colsNoVisible[0]);
+            Session["idcomp"] = codComp;
             Response.Redirect("~/ActualizarPagos.aspx");
         }
     }

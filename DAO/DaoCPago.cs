@@ -52,6 +52,27 @@ namespace DAO
             conexion.Close();
             return model;
         }
+        public DtoCPago VerCPago(int idcomprobante)
+        {
+            DataTable dtDatos = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("sp_VerCPagos", conexion);
+            command.Parameters.AddWithValue("@ID", idcomprobante);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtDatos = new DataTable();
+            daAdaptador.Fill(dtDatos);
+            var model = new DtoCPago();
+            var xd = dtDatos.Rows[0].ItemArray;
+            var obj = xd[0];
+            model.IMC_Imagen = Convert.ToBase64String(ObjectToByteArray(xd[0]));
+            model.DCP_Monto = Convert.ToDouble(xd[1]);
+            model.VCP_NOperacion = xd[2].ToString();
+            model.ICP_NFisio= Convert.ToInt32(xd[3].ToString());
+            model.ICP_NNutri= Convert.ToInt32(xd[4].ToString());
+            conexion.Close();
+            return model;
+        }
         private byte[] ObjectToByteArray(Object obj)
         {
             if (obj == null)
@@ -114,11 +135,11 @@ namespace DAO
 
         public void ActualizarRegistrarPago(DtoCPago ObjDTOCP)
         {
-            SqlCommand command = new SqlCommand("sp_ActualizarComprobantePago", conexion);
+            SqlCommand command = new SqlCommand("sp_ActualizarPago", conexion);
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@CodigoComprobantePago", ObjDTOCP.PK_ICP_Cod);
-            //command.Parameters.AddWithValue("@Imagen", ObjDTOCP);
+            command.Parameters.AddWithValue("@Imagen", ObjDTOCP.IMC_Imagen);
             command.Parameters.AddWithValue("@ObservacionComprobantePago", ObjDTOCP.VCP_NOperacion);
             command.Parameters.AddWithValue("@NFisio", ObjDTOCP.ICP_NFisio);
             command.Parameters.AddWithValue("@NNutri", ObjDTOCP.ICP_NNutri);

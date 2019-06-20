@@ -17,7 +17,7 @@ public partial class RegistrarPagos : System.Web.UI.Page
     CtrCPago objCTRCP = new CtrCPago();
     //DtoUsuario  objDTOU = new DtoUsuario();
     CtrUsuario objCTRU = new CtrUsuario();
-    string conexionString = "data source=LAPTOP-TG82GILV; initial catalog=BD_SCLAP; integrated security=SSPI;";
+    string conexionString = "data source=MSI; initial catalog=BD_SCLAP; integrated security=SSPI;";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -33,7 +33,7 @@ public partial class RegistrarPagos : System.Web.UI.Page
         byte[] imag = new byte[Tamanio];
 
         fu_load_imagen.PostedFile.InputStream.Read(imag, 0, Tamanio);
-        Bitmap ImagenOiginalBinaria = new Bitmap(fu_load_imagen.PostedFile.InputStream);
+        //Bitmap ImagenOiginalBinaria = new Bitmap(fu_load_imagen.PostedFile.InputStream);
 
         Registrar(imag);
 
