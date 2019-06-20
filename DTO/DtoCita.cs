@@ -17,5 +17,7 @@ namespace DTO
 		public string FK_CU_DNI { get; set; }
         public DateTime  DC_FechaReprogramada { get; set; }
         public string FK_IEC_Nombre { get; set; }
+        //AGREGADO 20/06/2019 13:03
+        public string VTC_Nombre { get; set; }
     }
 }
