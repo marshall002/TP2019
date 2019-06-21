@@ -104,7 +104,7 @@
 
                                             <div class="form-line">
                                                 <label for="textNombre">Nombres:</label>
-                                                <asp:TextBox ID="textNombre" runat="server" CssClass="form-control"></asp:TextBox>
+                                                <asp:TextBox ID="textNombre" ReadOnly="true" runat="server" CssClass="form-control"></asp:TextBox>
                                             </div>
                                             <span class="input-group-addon">
                                                 <i></i>
@@ -114,7 +114,7 @@
                                         <div class="input-group colorpicker">
                                             <label for="textFecha">Fecha:</label>
                                             <div class="form-line">
-                                                <asp:TextBox ID="txtFechaProNueva" class="form-control" runat="server" TextMode="Date" MaxLength="10"></asp:TextBox>
+                                                <asp:TextBox ID="txtFechaProNueva" class="form-control"  runat="server"  MaxLength="10"></asp:TextBox>
                                             </div>
                                             <span class="input-group-addon">
                                                 <i></i>
@@ -128,8 +128,8 @@
                                                 }
                                             </style>
                                             <div class="form-line">
-                                                <label for="textObs">Duda o Consulta:</label>
-                                                <asp:TextBox ID="textObs" TextMode="MultiLine" runat="server" CssClass="form-control"></asp:TextBox>
+                                                <label for="txtobs">Duda o Consulta:</label>
+                                                <asp:TextBox ID="textObs" TextMode="MultiLine" ReadOnly="true" runat="server" CssClass="form-control"></asp:TextBox>
                                             </div>
                                             <span class="input-group-addon">
                                                 <i></i>
@@ -143,7 +143,7 @@
                                                 <label for="textHora">Hora:</label>
                                                 <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                                     <ContentTemplate>
-                                                        <asp:DropDownList runat="server" ID="ddlNuevaHora" CssClass="form-control" AutoPostBack="true">
+                                                        <asp:DropDownList runat="server"   ID="ddlNuevaHora" CssClass="form-control" AutoPostBack="true">
                                                             <asp:ListItem Value="NULO">Seleccione la hora</asp:ListItem>
                                                             <asp:ListItem Value="15:30">3:30 PM</asp:ListItem>
                                                             <asp:ListItem Value="16:00">4:00 PM</asp:ListItem>

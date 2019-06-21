@@ -39,7 +39,6 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
             }
             else
             {
-
                 Log.WriteLog("Citas Nutri Administracion - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
 
@@ -47,7 +46,7 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
         }
 
 
-    }
+        }
     protected void gvLista_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         if (e.CommandName == "Asistencia")
@@ -70,10 +69,12 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
                 //consultarDatos();
                 //obtener_Rutina_Fecha();
                 cargardatosCitas();
+
                 
-                    
-                
-                    string script = @"<script type='text/javascript'>
+                ddlNuevaHora.Enabled = false;
+                txtFechaProNueva.Enabled = false;
+
+                string script = @"<script type='text/javascript'>
                                       $('#VerDetalleMod').modal('show');
                                   </script>";
                     ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
