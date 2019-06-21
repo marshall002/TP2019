@@ -18,7 +18,7 @@ public partial class ActualizarPagos : System.Web.UI.Page
     //DtoUsuario objDTOU = new DtoUsuario();
     CtrUsuario objCTRU = new CtrUsuario();
 
-    string conexionString = "data source=MSI; initial catalog=BD_SCLAP; integrated security=SSPI;";
+    string conexionString = "data source=LACING202A-06; initial catalog=BD_SCLAP; integrated security=SSPI;";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -37,8 +37,8 @@ public partial class ActualizarPagos : System.Web.UI.Page
 
         SqlConnection conexion = new SqlConnection(conexionString);
         SqlCommand cmd = new SqlCommand();
-        cmd.CommandText = "update T_Comprobante_Pago set VCP_NOperacion = @Noperaciones, ICP_NFisio=@NFisio, ICP_NNutri=@NNutri, DCP_Monto=@Monto  where PK_ICP_Cod = @Cod_P; values (@Noperaciones,@NFisio,@NNutri,@Monto)";
-        
+        cmd.CommandText = "update T_Comprobante_Pago set VCP_NOperacion = @Noperaciones, ICP_NFisio=@NFisio, ICP_NNutri=@NNutri, DCP_Monto=@Monto  where PK_ICP_Cod = @Cod_P";
+        cmd.Parameters.Add("@Cod_P", SqlDbType.Int).Value = Convert.ToInt32(Session["idcomp"].ToString());
         cmd.Parameters.Add("@Noperaciones", SqlDbType.VarChar).Value = txt_operaciones.Text;
         cmd.Parameters.Add("@NFisio", SqlDbType.Int).Value = Convert.ToInt32(txt_n_cita_fisio.Text);
         cmd.Parameters.Add("@NNutri", SqlDbType.Int).Value = Convert.ToInt32(txt_n_cita_nutri.Text);
@@ -50,13 +50,9 @@ public partial class ActualizarPagos : System.Web.UI.Page
 
 
 
-        string Sesion = "74931448";
-        objDTOCP.VCP_NOperacion = txt_operaciones.Text;
-        objDTOCP.DCP_Monto = Double.Parse(txt_monto.Text);
-        objDTOCP.ICP_NFisio = Int32.Parse(txt_n_cita_fisio.Text);
-        objDTOCP.ICP_NNutri = Int32.Parse(txt_n_cita_nutri.Text);
         
-        objCTRCP.ActualizarComprobante_Pago(objDTOCP);
+        
+        
         
         Response.Redirect("~/Realizar_Pago.aspx");
 
@@ -75,5 +71,17 @@ public partial class ActualizarPagos : System.Web.UI.Page
         txt_n_cita_nutri.Text = objDTOCP.ICP_NNutri.ToString();
 
 
+    }
+
+    protected void btnsubir_Click(object sender, EventArgs e)
+    {
+        int Tamanio = fu_load_imagen.PostedFile.ContentLength;
+        byte[] imag = new byte[Tamanio];
+
+        fu_load_imagen.PostedFile.InputStream.Read(imag, 0, Tamanio);
+        Bitmap ImagenOiginalBinaria = new Bitmap(fu_load_imagen.PostedFile.InputStream);
+        //Insertar en la bd
+        string ImagenDataURL64 = "data:image/jpg;base64," + Convert.ToBase64String(imag);
+        imagen_previa.ImageUrl = ImagenDataURL64;
     }
 }

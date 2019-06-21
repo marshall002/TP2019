@@ -11,56 +11,106 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="col-md-4 col-md-offset-4"></div>
-                        Imagen agregada:
-                    <br />
-                        <br />
-                        <br />
-                        <asp:Image ID="imagen_previa" Width="200" ImageUrl="images/boucher.jpg" runat="server" />
-                        <br />
-                        <br />
-                        <asp:Button ID="btnsubir" runat="server" Text="Subir" />
-                        <br />
-                        <br />
-                        Archivo:
-                    <br />
-                        <br />
-                        <asp:FileUpload ID="fu_load_imagen" accept=".jpg" runat="server" CssClass="form-control" />
-                        <br />
-                        <br />
-                        Numero de Operaciones:
-                    <br />
-                        <br />
-                        <asp:TextBox ID="txt_operaciones" runat="server"></asp:TextBox>
-                        <br />
-                        <br />
-                        Monto:
-                    <br />
-                        <br />
-                        <asp:TextBox ID="txt_monto" runat="server"></asp:TextBox>
-                        <br />
-                        <br />
-                        Numero de citas fisio:
-                    <br />
-                        <br />
-                        <asp:TextBox ID="txt_n_cita_fisio" runat="server"></asp:TextBox>
-                        <br />
-                        <br />
-                        Numero de citas nutri:
-                    <br />
-                        <br />
-                        <asp:TextBox ID="txt_n_cita_nutri" runat="server"></asp:TextBox>
-                        <br />
-                        <br />
-                        <asp:Button ID="btn_actualizar" runat="server" Text="Actualizar" OnClick="btn_actualizar_Click" />
-                        <br />
-                        <br />
+                        <div class="body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-12">
+                                            <div class="form-group form-float">
+                                                <label class="form-label">Imagen agregada:</label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-7  ">
+                                            <div class="col-sm-10">
+                                                <asp:FileUpload ID="fu_load_imagen" accept=".jpg" runat="server" CssClass="form-control" />
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <asp:Button ID="btnsubir" runat="server" Text="Subir"  CssClass="btn btn-success" OnClick="btnsubir_Click" />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-5">
+                                            <div class="col-sm-10">
+                                                <label class="form-label">Archivo:</label>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <asp:Image ID="imagen_previa" Width="200" ImageUrl="images/boucher.jpg" runat="server" />
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row clearfix">
+                                                <div class="col-sm-2">
+                                                    <div class="form-group form-float">
+                                                        <label class="form-label">Numero de Operación:</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <asp:TextBox ID="txt_operaciones" runat="server" CssClass="form-control"></asp:TextBox>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group form-float">
+                                                        <label class="form-label">Monto:</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+
+                                                    <asp:TextBox ID="txt_monto" runat="server" CssClass="form-control"></asp:TextBox>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row clearfix">
+                                                <div class="col-sm-2">
+                                                    <div class="form-group form-float">
+                                                        <label class="form-label">Numero de citas Fisio:</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <asp:TextBox ID="txt_n_cita_fisio" CssClass="form-control" runat="server"></asp:TextBox>
+
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group form-float">
+                                                        <label class="form-label">Numero de citas Nutri:</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4"> 
+                                                    <asp:TextBox ID="txt_n_cita_nutri" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3 right">
+                                            <asp:Button ID="btn_actualizar" runat="server" Text="Actualizar" CssClass="btn btn-success right" OnClick="btn_actualizar_Click" />
+
+                                        </div>
+
+
+
+                                        <br />
+                                        <br />
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
 
                     </div>
                 </div>
             </div>
         </div>
     </section>
+   
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
 </asp:Content>

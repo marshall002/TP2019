@@ -43,6 +43,32 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="VerPago" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="DescModalEliminarInscripcion" runat="server">Imagen</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group colorpicker">
+                        <div class="form-line">
+                            <label for="textComprobante">Comprobante:</label><br />
+                            <div class="col-lg-4">
+                                <asp:Image ID="textImagen" ImageUrl="images/boucher.jpg" Width="250" Height="200" runat="server" CssClass="form-control"></asp:Image>
+                            </div>
+                        </div>
+                        <span class="input-group-addon">
+                            <i></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link waves-effect waves-grey" data-dismiss="modal">CERRAR</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
 </asp:Content>

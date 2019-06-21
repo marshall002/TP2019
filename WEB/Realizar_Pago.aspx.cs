@@ -41,6 +41,14 @@ public partial class Realizar_Pago : System.Web.UI.Page
             Session["idcomp"] = codComp;
             Response.Redirect("~/ActualizarPagos.aspx");
         }
+        if (e.CommandName == "Ver")
+        {
+            string script = @"<script type='text/javascript'>
+                                      $('#VerPago').modal('show');
+                                  </script>";
+            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
+            
+        }
     }
     protected Boolean ValidacionEstadoPago(string EstadoPago)
     {
