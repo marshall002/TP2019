@@ -57,8 +57,12 @@ public partial class RegistrarPagos : System.Web.UI.Page
 
         SqlConnection conexion = new SqlConnection(conexionString);
         SqlCommand cmd = new SqlCommand();
-        cmd.CommandText = "Insert into T_Comprobante_pago (IMCP_imagen,VCP_NOperacion,ICP_NFIsio,ICP_NNutri,VCP_Estado_Pago, DCP_Monto,DCP_FechaHoraRealizada,FK_CU_Dni) values (@imagen,'Test',1,1,'pendiente',100,getdate(),'74931448')";
+        cmd.CommandText = "Insert into T_Comprobante_pago (IMCP_imagen,VCP_NOperacion,ICP_NFIsio,ICP_NNutri,VCP_Estado_Pago, DCP_Monto,DCP_FechaHoraRealizada,FK_CU_Dni) values (@imagen,@Noperaciones,@NFisio,@NNutri,'pendiente',@Monto,getdate(),'74931448')";
         cmd.Parameters.Add("@imagen", SqlDbType.Image).Value = imag;
+        cmd.Parameters.Add("@Noperaciones",SqlDbType.VarChar).Value = txt_operacion.Text;
+        cmd.Parameters.Add("@NFisio", SqlDbType.Int).Value = Convert.ToInt32(txt_fisio.Text);
+        cmd.Parameters.Add("@NNutri", SqlDbType.Int).Value = Convert.ToInt32(txt_nutri.Text);
+        cmd.Parameters.Add("@Monto", SqlDbType.Int).Value = Convert.ToInt32(txt_monto.Text);
         cmd.CommandType = CommandType.Text;
         cmd.Connection = conexion;
         conexion.Open();
