@@ -113,7 +113,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                         </a>
                     </li>
 <li>
-                        <a href='VerificarPagoJD.aspx'>
+                        <a href='Verificar_Pago.aspx'>
                             <i class='material-icons'>content_paste</i>
                             <span>Verificar los pagos</span>
                         </a>
