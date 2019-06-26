@@ -25,6 +25,7 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
                 if (int.Parse(Session["id_perfil"].ToString()) == Constante.ROL_SOCIO)
                 {
                     contarCitasxServicio();
+
                 }
                 else
                 {

@@ -89,7 +89,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     <li>
                         <a href='Inscribir_Rutina.aspx'>
                             <i class='material-icons'>content_paste</i>
-                            <span>Inscribite A rutinas</span>
+                            <span>Inscribete a las rutinas</span>
                         </a>
                     </li>
                      <li>

@@ -26,6 +26,10 @@ public partial class _Default : System.Web.UI.Page
                 if (int.Parse(Session["id_perfil"].ToString()) == Constante.ROL_SOCIO)
                 {
                     ListarSolicitudesCita(TipoCitaSol, Session["SessionUsuario"].ToString());
+                    contarCitasxServicio();
+                    NutriCont.InnerText = objdtousuario.IC_Citas_Nutri_Usadas.ToString();
+                    NutriFisio.InnerText = objdtousuario.IC_Citas_Fisio_Usadas.ToString();
+
                     //contarCitasxServicio();
                     ValidarfechaFinPlan();
                 }
@@ -42,7 +46,7 @@ public partial class _Default : System.Web.UI.Page
                 Response.Redirect("Inicio.aspx");
 
             }
-           
+
         }
     }
     public void ListarSolicitudesCita(int tiposolicitud, string CodigoUsuario)
@@ -63,7 +67,7 @@ public partial class _Default : System.Web.UI.Page
             Session["CodigoSolicitudCita"] = id;
             Session["estadosol"] = estadosol;
             Session["TipoCitaSol"] = tipocitasol;
-            Log.WriteLog("CodigoSolicitudCita"+ id);
+            Log.WriteLog("CodigoSolicitudCita" + id);
             Log.WriteLog("estadosol" + estadosol);
             Log.WriteLog("TipoCitaSol" + tipocitasol);
 
@@ -117,13 +121,13 @@ public partial class _Default : System.Web.UI.Page
                 int index = Convert.ToInt32(e.CommandArgument);
                 var colsNoVisible = gvSolicitudesCita.DataKeys[index].Values;
                 int idSol = int.Parse(colsNoVisible[0].ToString());
-                Session["CodigoSolicitudCita"]= idSol;
+                Session["CodigoSolicitudCita"] = idSol;
                 ObtenerHoraReprograma(objdtoCita);
                 string script = @"<script type='text/javascript'>
                                       $('#modalDetallesHoraReprogramada').modal('show');
                                   </script>";
                 ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
-               
+
 
                 //objctrcita.EvaluarReprogramarCita(objdtoCita);
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '"+index+"', 'bottom', 'center', null, null);", true);
@@ -183,10 +187,15 @@ public partial class _Default : System.Web.UI.Page
     {
         return FK_IEC_Cod == 3;
     }
+    protected Boolean ValidacionEstadoCitaEliminar(int FK_IEC_Cod)
+    {
+        return FK_IEC_Cod == 1;
+    }
+
     public void ObtenerHoraReprograma(DtoCita objdtoCita)
     {
         objdtoCita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
-        Log.WriteLog("objdtoCita.IC_Cod "+ objdtoCita.IC_Cod);
+        Log.WriteLog("objdtoCita.IC_Cod " + objdtoCita.IC_Cod);
         objctrcita.ObtenerInformacionSolicitudCita(objdtoCita);
         DateTime dtValue = objdtoCita.DC_FechaReprogramada;
         Log.WriteLog("dtValue " + dtValue);
@@ -202,18 +211,21 @@ public partial class _Default : System.Web.UI.Page
         try
         {
             Log.WriteLog("Entro a funcion aprobar ");
-            
+
             objdtoCita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
             objdtoCita.FK_IEC_Cod = 2;
             Log.WriteLog("1A");
             Log.WriteLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
-            Log.WriteLog("objdtoCita.FK_IEC_Cod "+ objdtoCita.FK_IEC_Cod);
+            Log.WriteLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
 
             objctrcita.EvaluarReprogramarCita(objdtoCita);
             Log.WriteLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
             Log.WriteLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
 
             Log.WriteLog("2A");
+            upCursos.Update();
+            Response.Redirect("Sol_Citas_Administracion.aspx");
+
         }
         catch (Exception ex)
         {
@@ -235,10 +247,13 @@ public partial class _Default : System.Web.UI.Page
             Log.WriteLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
             Log.WriteLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
             Log.WriteLog("2R");
+            upCursos.Update();
+            Response.Redirect("Sol_Citas_Administracion.aspx");
+
         }
         catch (Exception ex)
         {
-            Log.WriteLog("CATCH RECHAZAR "+ex.Message);
+            Log.WriteLog("CATCH RECHAZAR " + ex.Message);
         }
     }
 }
