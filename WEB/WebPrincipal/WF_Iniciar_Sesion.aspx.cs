@@ -4,10 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.Sql;
+using System.Data.SqlClient;
 using DTO;
 using CTR;
 
-public partial class Login : System.Web.UI.Page
+public partial class WebPrincipal_WF_Iniciar_Sesion1 :  System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -15,7 +18,9 @@ public partial class Login : System.Web.UI.Page
         {
         }
     }
-    protected void btnIniciarSesión_Click(Object sender, EventArgs e)
+
+  
+    protected void btnIniciarSesión_Click(object sender, EventArgs e)
     {
 
         string color = Constante.COLOR_NEGRO;
@@ -101,9 +106,8 @@ public partial class Login : System.Web.UI.Page
                     Log.WriteLog(" Session['ISN_Cantidad'] " + Session["ISN_Cantidad"]);
                 }
                 string script = @"<script type='text/javascript'>
-                                      location.href='inicio.aspx';
+                                      location.href='../inicio.aspx';
                                   </script>";
-
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "alert", script, false);
                 error = Constante.ERROR_SUCCESS;
 

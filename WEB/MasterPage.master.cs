@@ -55,7 +55,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     default:
                         Session.Clear();
                         Session.Abandon();
-                        Response.Redirect("login.aspx");
+                        Response.Redirect("~/WebPrincipal/WF_Iniciar_Sesion.aspx");
                         break;
                 }
                 //divname.innerhtml = session["nombre"].tostring();
@@ -67,7 +67,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("login.aspx");
+            Response.Redirect("~/WebPrincipal/WF_Iniciar_Sesion.aspx");
         }
 
     }
@@ -166,7 +166,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         Session.Clear();
         Session.Abandon();
-        Response.Redirect("login.aspx");
+        Response.Redirect("~/WebPrincipal/WF_Iniciar_Sesion.aspx");
     }
 
     protected void AdministradorOption_ServerClick(object sender, EventArgs e)
