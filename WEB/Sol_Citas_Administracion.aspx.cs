@@ -27,8 +27,9 @@ public partial class _Default : System.Web.UI.Page
                 {
                     ListarSolicitudesCita(TipoCitaSol, Session["SessionUsuario"].ToString());
                     contarCitasxServicio();
-                    NutriCont.InnerText = objdtousuario.IC_Citas_Nutri_Usadas.ToString();
-                    NutriFisio.InnerText = objdtousuario.IC_Citas_Fisio_Usadas.ToString();
+                    NutriCont.InnerText = (int.Parse(Session["ISN_Cantidad"].ToString()) - int.Parse(objdtousuario.IC_Citas_Nutri_Usadas.ToString())).ToString();
+                    NutriFisio.InnerText = (int.Parse(Session["ISF_Cantidad"].ToString()) - int.Parse(objdtousuario.IC_Citas_Fisio_Usadas.ToString())).ToString();
+                    
 
                     //contarCitasxServicio();
                     ValidarfechaFinPlan();

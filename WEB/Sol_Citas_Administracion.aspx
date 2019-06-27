@@ -24,7 +24,7 @@
                             <i class="material-icons">favorite</i>
                         </div>
                         <div class="content">
-                            <div class="text">Citas con Nutricionista</div>
+                            <div class="text">Citas restantes con nutricionista</div>
                             <div class="number" id="NutriCont" runat="server"></div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                             <i class="material-icons">fitness_center</i>
                         </div>
                         <div class="content">
-                            <div class="text">Citas con FIsioterapeuta</div>
+                            <div class="text">Citas restantes con fisioterapeuta</div>
                             <div class="number" id="NutriFisio" runat="server"></div>
                         </div>
                     </div>
