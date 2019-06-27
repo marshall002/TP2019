@@ -26,49 +26,45 @@ public partial class MonitorearCitaFisio : System.Web.UI.Page
     {
         if (e.CommandName == "Ver Acción")
         {
+            Log.WriteLog("1");
             int index = Convert.ToInt32(e.CommandArgument);
+            Log.WriteLog("2");
 
             var colsNoVisible = gvListaMoniCitaFisio.DataKeys[index].Values;
+            Log.WriteLog("3");
 
             string id = colsNoVisible[0].ToString();
+            Log.WriteLog("4");
 
             dtoCita.IC_Cod = int.Parse(colsNoVisible[0].ToString());
+            Log.WriteLog("5");
 
             Session["codigoCita"] = int.Parse(colsNoVisible[0].ToString());
+            Log.WriteLog("6");
 
             dtoCita = ct.ObtenerInformacionSolicitudCita(dtoCita);
+            Log.WriteLog("7");
 
-            textCodigo.Text = dtoCita.IC_Cod.ToString();
+            textCodigo.Text = Session["codigoCita"].ToString();
+            Log.WriteLog("dtoCita.IC_Cod.ToString();" + dtoCita.IC_Cod.ToString());
 
             textObs.Text = dtoCita.VC_Observacion;
+            Log.WriteLog("dtoCita.VC_Observacion" + dtoCita.VC_Observacion);
 
             textHora.Text = dtoCita.DC_FechaHoraSolicitada.ToString("dd-MM-yyyy");
+            Log.WriteLog("textHora.Text" + textHora.Text);
 
             textFecha.Text = dtoCita.DC_FechaHoraSolicitada.ToString("HH:mm tt");
 
 
-
-
-            //Actualizar Estado de cita:
-
-            //dtoCita.IC_Cod = int.Parse(colsNoVisible[0].ToString());
-
-
-            //dtoCita.FK_IEC_Cod = 4;
-
-
-
-
-
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#VerDetalleMod').modal({backdrop: 'static', keyboard: false});", true);
+            Log.WriteLog("11");
+            upModal.Update();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#VerDetalleMod').modal('show');", true);
         }
-
-
     }
 
     protected void btnGuardar_ServerClick(object sender, EventArgs e)
     {
-
         int codigoCita = int.Parse(Session["codigoCita"].ToString()); //249;
 
         string check = Request.Form["chk"];
@@ -89,6 +85,7 @@ public partial class MonitorearCitaFisio : System.Web.UI.Page
                 gvListaMoniCitaFisio.DataSource = ct.VMonitoriarCitaFisio();
                 gvListaMoniCitaFisio.DataBind();
                 //UPGridview.Update();
+                Response.Redirect("MonitorearCitaFisio.aspx");
             }
         }
         catch (Exception ex)
@@ -96,7 +93,7 @@ public partial class MonitorearCitaFisio : System.Web.UI.Page
             string msj = "";
             msj = ex.Message;
             string script = @"<script type='text/javascript'>
-                                      alert('Selecciodne un estado');
+                                      alert('Seleccione un estado');
                                   </script>";
             ScriptManager.RegisterStartupScript(this, typeof(Page), "alert", script, false);
             //msjrb.Text = msj;

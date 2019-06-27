@@ -41,7 +41,7 @@ public partial class Verificar_Pago : System.Web.UI.Page
             txtOpera.Text = p.VCP_NOperacion.ToString();
 
 
-
+            upModal.Update();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#VerPago').modal('show');", true);
         }
         if (e.CommandName == "AceptarP")
