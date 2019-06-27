@@ -17,6 +17,10 @@ public partial class Realizar_Pago : System.Web.UI.Page
         if (!IsPostBack)
         {
             Listar_Comprobante_Pago();
+            txt_noperacion1.Attributes.Add("onkeypress", "javascript:return SoloNumeros(event);");
+            txt_nfisio1.Attributes.Add("onkeypress", "javascript:return SoloNumeros(event);");
+            txt_nnutri1.Attributes.Add("onkeypress", "javascript:return SoloNumeros(event);");
+            txt_monto1.Attributes.Add("onkeypress", "javascript:return SoloNumeros(event);");
         }
     }
     public void Listar_Comprobante_Pago()
@@ -33,15 +37,40 @@ public partial class Realizar_Pago : System.Web.UI.Page
 
     protected void gvRegistrarPago_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        if (e.CommandName == "Actualizar")
+        if (e.CommandName == "ver Actualizar")
         {
             int index = Convert.ToInt32(e.CommandArgument);
-            var colsNoVisible = gvRegistrarPago.DataKeys[index].Values;
-            int codComp = Convert.ToInt32(colsNoVisible[0]);
-            Session["idcomp"] = codComp;
-            Response.Redirect("~/ActualizarPagos.aspx");
+            DTOCP.PK_ICP_Cod = Convert.ToInt32(gvRegistrarPago.Rows[index].Cells[0].Text);
+            CTRCP.VERPAGO(DTOCP);
+            txt_noperacion1.Text = "" + DTOCP.VCP_NOperacion;
+            txt_nfisio1.Text = "" + DTOCP.ICP_NFisio;
+            txt_nnutri1.Text = "" + DTOCP.ICP_NNutri;
+            txt_monto1.Text = "" + DTOCP.DCP_Monto;
+            Session["id"] = DTOCP.PK_ICP_Cod;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#Actualizarprueba').modal('show');", true);
+            ////DTOCP.VCP_NOperacion = txt_noperacion1.Text;
+            ////DTOCP.ICP_NFisio = int.Parse(txt_nfisio1.Text);
+            ////DTOCP.ICP_NNutri = int.Parse(txt_nnutri1.Text);
+            ////DTOCP.DCP_Monto = double.Parse(txt_monto1.Text);
+            ////CTRCP.ActualizarComprobante_Pago(DTOCP);
+           
+        }
+
+        if (e.CommandName == "Ver Pago")
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+        
+            DTOCP.PK_ICP_Cod = Convert.ToInt32(gvRegistrarPago.Rows[index].Cells[0].Text);
+            txtmostrarcod.Text=gvRegistrarPago.Rows[index].Cells[0].Text;
+            CTRCP.VERPAGO(DTOCP);
+            txt_noperacion.Text = "" + DTOCP.VCP_NOperacion;
+            txt_nfisio.Text = "" + DTOCP.ICP_NFisio;
+            txt_nnutri.Text = "" + DTOCP.ICP_NNutri;
+            txt_monto.Text = "" + DTOCP.DCP_Monto;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#VerPago').modal('show');", true);
         }
     }
+
     protected Boolean ValidacionEstadoPago(string EstadoPago)
     {
         return EstadoPago == "pendiente";
@@ -49,6 +78,59 @@ public partial class Realizar_Pago : System.Web.UI.Page
 
     protected void gvRegistrarPago_SelectedIndexChanged(object sender, EventArgs e)
     {
+
+    }
+
+    protected void btnActualizar_Click(object sender, EventArgs e)
+    {
+        if (txt_noperacion1.Text.Equals(""))
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + "El campo N°operacionees se encuentra vacio" + "');", true);
+            txt_noperacion1.Text = "";
+            return;
+        }
+        if (txt_nfisio1.Text.Equals(""))
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + "El campo N° fisioterapeuta se encuentra vacio" + "');", true);
+            txt_nfisio1.Text = "";
+            return;
+        }
+        if (txt_nnutri1.Text.Equals(""))
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + "El campo N°Nutricionista se encuentra vacio" + "');", true);
+            txt_nnutri1.Text = "";
+            return;
+        }
+        if (txt_monto1.Text.Equals(""))
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + "El campo Monto se encuentra vacio" + "');", true);
+            txt_monto1.Text = "";
+            return;
+        }
+        DTOCP.PK_ICP_Cod = int.Parse(Session["id"].ToString());
+        DTOCP.VCP_NOperacion = txt_noperacion1.Text;
+        DTOCP.ICP_NFisio = int.Parse(txt_nfisio1.Text);
+        DTOCP.ICP_NNutri = int.Parse(txt_nnutri1.Text);
+        DTOCP.DCP_Monto = double.Parse(txt_monto1.Text);
+        
+
+        CTRCP.ActualizarComprobante_Pago(DTOCP);
+        Listar_Comprobante_Pago();
+    }
+
+    protected void btnAtras_Click(object sender, EventArgs e)
+    {
+
+    }
+    public void llenarDatos()
+    {
+        int codP = Convert.ToInt32(Session["id"].ToString());
+        DTOCP = CTRCP.verComprobanteP(codP);
+        txt_monto1.Text = DTOCP.DCP_Monto.ToString();
+        txt_noperacion1.Text = DTOCP.VCP_NOperacion.ToString();
+        txt_nnutri1.Text = DTOCP.ICP_NFisio.ToString();
+        txt_nfisio1.Text = DTOCP.ICP_NNutri.ToString();
+
 
     }
 }

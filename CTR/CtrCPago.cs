@@ -20,6 +20,11 @@ namespace CTR
         {
             return objDaoCPago.VerCPagos(name);
         }
+
+        public void VERPAGO(DtoCPago objusu)
+        {
+            objDaoCPago.VERPAGO(objusu);
+        }
         public DtoCPago ComprobanteP(int codigo)
         {
             return objDaoCPago.VerComprobante(codigo);

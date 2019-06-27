@@ -111,7 +111,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
                 txtUsuarioSolicitante.Text = objdtousuario.VU_Nombre;
                 txtApellidos.Text = objdtousuario.VU_APaterno + " " + objdtousuario.VU_AMaterno;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No tiene los permisos para actualizar', 'bottom', 'center', null, null);", true);
             }

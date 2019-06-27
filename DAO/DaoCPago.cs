@@ -68,11 +68,81 @@ namespace DAO
             model.IMC_Imagen = Convert.ToBase64String(ObjectToByteArray(xd[0]));
             model.DCP_Monto = Convert.ToDouble(xd[1]);
             model.VCP_NOperacion = xd[2].ToString();
-            model.ICP_NFisio= Convert.ToInt32(xd[3].ToString());
-            model.ICP_NNutri= Convert.ToInt32(xd[4].ToString());
+            model.ICP_NFisio = Convert.ToInt32(xd[3].ToString());
+            model.ICP_NNutri = Convert.ToInt32(xd[4].ToString());
             conexion.Close();
             return model;
+
+            
         }
+
+        public Boolean VERPAGO (DtoCPago objtu)
+        {
+            
+            Boolean hayproducto = true;
+
+            string select = "select * from T_Comprobante_Pago where PK_ICP_Cod = " + objtu.PK_ICP_Cod;
+            SqlCommand Comando = new SqlCommand(select, conexion);
+            conexion.Close();
+            conexion.Open();
+            SqlDataReader reader = Comando.ExecuteReader();
+            if (reader.Read())
+            {
+                if (reader[2] != DBNull.Value)
+                { objtu.VCP_NOperacion = (string)reader[2]; }
+                else
+                { objtu.VCP_NOperacion = ""; }
+
+                if (reader[3] != DBNull.Value)
+                { objtu.ICP_NFisio = (int)reader[3]; }
+                else
+                { objtu.ICP_NFisio = 0; }
+
+                if (reader[4] != DBNull.Value)
+                { objtu.ICP_NNutri = (int)reader[4]; }
+                else
+                { objtu.ICP_NNutri = 0; }
+
+                if (reader[6] != DBNull.Value)
+                { objtu.DCP_Monto = (double)reader[6]; }
+                else
+                { objtu.DCP_Monto = 0; }
+
+                //if (reader[5] != DBNull.Value)
+                //{ objtu.precioUnitario = (int)reader[5]; }
+                //else
+                //{ objtu.precioUnitario = 0; }
+
+                //if (reader[6] != DBNull.Value)
+                //{ objtu.valorVenta = (int)reader[6]; }
+                //else
+                //{ objtu.valorVenta = 0; }
+
+                //if (reader[7] != DBNull.Value)
+                //{ objtu.cantidad = (int)reader[7]; }
+                //else
+                //{ objtu.cantidad = 0; }
+
+
+                //if (reader[8] != DBNull.Value)
+                //{ objtu.fk_codInventario = (int)reader[8]; }
+                //else
+                //{ objtu.fk_codInventario = 0; }
+
+
+                objtu.estado = 99;
+            }
+            else
+            {
+                hayproducto = false;
+                objtu.estado = 1;
+            }
+            conexion.Close();
+
+            return hayproducto;
+
+        }
+
         private byte[] ObjectToByteArray(Object obj)
         {
             if (obj == null)

@@ -19,6 +19,10 @@ namespace DTO
         public double DCP_Monto { get; set; }
         public DateTime DCP_FechaHoraRealizada { get; set; }
         public int FK_CU_Dni { get; set; }
+        
+        public int estado { get; set; }
+
+
 
 
     }

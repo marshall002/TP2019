@@ -130,7 +130,7 @@ public partial class Proc_CItas_Sol_Registrar : System.Web.UI.Page
             objdtousuario.PK_CU_Dni = DdlUsuariosID.SelectedValue;
             objctrUsuario.ObtenerInformacionUsuario(objdtousuario, objdtoplan, objdtosesionFisio, objdtosesionNutri);
         }
-        catch (Exception ex)
+        catch (Exception )
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No tiene los permisos para actualizar', 'bottom', 'center', null, null);", true);
             
