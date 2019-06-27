@@ -69,9 +69,7 @@
 
                                                     <asp:TemplateField HeaderText="Functional">
                                                         <ItemTemplate>
-                                                            <%--<asp:LinkButton CssClass="btn bg-green waves-effect" ID="btnRegistrarF" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="RegistrarF" data-toggle="tooltip" data-placement="right" title="Registrar Functional" Text="Registrar">
-                                                                 <i class="material-icons">add</i>
-                                                            </asp:LinkButton>--%>
+                                                            
                                                             <asp:LinkButton CssClass="btn bg-green waves-effect" ID="btnVerF" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="VerF" data-toggle="tooltip" data-placement="right" title="Administrar Functional" Text="Ver rutina">
                                                                  <i class="material-icons">create</i>
                                                             </asp:LinkButton>

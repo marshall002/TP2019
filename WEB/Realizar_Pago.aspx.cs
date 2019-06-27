@@ -41,19 +41,15 @@ public partial class Realizar_Pago : System.Web.UI.Page
         {
             int index = Convert.ToInt32(e.CommandArgument);
             DTOCP.PK_ICP_Cod = Convert.ToInt32(gvRegistrarPago.Rows[index].Cells[0].Text);
+            txtmostrarcod.Value = gvRegistrarPago.Rows[index].Cells[0].Text;
             CTRCP.VERPAGO(DTOCP);
             txt_noperacion1.Text = "" + DTOCP.VCP_NOperacion;
             txt_nfisio1.Text = "" + DTOCP.ICP_NFisio;
             txt_nnutri1.Text = "" + DTOCP.ICP_NNutri;
             txt_monto1.Text = "" + DTOCP.DCP_Monto;
             Session["id"] = DTOCP.PK_ICP_Cod;
+
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#Actualizarprueba').modal('show');", true);
-            ////DTOCP.VCP_NOperacion = txt_noperacion1.Text;
-            ////DTOCP.ICP_NFisio = int.Parse(txt_nfisio1.Text);
-            ////DTOCP.ICP_NNutri = int.Parse(txt_nnutri1.Text);
-            ////DTOCP.DCP_Monto = double.Parse(txt_monto1.Text);
-            ////CTRCP.ActualizarComprobante_Pago(DTOCP);
-           
         }
 
         if (e.CommandName == "Ver Pago")
@@ -61,7 +57,8 @@ public partial class Realizar_Pago : System.Web.UI.Page
             int index = Convert.ToInt32(e.CommandArgument);
         
             DTOCP.PK_ICP_Cod = Convert.ToInt32(gvRegistrarPago.Rows[index].Cells[0].Text);
-            txtmostrarcod.Text=gvRegistrarPago.Rows[index].Cells[0].Text;
+            txtmostrarcod.Value=gvRegistrarPago.Rows[index].Cells[0].Text;
+            Log.WriteLog("txtmostrarcod.Value : " + txtmostrarcod.Value);
             CTRCP.VERPAGO(DTOCP);
             txt_noperacion.Text = "" + DTOCP.VCP_NOperacion;
             txt_nfisio.Text = "" + DTOCP.ICP_NFisio;
