@@ -49,8 +49,8 @@
                                                                 <h4 class="modal-title" id="ModalActIns" runat="server">Actualizar Hora de Clase</h4>
                                                             </div>
                                                             <div class="modal-body">
-                                                               
-                                                                  <div class="col-lg-12">
+
+                                                                <div class="col-lg-12">
                                                                     <asp:UpdatePanel ID="upFecha_Rutina" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                                                         <ContentTemplate>
                                                                             <div class="form-group">

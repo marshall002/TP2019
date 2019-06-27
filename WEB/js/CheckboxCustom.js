@@ -13,7 +13,7 @@ $("input[type='checkbox']").change(function () {
         $("[id*=txtresultadoChecbox]").val(checkboxradio);
         $('[id*=btnReprogramar]').show();
     }
-})
+});
 $("#btnaceptar").click(function () {
     var checkboxradio = 3;
     $("[id*=txtresultadoChecbox]").val(checkboxradio);

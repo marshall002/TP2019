@@ -13,9 +13,37 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="Server">
     <section>
         <div class="container-fluid">
-            <div class="block-header">
-                <h1>Citas solicitadas</h1>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box-3 bg-red hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons">favorite</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Citas restantes con nutricionista</div>
+                            <div class="number" id="NutriCont" runat="server"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box-3 bg-red hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons">fitness_center</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Citas restantes con fisioterapeuta</div>
+                            <div class="number" id="NutriFisio" runat="server"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
+           <%-- <div class="block-header">
+                <h1></h1>
+            </div>--%>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -23,7 +51,7 @@
                         <ContentTemplate>
                             <div class="card">
                                 <div class="header">
-                                    <%--<h2>Programas actuales por sede</h2>--%>
+                                    <h1>Citas solicitadas</h1>
                                     <ul class="header-dropdown m-r--5">
                                         <li class="dropdown">
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -38,9 +66,12 @@
                                         </li>
                                     </ul>
 
-                                    <asp:Button ID="btnRegistrar" runat="server" Text="Registrar"
-                                        class="btn btn-block btn-md btn-primary waves-effect" aria-hidden="true" OnClick="btnRegistrar_Click" />
+                                   
 
+                                </div>
+                                <div>
+                                     <asp:Button ID="btnRegistrar" runat="server" Text="Registrar"
+                                        class="btn btn-block btn-lg btn-danger waves-effect" aria-hidden="true" OnClick="btnRegistrar_Click" />
                                 </div>
                                 <div class="body table-responsive ">
 
@@ -49,26 +80,37 @@
                                             <asp:BoundField DataField="PK_IC_Cod" HeaderText="Codigo de solicitud" />
                                             <asp:BoundField DataField="DC_FechaHoraSolicitada" HeaderText="Fecha y Hora solicitada" DataFormatString="{0:dd/MM/yyyy hh:mm tt}" />
                                             <asp:BoundField DataField="VC_Observacion" HeaderText="Consulta" Visible="false" />
-                                            <asp:BoundField DataField="DC_FechaHoraCreada" HeaderText="Fecha de creacion" DataFormatString="{0:dd/MM/yyyy hh:mm tt}" />
+                                            <asp:BoundField DataField="DC_FechaHoraCreada" HeaderText="Fecha de creacion" DataFormatString="{0:dd/MM/yyyy hh:mm tt}" Visible="false" />
                                             <asp:BoundField DataField="FK_IEC_Cod" HeaderText="FK_ EstadoCitaCod" Visible="false" />
                                             <asp:BoundField DataField="FK_ITC_Cod" HeaderText="FK_TipoCita" Visible="false" />
                                             <asp:BoundField DataField="VEC_Nombre" HeaderText="Estado de Solicitud" />
                                             <asp:BoundField DataField="FK_CU_Dni" HeaderText="FK_UsuarioDNI" Visible="false" />
                                             <asp:BoundField DataField="VTC_Nombre" HeaderText="Especialidad" />
-                                            <asp:ButtonField HeaderText="Actualiza tu sol." Text="Actualizar" ButtonType="Button" ItemStyle-CssClass="text-sm-center" CommandName="actualizar">
+                                            <%--<asp:ButtonField HeaderText="Actualiza tu sol." Text="Actualizar" ButtonType="Button" ItemStyle-CssClass="text-sm-center" CommandName="actualizar">
                                                 <ControlStyle CssClass="btn btn-success" />
-                                            </asp:ButtonField>
-                                            <asp:ButtonField HeaderText="Elimina tu sol." Text="Eliminar" ButtonType="Button" ItemStyle-CssClass="text-sm-center" CommandName="eliminar">
-                                                <ControlStyle CssClass="btn btn-danger" />
-                                            </asp:ButtonField>
-                                            <%--<asp:ButtonField HeaderText="Aprueba la Reprogramacion" Text="Aprobar" ButtonType="Button" ItemStyle-CssClass="text-sm-center" CommandName="AprobarRepro" >
-                                                <ControlStyle CssClass="btn bg-yellow" />
                                             </asp:ButtonField>--%>
+                                           <%-- <asp:ButtonField HeaderText="Elimina tu sol." Text="Eliminar" ButtonType="Button" ItemStyle-CssClass="text-sm-center" CommandName="eliminar">
+                                                <ControlStyle CssClass="btn btn-danger" />
+                                            </asp:ButtonField>--%>
+                                            <asp:TemplateField HeaderText="Actualiza tu sol.">
+                                                <ItemTemplate>
+                                                    <asp:Button runat="server" Text="Actualizar"
+                                                        Visible='<%# ValidacionEstadoCitaEliminar((int)Eval("FK_IEC_Cod")) %>'
+                                                        CommandName="actualizar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-success" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Elimina tu sol.">
+                                                <ItemTemplate>
+                                                    <asp:Button runat="server" Text="Eliminar"
+                                                        Visible='<%# ValidacionEstadoCitaEliminar((int)Eval("FK_IEC_Cod")) %>'
+                                                        CommandName="eliminar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Aprueba la Reprogramacion">
                                                 <ItemTemplate>
                                                     <asp:Button runat="server" Text="Aprobar"
                                                         Visible='<%# ValidacionEstadoCita((int)Eval("FK_IEC_Cod")) %>'
-                                                        CommandName="AprobarRepro" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn bg-yellow" />
+                                                        CommandName="AprobarRepro" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn bg-deep-orange" />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
@@ -158,4 +200,3 @@
     <script src="../../js/admin.js"></script>
     <script src="../../js/pages/tables/jquery-datatable.js"></script>
 </asp:Content>
-    

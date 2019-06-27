@@ -11,7 +11,9 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        {
+        }
     }
     protected void btnIniciarSesión_Click(Object sender, EventArgs e)
     {
@@ -29,14 +31,14 @@ public partial class Login : System.Web.UI.Page
 
                 throw new Exception("Ingrese su usuario");
             }
-               
+
             if (string.IsNullOrEmpty(clave))
             {
                 //mostrarMensaje.Text = "Ingrese su contraseña";
 
                 throw new Exception("Ingrese su clave");
             }
-               
+
             DtoUsuario usuarioDto = new DtoUsuario();
             DtoTipoUsuario tipousuarioDto = new DtoTipoUsuario();
             DtoPlan planDto = new DtoPlan();
@@ -53,7 +55,7 @@ public partial class Login : System.Web.UI.Page
 
             usuarioDto = usuarioCtr.Login(usuarioDto);
             Log.WriteLog("usuarioDto" + usuarioDto);
-            
+
             if (usuarioDto != null)
             {
                 Log.WriteLog("-------------------------------------------------------------------------------------------------------------");
@@ -93,7 +95,7 @@ public partial class Login : System.Web.UI.Page
                     Session["DP_Fecha_Fin_Plan"] = planDto.DP_Fecha_Fin;
                     Session["ISF_Cantidad"] = objdtosesionFisio.ISF_Cantidad;
                     Session["ISN_Cantidad"] = objdtosesionNutri.ISN_Cantidad;
-                
+
                     Log.WriteLog(" Session['DP_Fecha_Fin_Plan'] " + Session["DP_Fecha_Fin_Plan"]);
                     Log.WriteLog(" Session['ISF_Cantidad'] " + Session["ISF_Cantidad"]);
                     Log.WriteLog(" Session['ISN_Cantidad'] " + Session["ISN_Cantidad"]);
@@ -121,7 +123,7 @@ public partial class Login : System.Web.UI.Page
         {
             color = Constante.COLOR_ROJO;
             msj = ex.Message;
-                Log.WriteLog("error " + ex.Message);
+            Log.WriteLog("error " + ex.Message);
             mostrarMensaje.Text = msj;
         }
         if (error != Constante.ERROR_SUCCESS)

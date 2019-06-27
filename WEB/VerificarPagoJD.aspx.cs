@@ -40,6 +40,8 @@ public partial class VerificarPagoJD : System.Web.UI.Page
             txtMonto.Text = p.DCP_Monto.ToString();
             txtOpera.Text = p.VCP_NOperacion.ToString();
 
+
+
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#VerPago').modal('show');", true);
         }
         if (e.CommandName == "AceptarP")

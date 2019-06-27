@@ -39,7 +39,6 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
             }
             else
             {
-
                 Log.WriteLog("Citas Nutri Administracion - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
 
@@ -47,7 +46,7 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
         }
 
 
-    }
+        }
     protected void gvLista_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         if (e.CommandName == "Asistencia")
@@ -65,15 +64,14 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
                 Session["fechaCita"] =fecha ;
                 string obs = colsNoVisible[4].ToString();
                 Session["obs"] = obs ;
-                //if (estadosol != "2")
-                //{
-                //consultarDatos();
-                //obtener_Rutina_Fecha();
                 cargardatosCitas();
+
                 
-                    
-                
-                    string script = @"<script type='text/javascript'>
+                ddlNuevaHora.Enabled = false;
+                txtFechaProNueva.Enabled = false;
+                upcitaNutri.Update();
+
+                string script = @"<script type='text/javascript'>
                                       $('#VerDetalleMod').modal('show');
                                   </script>";
                     ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "alert", script, false);
@@ -138,22 +136,15 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
     }
 
 
-    protected void btnAsistencia_ServerClick(object sender, EventArgs e)
-    {
-        int cod = Convert.ToInt32(Session["CodigoSolicitudCita"]);
-        actualizardatos(txtasistenciaChecbox.Value);
-        string mensaje = "Cita Actualizada";
-        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
-
-    }
-    public void actualizardatos(string valorRadiobuttonentxt)
+ 
+    public void actualizardatos(int valorRadiobuttonentxt)
     {
         try
         {
 
             int codigosol = int.Parse(Session["CodigoSolicitudCita"].ToString());
             objdtocita.IC_Cod = codigosol;
-            objdtocita.FK_IEC_Cod = int.Parse(valorRadiobuttonentxt);
+            objdtocita.FK_IEC_Cod = valorRadiobuttonentxt;
             objctrcita.ActualizarSolCitaAdmin(objdtocita);
         }
         catch (Exception ex)
@@ -180,7 +171,9 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
         else
         {
             int cod = Convert.ToInt32(Session["CodigoSolicitudCita"]);
-            actualizardatos(txtasistenciaChecbox.Value);
+            string check = Request.Form["chk"];
+            int codigoEstadoCita = int.Parse(check);
+            actualizardatos(codigoEstadoCita);
             string mensaje = "Cita Actualizada";
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
             Response.Redirect("AdministrarCitaNutri.aspx");
