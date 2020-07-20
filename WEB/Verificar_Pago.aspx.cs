@@ -46,17 +46,17 @@ public partial class Verificar_Pago : System.Web.UI.Page
         }
         if (e.CommandName == "AceptarP")
         {
-            Log.WriteLog("Entro a comando aceptar pago");
+            Log.WriteOnLog("Entro a comando aceptar pago");
             int index = Convert.ToInt32(e.CommandArgument);
-            Log.WriteLog("1");
+            Log.WriteOnLog("1");
             var colsNoVisible = gvLista.DataKeys[index].Values;
-            Log.WriteLog("2");
+            Log.WriteOnLog("2");
             string id = colsNoVisible[0].ToString();
-            Log.WriteLog("3");
+            Log.WriteOnLog("3");
             Session["CodigoComprobante"] = id;
             CtrCPago obj = new CtrCPago();
             obj.AceptP(Convert.ToInt32(id));
-            Log.WriteLog("4");
+            Log.WriteOnLog("4");
             string mensaje = "Datos actualizados";
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
             Response.Redirect("~/Verificar_Pago.aspx");

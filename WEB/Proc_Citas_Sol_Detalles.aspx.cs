@@ -17,11 +17,12 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
     DtoPlan objdtoplan = new DtoPlan();
     DtoSesionFisio objdtosesionFisio = new DtoSesionFisio();
     DtoSesionNutri objdtosesionNutri = new DtoSesionNutri();
+    Log Log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            Log.WriteLog("Session['id_perfil']"+ Session["id_perfil"]);
+            Log.WriteOnLog("Session['id_perfil']"+ Session["id_perfil"]);
             if (Session["id_perfil"] != null)
             {
                 if (int.Parse(Session["id_perfil"].ToString()) == Constante.ROL_ADMINISTRADOR)
@@ -30,14 +31,14 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
                 }
                  else
                 {
-                    Log.WriteLog("Proc Citas Sol Detalles - Error en id Perfil");
+                    Log.WriteOnLog("Proc Citas Sol Detalles - Error en id Perfil");
                     Response.Redirect("Inicio.aspx");
                 }
             }
             else
             {
 
-                Log.WriteLog("Proc Citas Sol Detalles - Error en id Perfil");
+                Log.WriteOnLog("Proc Citas Sol Detalles - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
 
             }
@@ -50,7 +51,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
         try
         {
             string valorRadiobuttonentxt = txtresultadoChecbox.Value;
-            Log.WriteLog("valorRadiobuttonentxt" + valorRadiobuttonentxt);
+            Log.WriteOnLog("valorRadiobuttonentxt" + valorRadiobuttonentxt);
             contarCitasxServicio();
             actualizardatos(valorRadiobuttonentxt);
             string mensaje = "Datos actualizados";
@@ -77,7 +78,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            Log.WriteLog("Error en el actualizar aprobar o rechazar :" + ex.Message);
+            Log.WriteOnLog("Error en el actualizar aprobar o rechazar :" + ex.Message);
             throw;
         }
 
@@ -142,8 +143,8 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
         DateTime Fecha = Convert.ToDateTime(txtFechaProNueva.Text);
         DateTime fechaReprogramada = Fecha + Hora;
         int codigosol = int.Parse(Session["CodigoSolicitudCita"].ToString());
-        Log.WriteLog(txtresultadoChecbox.Value);
-        Log.WriteLog("Fecha reprogramada "+ fechaReprogramada);
+        Log.WriteOnLog(txtresultadoChecbox.Value);
+        Log.WriteOnLog("Fecha reprogramada "+ fechaReprogramada);
         string mensaje = "Datos actualizados";
         objctrcita.ReprogramarCita(codigosol, fechaReprogramada);
         ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);

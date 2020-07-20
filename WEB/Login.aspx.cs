@@ -9,6 +9,7 @@ using CTR;
 
 public partial class Login : System.Web.UI.Page
 {
+    Log Log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -54,13 +55,13 @@ public partial class Login : System.Web.UI.Page
             CtrUsuario usuarioCtr = new CtrUsuario();
 
             usuarioDto = usuarioCtr.Login(usuarioDto);
-            Log.WriteLog("usuarioDto" + usuarioDto);
+            Log.WriteOnLog("usuarioDto" + usuarioDto);
 
             if (usuarioDto != null)
             {
-                Log.WriteLog("-------------------------------------------------------------------------------------------------------------");
-                Log.WriteLog("-----------------------------Ingresando a login y seteando valores de session--------------------------------");
-                Log.WriteLog("-------------------------------------------------------------------------------------------------------------");
+                Log.WriteOnLog("-------------------------------------------------------------------------------------------------------------");
+                Log.WriteOnLog("-----------------------------Ingresando a login y seteando valores de session--------------------------------");
+                Log.WriteOnLog("-------------------------------------------------------------------------------------------------------------");
 
                 objctrUsuario.ObtenerInformacionUsuario(usuarioDto, planDto, objdtosesionFisio, objdtosesionNutri);
 
@@ -77,18 +78,18 @@ public partial class Login : System.Web.UI.Page
                 Session["direccion"] = usuarioDto.VU_Direccion;
 
 
-                Log.WriteLog(" Session['SessionUsuario'] " + Session["SessionUsuario"]);
-                Log.WriteLog(" Session['NombreUsuario'] " + Session["NombreUsuario"]);
-                Log.WriteLog(" Session['APaternoUsuario'] " + Session["APaternoUsuario"]);
-                Log.WriteLog(" Session['AMaternoUsuario'] " + Session["AMaternoUsuario"]);
+                Log.WriteOnLog(" Session['SessionUsuario'] " + Session["SessionUsuario"]);
+                Log.WriteOnLog(" Session['NombreUsuario'] " + Session["NombreUsuario"]);
+                Log.WriteOnLog(" Session['APaternoUsuario'] " + Session["APaternoUsuario"]);
+                Log.WriteOnLog(" Session['AMaternoUsuario'] " + Session["AMaternoUsuario"]);
 
-                Log.WriteLog(" Session['direccion'] " + Session["direccion"]);
-                Log.WriteLog(" Session['correo'] " + Session["correo"]);
-                Log.WriteLog(" Session['id_perfil'] " + Session["id_perfil"]);
-                Log.WriteLog(" Session['DU_FechaNacimiento'] " + Session["DU_FechaNacimiento"]);
-                Log.WriteLog(" Session['CU_Celular'] " + Session["CU_Celular"]);
-                Log.WriteLog(" Session['TipoPlanID'] " + Session["TipoPlanID"]);
-                Log.WriteLog("--------------------------------------------Fin Login Aspx----------------------------------------------------");
+                Log.WriteOnLog(" Session['direccion'] " + Session["direccion"]);
+                Log.WriteOnLog(" Session['correo'] " + Session["correo"]);
+                Log.WriteOnLog(" Session['id_perfil'] " + Session["id_perfil"]);
+                Log.WriteOnLog(" Session['DU_FechaNacimiento'] " + Session["DU_FechaNacimiento"]);
+                Log.WriteOnLog(" Session['CU_Celular'] " + Session["CU_Celular"]);
+                Log.WriteOnLog(" Session['TipoPlanID'] " + Session["TipoPlanID"]);
+                Log.WriteOnLog("--------------------------------------------Fin Login Aspx----------------------------------------------------");
 
                 if (Session["id_perfil"].ToString() == "1")
                 {
@@ -96,9 +97,9 @@ public partial class Login : System.Web.UI.Page
                     Session["ISF_Cantidad"] = objdtosesionFisio.ISF_Cantidad;
                     Session["ISN_Cantidad"] = objdtosesionNutri.ISN_Cantidad;
 
-                    Log.WriteLog(" Session['DP_Fecha_Fin_Plan'] " + Session["DP_Fecha_Fin_Plan"]);
-                    Log.WriteLog(" Session['ISF_Cantidad'] " + Session["ISF_Cantidad"]);
-                    Log.WriteLog(" Session['ISN_Cantidad'] " + Session["ISN_Cantidad"]);
+                    Log.WriteOnLog(" Session['DP_Fecha_Fin_Plan'] " + Session["DP_Fecha_Fin_Plan"]);
+                    Log.WriteOnLog(" Session['ISF_Cantidad'] " + Session["ISF_Cantidad"]);
+                    Log.WriteOnLog(" Session['ISN_Cantidad'] " + Session["ISN_Cantidad"]);
                 }
                 string script = @"<script type='text/javascript'>
                                       location.href='inicio.aspx';
@@ -123,7 +124,7 @@ public partial class Login : System.Web.UI.Page
         {
             color = Constante.COLOR_ROJO;
             msj = ex.Message;
-            Log.WriteLog("error " + ex.Message);
+            Log.WriteOnLog("error " + ex.Message);
             mostrarMensaje.Text = msj;
         }
         if (error != Constante.ERROR_SUCCESS)

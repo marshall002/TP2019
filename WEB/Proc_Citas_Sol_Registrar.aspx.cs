@@ -25,14 +25,14 @@ public partial class Proc_CItas_Sol_Registrar : System.Web.UI.Page
                 }
                 else
                 {
-                    Log.WriteLog("Proc Citas Sol Registrar - Error en id Perfil");
+                    Log.WriteOnLog("Proc Citas Sol Registrar - Error en id Perfil");
                     Response.Redirect("Inicio.aspx");
                 }
             }
             else
             {
 
-                Log.WriteLog("Proc Citas Sol Registrar - Error en id Perfil");
+                Log.WriteOnLog("Proc Citas Sol Registrar - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
 
             }
@@ -103,15 +103,15 @@ public partial class Proc_CItas_Sol_Registrar : System.Web.UI.Page
     }
     public void contarCitasxServicio()
     {
-        Log.WriteLog("1");
+        Log.WriteOnLog("1");
         objdtousuario.PK_CU_Dni = DdlUsuariosID.SelectedValue.ToString();
-        Log.WriteLog("2");
+        Log.WriteOnLog("2");
         objctrUsuario.ObtenerNumCitasRealizadas(objdtousuario);
     }
 
     protected void ddlHoras_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Log.WriteLog("Valor de dropdownList seleccionado : " + ddlHoras.SelectedValue);
+        Log.WriteOnLog("Valor de dropdownList seleccionado : " + ddlHoras.SelectedValue);
     }
 
     protected void DdlUsuariosID_SelectedIndexChanged(object sender, EventArgs e)

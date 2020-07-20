@@ -10,12 +10,13 @@ using CTR;
 
 public partial class AdministrarRutina_Extra : System.Web.UI.Page
 {
-    string connectionString = @"Data Source=LAPTOP-TG82GILV;Integrated Security=true;Initial Catalog=BD_SCLAP";
+    string connectionString = @"Data Source=LAPTOP-UEI1JFVM;Integrated Security=true;Initial Catalog=BD_SCLAP";
+    Log Log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            Log.WriteLog("Page");
+            Log.WriteOnLog("Page");
             PopulateGridview();
             DateTime fecha = Convert.ToDateTime(Session["Primerdia"].ToString());
             string today = System.DateTime.Now.ToShortDateString();
@@ -57,7 +58,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
 
             gvRutina.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Center;
         }
-        Log.WriteLog("ingreso a popular el gridview");
+        Log.WriteOnLog("ingreso a popular el gridview");
     }
 
     public int validarTipo()
@@ -76,7 +77,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         {
             if (e.CommandName.Equals("AddNew"))
             {
-                Log.WriteLog("entro a funcion add new");
+                Log.WriteOnLog("entro a funcion add new");
                 using (SqlConnection sqlCon = new SqlConnection(connectionString))
                 {
                     sqlCon.Open();
@@ -102,7 +103,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         {
             lblSuccessMessage.Text = "";
             lblErrorMessage.Text = ex.Message;
-            Log.WriteLog("error en add new: " + ex.Message);
+            Log.WriteOnLog("error en add new: " + ex.Message);
         }
     }
 
@@ -123,7 +124,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
 
     protected void gvRutina_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        Log.WriteLog("entro a funcion Actualizar");
+        Log.WriteOnLog("entro a funcion Actualizar");
         try
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
@@ -150,13 +151,13 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         catch (Exception ex)
         {
             lblSuccessMessage.Text = "";
-            Log.WriteLog("Error en el actualizar : " + ex.Message);
+            Log.WriteOnLog("Error en el actualizar : " + ex.Message);
         }
     }
 
     protected void gvRutina_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        Log.WriteLog("entro a funcion eliminar");
+        Log.WriteOnLog("entro a funcion eliminar");
         try
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
@@ -180,7 +181,7 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
         catch (Exception ex)
         {
             lblSuccessMessage.Text = "";
-            Log.WriteLog("Error al borrar" + ex.Message);
+            Log.WriteOnLog("Error al borrar" + ex.Message);
         }
     }
 

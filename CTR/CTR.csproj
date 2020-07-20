@@ -32,6 +32,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +47,7 @@
     <Compile Include="CtrCPago.cs" />
     <Compile Include="CtrEjercicio.cs" />
     <Compile Include="CtrMonitoriarCitaFisio.cs" />
+    <Compile Include="CtrPlan.cs" />
     <Compile Include="CtrRutina.cs" />
     <Compile Include="CtrRutinaXEjercicio.cs" />
     <Compile Include="CtrTipo_Ejercicio.cs" />
@@ -51,6 +55,7 @@
     <Compile Include="CtrUsuario.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAO\DAO.csproj">

@@ -15,6 +15,7 @@ public partial class _Default : System.Web.UI.Page
     CtrUsuario objctrusuario = new CtrUsuario();
     DtoUsuario objdtousuario = new DtoUsuario();
 
+    Log Log = new Log();
     int TipoCitaSol = 1;
 
     protected void Page_Load(object sender, EventArgs e)
@@ -36,14 +37,14 @@ public partial class _Default : System.Web.UI.Page
                 }
                 else
                 {
-                    Log.WriteLog(" Sol Citas Administracion - Error en id Perfil");
+                    Log.WriteOnLog(" Sol Citas Administracion - Error en id Perfil");
                     Response.Redirect("Inicio.aspx");
                 }
             }
             else
             {
 
-                Log.WriteLog(" Sol Citas Administracion - Error en id Perfil");
+                Log.WriteOnLog(" Sol Citas Administracion - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
 
             }
@@ -68,9 +69,9 @@ public partial class _Default : System.Web.UI.Page
             Session["CodigoSolicitudCita"] = id;
             Session["estadosol"] = estadosol;
             Session["TipoCitaSol"] = tipocitasol;
-            Log.WriteLog("CodigoSolicitudCita" + id);
-            Log.WriteLog("estadosol" + estadosol);
-            Log.WriteLog("TipoCitaSol" + tipocitasol);
+            Log.WriteOnLog("CodigoSolicitudCita" + id);
+            Log.WriteOnLog("estadosol" + estadosol);
+            Log.WriteOnLog("TipoCitaSol" + tipocitasol);
 
 
             if (estadosol != "2")
@@ -196,10 +197,10 @@ public partial class _Default : System.Web.UI.Page
     public void ObtenerHoraReprograma(DtoCita objdtoCita)
     {
         objdtoCita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
-        Log.WriteLog("objdtoCita.IC_Cod " + objdtoCita.IC_Cod);
+        Log.WriteOnLog("objdtoCita.IC_Cod " + objdtoCita.IC_Cod);
         objctrcita.ObtenerInformacionSolicitudCita(objdtoCita);
         DateTime dtValue = objdtoCita.DC_FechaReprogramada;
-        Log.WriteLog("dtValue " + dtValue);
+        Log.WriteOnLog("dtValue " + dtValue);
 
 
         txtFechareprogramada.Text = dtValue.ToString("dd/MM/yyyy");
@@ -211,26 +212,26 @@ public partial class _Default : System.Web.UI.Page
     {
         try
         {
-            Log.WriteLog("Entro a funcion aprobar ");
+            Log.WriteOnLog("Entro a funcion aprobar ");
 
             objdtoCita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
             objdtoCita.FK_IEC_Cod = 2;
-            Log.WriteLog("1A");
-            Log.WriteLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
-            Log.WriteLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
+            Log.WriteOnLog("1A");
+            Log.WriteOnLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
+            Log.WriteOnLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
 
             objctrcita.EvaluarReprogramarCita(objdtoCita);
-            Log.WriteLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
-            Log.WriteLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
+            Log.WriteOnLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
+            Log.WriteOnLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
 
-            Log.WriteLog("2A");
+            Log.WriteOnLog("2A");
             upCursos.Update();
             Response.Redirect("Sol_Citas_Administracion.aspx");
 
         }
         catch (Exception ex)
         {
-            Log.WriteLog("CATCH Aprobar " + ex.Message);
+            Log.WriteOnLog("CATCH Aprobar " + ex.Message);
         }
     }
 
@@ -238,23 +239,23 @@ public partial class _Default : System.Web.UI.Page
     {
         try
         {
-            Log.WriteLog("Entro a funcion rechazar");
+            Log.WriteOnLog("Entro a funcion rechazar");
             objdtoCita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
             objdtoCita.FK_IEC_Cod = 8;
-            Log.WriteLog("1R");
-            Log.WriteLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
-            Log.WriteLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
+            Log.WriteOnLog("1R");
+            Log.WriteOnLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
+            Log.WriteOnLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
             objctrcita.EvaluarReprogramarCita(objdtoCita);
-            Log.WriteLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
-            Log.WriteLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
-            Log.WriteLog("2R");
+            Log.WriteOnLog("objdtoCita.IC_Cod" + objdtoCita.IC_Cod);
+            Log.WriteOnLog("objdtoCita.FK_IEC_Cod " + objdtoCita.FK_IEC_Cod);
+            Log.WriteOnLog("2R");
             upCursos.Update();
             Response.Redirect("Sol_Citas_Administracion.aspx");
 
         }
         catch (Exception ex)
         {
-            Log.WriteLog("CATCH RECHAZAR " + ex.Message);
+            Log.WriteOnLog("CATCH RECHAZAR " + ex.Message);
         }
     }
 }

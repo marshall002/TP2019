@@ -96,7 +96,7 @@
                                 <label for="name" class="">Contraseña </label>
                             </div>
 
-                            <p>Si no tienes una cuenta <a href="WF_Registrrar_Socio.aspx">Registrate aquí</a></p>
+                            <p>Si no tienes una cuenta <a href="WF_Registrar_Socio.aspx">Registrate aquí</a></p>
                             <!-- For success/fail messages -->
 
                             <%--<asp:Button ID="btnIncioSesion" runat="server" Text="Ingresar" class="btn btn-primary waves-effect waves-dark pull-right" OnClick="btnIncioSesion_Click" />--%>

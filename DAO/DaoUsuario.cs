@@ -17,6 +17,28 @@ namespace DAO
         {
             conexion = new SqlConnection(ConexionBD.CadenaConexion);
         }
+
+        public void RegistrarSocio(DtoUsuario objRec)
+        {
+            SqlCommand cmd = new SqlCommand("sp_RegistrarSocio", conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@PK_CU_Dni", objRec.PK_CU_Dni);
+            cmd.Parameters.AddWithValue("@VU_Nombre", objRec.VU_Nombre);
+            cmd.Parameters.AddWithValue("@VU_APaterno", objRec.VU_APaterno);
+            cmd.Parameters.AddWithValue("@VU_AMaterno", objRec.VU_AMaterno);
+            cmd.Parameters.AddWithValue("@VU_Correo", objRec.VU_Correo);
+            cmd.Parameters.AddWithValue("@DU_FechaNacimiento", objRec.DU_FechaNacimiento);
+            cmd.Parameters.AddWithValue("@NU_Contrasenia", objRec.VU_Contrasenia);
+            cmd.Parameters.AddWithValue("@CU_Celular", objRec.CU_Celular);
+            cmd.Parameters.AddWithValue("@VU_Direccion", objRec.VU_Direccion);
+
+            conexion.Open();
+            cmd.ExecuteNonQuery();
+            conexion.Close();
+        }
+
+
         public void ObtenerDatosSocioPlan(DtoUsuario usuario, DtoPlan plan, DtoSesionFisio sesionfisio, DtoSesionNutri sesionnutri)
         {
             SqlCommand cmd = new SqlCommand("sp_ObtenerDatosUsuario", conexion);
@@ -37,11 +59,19 @@ namespace DAO
                 usuario.VU_AMaterno = reader[3].ToString();
                 usuario.CU_Celular = reader[4].ToString();
                 usuario.DU_FechaNacimiento = Convert.ToDateTime(reader[5].ToString());
-                usuario.FK_IP_Cod = Convert.ToInt32(reader[6].ToString());
+                if (reader[6] != DBNull.Value)
+                {
+                    usuario.FK_IC_Cod = Convert.ToInt32(reader[6].ToString());
+                }
+                else
+                {
+                    usuario.FK_IC_Cod = 0;
+                }
                 usuario.FK_ITU_Cod = Convert.ToInt32(reader[7].ToString());
-                plan.DP_Fecha_Fin = Convert.ToDateTime(reader[8].ToString());
-                sesionfisio.ISF_Cantidad = int.Parse(reader[9].ToString());
-                sesionnutri.ISN_Cantidad = int.Parse(reader[10].ToString());
+                usuario.IC_Citas_Fisio_Usadas = Convert.ToInt32(reader[8].ToString());
+                usuario.IC_Citas_Nutri_Usadas = Convert.ToInt32(reader[9].ToString());
+                usuario.VU_Correo =reader[10].ToString();
+                usuario.VU_Direccion = reader[11].ToString();
             }
             conexion.Close();
             conexion.Dispose();
@@ -90,7 +120,7 @@ namespace DAO
 
             int valor_retornado = 0;
             SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM T_USUARIO as U WHERE" +
-                " U.PK_CU_Dni = '" + usuario + "' AND U.VU_Contraseña = '" + clave + "'", conexion);
+                " U.PK_CU_Dni = '" + usuario + "' AND U.VU_Contrasenia = '" + clave + "'", conexion);
 
 
 
@@ -116,10 +146,10 @@ namespace DAO
                 "U.VU_APaterno," +
                 "U.VU_AMaterno," +
                 "U.VU_Correo, " +
-                "U.PK_CU_Dni,"+
+                "U.PK_CU_Dni," +
                 "U.VU_Direccion," +
                 "U.CU_Celular," +
-                "U.FK_IP_Cod," +
+                "U.FK_IC_Cod," +
                 "U.DU_FechaNacimiento" +
                 " from T_Usuario as U " +
                 "where U.PK_CU_Dni = '" + usuario + "'", conexion);
@@ -145,8 +175,15 @@ namespace DAO
                 usuarioDto.PK_CU_Dni = reader[5].ToString();
                 usuarioDto.VU_Direccion = reader[6].ToString();
                 usuarioDto.CU_Celular = reader[7].ToString();
-                usuarioDto.FK_IP_Cod = int.Parse(reader[8].ToString());
-                planDto.PK_IP_Cod = int.Parse(reader[8].ToString());
+
+                if (reader[8] != DBNull.Value)
+                {
+                    usuarioDto.FK_IC_Cod = int.Parse(reader[8].ToString());
+                    planDto.PK_IP_Cod = int.Parse(reader[8].ToString());
+                }
+                else
+                {
+                }
                 usuarioDto.DU_FechaNacimiento = DateTime.Parse(reader[9].ToString());
 
             }

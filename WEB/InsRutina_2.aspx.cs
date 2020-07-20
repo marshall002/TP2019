@@ -24,34 +24,34 @@ public partial class InsRutina_2 : System.Web.UI.Page
     }
     protected void btnGuardar_ServerClick(object sender, EventArgs e)
     {
-        Log.WriteLog("entra boton inscribir");
+        Log.WriteOnLog("entra boton inscribir");
         DtoRutina objrutina = new DtoRutina();
         string fecha = Session["PrimerDia"].ToString();
         TimeSpan Hora = TimeSpan.Parse(ddlHoras.Text);
         DateTime Fecha = DateTime.Parse(fecha);
-        Log.WriteLog("fecha:" + Fecha);
+        Log.WriteOnLog("fecha:" + Fecha);
         objrutina.DR_FechaRutina = Fecha;
-        Log.WriteLog("fecha rutina:" + objrutina.DR_FechaRutina);
+        Log.WriteOnLog("fecha rutina:" + objrutina.DR_FechaRutina);
         DateTime fechaclase = Fecha + Hora;
         objdtousuariorutina.FK_CU_Dni = Session["SessionUsuario"].ToString();
 
-        Log.WriteLog("dni" + Session["SessionUsuario"].ToString());
-        Log.WriteLog("cod rutina" + objctrusuariorutina.retornaRutinaId(Fecha.ToString("yyyy/MM/dd"), int.Parse(Session["Tipo_Rutina"].ToString())));
+        Log.WriteOnLog("dni" + Session["SessionUsuario"].ToString());
+        Log.WriteOnLog("cod rutina" + objctrusuariorutina.retornaRutinaId(Fecha.ToString("yyyy/MM/dd"), int.Parse(Session["Tipo_Rutina"].ToString())));
         objdtousuariorutina.FK_IR_Cod = objctrusuariorutina.retornaRutinaId(Fecha.ToString("yyyy/MM/dd"), int.Parse(Session["Tipo_Rutina"].ToString()));
         objdtousuariorutina.DR_FechaHora = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
-        Log.WriteLog("fechahora " + fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
+        Log.WriteOnLog("fechahora " + fechaclase.ToString("yyyy-MM-dd HH':'mm':'ss"));
         objdtousuariorutina.FK_IH_Cod = objctrusuariorutina.retornaHoraId(ddlHoras.Text);
         int tiporutina = int.Parse(Session["Tipo_Rutina"].ToString());
         int idr = objctrusuariorutina.retornaRutinaId(Fecha.ToString("yyyy/MM/dd"), int.Parse(Session["Tipo_Rutina"].ToString()));
         int idh = objctrusuariorutina.retornaHoraId(ddlHoras.Text);
-        Log.WriteLog("fechaclase" + fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+        Log.WriteOnLog("fechaclase" + fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
         bool resultadobuscadorfecharegistrada = objctrusuariorutina.buscarfechaInsc(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"), Session["SessionUsuario"].ToString(), tiporutina);
 
-        Log.WriteLog("-------------------------------------------------");
-        Log.WriteLog(" Resultado de funcion  objctrusuariorutina.retornaNumeroParticipantes(idr, idh)  : " + objctrusuariorutina.retornaNumeroParticipantes(idr, idh));
-        Log.WriteLog("-------------------------------------------------");
+        Log.WriteOnLog("-------------------------------------------------");
+        Log.WriteOnLog(" Resultado de funcion  objctrusuariorutina.retornaNumeroParticipantes(idr, idh)  : " + objctrusuariorutina.retornaNumeroParticipantes(idr, idh));
+        Log.WriteOnLog("-------------------------------------------------");
         bool valNumXclase = objctrusuariorutina.validarNClasesXdia(Fecha.ToString("yyyy-MM-dd'T'HH':'mm':'ss"), Session["SessionUsuario"].ToString());
-        Log.WriteLog("fecha:" + Fecha.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+        Log.WriteOnLog("fecha:" + Fecha.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
         if (valNumXclase == false)
         {
             if (resultadobuscadorfecharegistrada == false
@@ -71,7 +71,7 @@ public partial class InsRutina_2 : System.Web.UI.Page
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + "exede el número de rutinas por dia" + "', 'bottom', 'center', null, null);", true);
         }
 
-        Log.WriteLog("Fecha y hora clase" + fechaclase);
+        Log.WriteOnLog("Fecha y hora clase" + fechaclase);
     }
     protected void btnCancelar_ServerClick(object sender, EventArgs e)
     {
@@ -105,21 +105,21 @@ public partial class InsRutina_2 : System.Web.UI.Page
     {
         try
         {
-            Log.WriteLog("Entro a funcion cargar ejercicios");
+            Log.WriteOnLog("Entro a funcion cargar ejercicios");
             DtoRutina objdtoRutina = new DtoRutina();
             objdtoRutina.FK_ITR_Cod = Convert.ToInt32(Session["Tipo_Rutina"]);
-            Log.WriteLog(" obj dtio rutina "+ objdtoRutina.FK_ITR_Cod);
+            Log.WriteOnLog(" obj dtio rutina "+ objdtoRutina.FK_ITR_Cod);
 
             DateTime FechaSel = Convert.ToDateTime(Session["PrimerDia"]);
             string fecha = FechaSel.ToString("yyyy-MM-dd'T'HH':'mm':'ss");
-            Log.WriteLog("fecha " + fecha);
+            Log.WriteOnLog("fecha " + fecha);
 
             GvEjercicios.DataSource = objctrRutina.verRutinaE(objdtoRutina, fecha);
             GvEjercicios.DataBind();
         }
         catch (Exception ex)
         {
-            Log.WriteLog("error cargar ejecricios: " + ex.Message);
+            Log.WriteOnLog("error cargar ejecricios: " + ex.Message);
             throw;
         }
       
@@ -128,16 +128,16 @@ public partial class InsRutina_2 : System.Web.UI.Page
     public void cargarddlHoras()
     {
         ddlHoras.Items.Clear();
-        Log.WriteLog("1");
+        Log.WriteOnLog("1");
         string fecha = Session["PrimerDia"].ToString();
 
-        Log.WriteLog("2");
+        Log.WriteOnLog("2");
         DateTime dia = DateTime.Parse(fecha);
-        Log.WriteLog("3");
+        Log.WriteOnLog("3");
         //txtfechaClase.Text = fecha + ", " + dia.DayOfWeek.ToString();
         if (Convert.ToInt32(dia.DayOfWeek) == 0)
         {
-            Log.WriteLog("dia:" + Convert.ToInt32(dia.DayOfWeek));
+            Log.WriteOnLog("dia:" + Convert.ToInt32(dia.DayOfWeek));
             ListItem i;
             i = new ListItem("8:00 AM", "08:00");
             ddlHoras.Items.Add(i);
@@ -155,7 +155,7 @@ public partial class InsRutina_2 : System.Web.UI.Page
         }
         else
         {
-            Log.WriteLog("Convert.ToInt32(dia.DayOfWeek)" + Convert.ToInt32(dia.DayOfWeek));
+            Log.WriteOnLog("Convert.ToInt32(dia.DayOfWeek)" + Convert.ToInt32(dia.DayOfWeek));
             ListItem i;
             i = new ListItem("8:00 AM", "08:00");
             ddlHoras.Items.Add(i);

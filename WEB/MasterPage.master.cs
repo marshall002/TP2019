@@ -9,6 +9,7 @@ using CTR;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
+    Log Log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -16,12 +17,12 @@ public partial class MasterPage : System.Web.UI.MasterPage
             if (!IsPostBack)
             {
 
-                Log.WriteLog("-------------------------------------------------------------------------------------------------------------");
-                Log.WriteLog("-----------------------------Ingresando a masterpage y Obtener pestañas disponibles--------------------------");
-                Log.WriteLog("-------------------------------------------------------------------------------------------------------------");
+                Log.WriteOnLog("-------------------------------------------------------------------------------------------------------------");
+                Log.WriteOnLog("-----------------------------Ingresando a masterpage y Obtener pestañas disponibles--------------------------");
+                Log.WriteOnLog("-------------------------------------------------------------------------------------------------------------");
                 int perfil = int.Parse(Session["id_perfil"].ToString());
 
-                Log.WriteLog(" perfil:  " + perfil);
+                Log.WriteOnLog(" perfil:  " + perfil);
 
                 string nombre = Session["NombreUsuario"].ToString() + " " + Session["APaternoUsuario"].ToString()
                                  + " " + Session["AMaternoUsuario"].ToString();
@@ -73,7 +74,22 @@ public partial class MasterPage : System.Web.UI.MasterPage
     }
     public void perfil_Socio()
     {
+        string html1 = "";
+
+
+        html1 = string.Format("<li>" +
+            "<a href='SolicitarPlan.aspx'>" +
+            "<i class='material-icons'>content_paste</i>"+                            
+                            "<span>Se</span>"+
+                        "</a>"+
+                    "</li>");
         string html = string.Format(@"
+                    <li>
+                        <a href='SolicitarPlan.aspx'>
+                            <i class='material-icons'>content_paste</i>
+                            <span>Solicitar un plan</span>
+                        </a>
+                    </li>
                     <li>
                         <a href='Sol_Citas_Administracion.aspx'>
                             <i class='material-icons'>content_paste</i>

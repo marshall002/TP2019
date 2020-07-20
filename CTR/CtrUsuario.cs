@@ -31,19 +31,15 @@ namespace CTR
            return objDaoUsuario.ListarDNIUsuario();
         }
 
-
-        //public string getValueById(string usuario, string clave)
-        //{
-        //    DaoUsuario usuarioDao = new DaoUsuario();
-
-        //    return usuarioDao.validacionLogin(usuario,clave);
-        //}
-
+        public void RegistrarSocio(DtoUsuario objRecBE)
+        {
+            objDaoUsuario.RegistrarSocio(objRecBE);
+        }
 
         public DtoUsuario Login(DtoUsuario dtoUsuario)
         {
 
-            int persona_id = objDaoUsuario.validacionLogin(dtoUsuario.PK_CU_Dni,  dtoUsuario.VU_Contraseña);
+            int persona_id = objDaoUsuario.validacionLogin(dtoUsuario.PK_CU_Dni,  dtoUsuario.VU_Contrasenia);
             
            if(persona_id == 0)
             {

@@ -1,0 +1,116 @@
+﻿
+.carousel-flujo-aprobacion {
+    margin-bottom: 5rem;
+}
+
+.carousel-inner::after {
+    display: block;
+    clear: both;
+    content: "";
+}
+
+.carousel-item {
+    position: relative;
+    display: none;
+    float: left;
+    width: 100%;
+    margin-right: -100%;
+    -webkit-backface-visibility: hidden;
+    transition: -webkit-transform .6s ease-in-out;
+    transition: transform .6s ease-in-out;
+    transition: transform .6s ease-in-out,-webkit-transform .6s ease-in-out;
+}
+
+@media (prefers-reduced-motion:reduce) {
+    .carousel-item {
+        transition: none;
+    }
+}
+
+.carousel-flujo-aprobacion .carousel-inner .carousel-item.active, .carousel-flujo-aprobacion .carousel-item-next, .carousel-flujo-aprobacion .carousel-item-prev {
+    display: block;
+}
+
+.carousel-flujo-aprobacion .carousel-inner.v-2 .carousel-item-next, .carousel-flujo-aprobacion .carousel-inner.v-2 .carousel-item-prev, .carousel-flujo-aprobacion .carousel-inner.v-2 .carousel-item.active {
+    display: flex;
+}
+
+.carousel-flujo-aprobacion.v-2 .carousel-item-next, .carousel-flujo-aprobacion.v-2 .carousel-item-right.active {
+    -webkit-transform: translateX(33%);
+    -ms-transform: translateX(33%);
+    transform: translateX(33%);
+}
+
+.carousel-flujo-aprobacion.v-2 .carousel-item-left.active, .carousel-flujo-aprobacion.v-2 .carousel-item-prev {
+    -webkit-transform: translateX(-33%);
+    -ms-transform: translateX(-33%);
+    transform: translateX(-33%);
+}
+
+.carousel-flujo-aprobacion.v-2 .carousel-item-left, .carousel-flujo-aprobacion.v-2 .carousel-item-right {
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+}
+
+.carousel-flujo-aprobacion .controls-top {
+    text-align: center;
+    margin-bottom: 1.88rem;
+}
+
+@media (min-width:768px) {
+    .carousel-flujo-aprobacion .col-md-4 {
+        float: left;
+        width: 33.333333%;
+        max-width: 100%;
+    }
+}
+
+@media only screen and (max-width:992px) {
+    .carousel-flujo-aprobacion .carousel-indicators li {
+        margin-bottom: -1.88rem;
+    }
+}
+
+.carousel-indicators li {
+    box-sizing: content-box;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    width: 30px;
+    height: 3px;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    opacity: .5;
+    transition: opacity .6s ease;
+}
+
+.carousel-flujo-aprobacion .carousel-indicators li {
+    margin-bottom: -3.75rem;
+    width: initial;
+    height: initial;
+    text-indent: initial;
+}
+
+
+.carousel .carousel-indicators li {
+    cursor: pointer;
+}
+
+.carousel-flujo-aprobacion .carousel-indicators .active {
+    opacity: 1;
+}
+
+.carousel-indicators .active {
+    opacity: 1;
+}
+
+
+.carousel-flujo-aprobacion .carousel-indicators {
+    margin-bottom: -2em;
+}

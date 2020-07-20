@@ -18,7 +18,7 @@ public partial class ActualizarPagos : System.Web.UI.Page
     //DtoUsuario objDTOU = new DtoUsuario();
     CtrUsuario objCTRU = new CtrUsuario();
 
-    string conexionString = "data source=LACING202A-06; initial catalog=BD_SCLAP; integrated security=SSPI;";
+    string conexionString = "data source=LAPTOP-UEI1JFVM; initial catalog=BD_SCLAP; integrated security=SSPI;";
 
     protected void Page_Load(object sender, EventArgs e)
     {

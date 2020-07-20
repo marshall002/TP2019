@@ -17,7 +17,8 @@ public partial class RegistrarPagos : System.Web.UI.Page
     CtrCPago objCTRCP = new CtrCPago();
     //DtoUsuario  objDTOU = new DtoUsuario();
     CtrUsuario objCTRU = new CtrUsuario();
-    string conexionString = "data source=LACING202A-06; initial catalog=BD_SCLAP; integrated security=SSPI;";
+    string conexionString = "data source=LAPTOP-UEI1JFVM; initial catalog=BD_SCLAP; integrated security=SSPI;";
+    Log Log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -49,8 +50,8 @@ public partial class RegistrarPagos : System.Web.UI.Page
         objDTOCP.ICP_NFisio = Int32.Parse(txt_fisio.Text);
         objDTOCP.ICP_NNutri = Int32.Parse(txt_nutri.Text);
         objDTOCP.FK_CU_Dni = Sesion;
-        Log.WriteLog("data" + data);
-        Log.WriteLog("data" + data.Count());
+        Log.WriteOnLog("data" + data);
+        Log.WriteOnLog("data" + data.Count());
 
         string mensaje = "Registrado con exito";
         //objCTRCP.RegistrarComprobante_Pago(objDTOCP, data);

@@ -19,7 +19,9 @@ namespace DAO
                 //return @"data source=LACING202A-06; initial catalog=BD_SCLAP; integrated security=SSPI;";
                 //return @"data source=LACING202A-06; initial catalog=BD_SCLAP; integrated security=SSPI;";
 
-                return @"data source=LAPTOP-TG82GILV; initial catalog=BD_SCLAP; integrated security=SSPI;";
+                //return @"data source=LAPTOP-TG82GILV; initial catalog=BD_SCLAP; integrated security=SSPI;";
+                return @"data source=LAPTOP-UEI1JFVM; initial catalog=BD_SGCLAP; integrated security=SSPI;";
+
                 //return @"data source=LACING202A-03; initial catalog=BD_SCLAP; integrated security=SSPI;";
                 //return @"data source=LAPTOP-TG82GILV; initial catalog=BD_SCLAP; integrated security=SSPI;";
 

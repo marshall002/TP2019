@@ -12,6 +12,7 @@ using CTR;
 
 public partial class WebPrincipal_WF_Iniciar_Sesion1 :  System.Web.UI.Page
 {
+    Log Log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -54,18 +55,18 @@ public partial class WebPrincipal_WF_Iniciar_Sesion1 :  System.Web.UI.Page
             DtoSesionNutri objdtosesionNutri = new DtoSesionNutri();
 
             usuarioDto.PK_CU_Dni = usuario;
-            usuarioDto.VU_Contraseña = clave;
+            usuarioDto.VU_Contrasenia = clave;
 
             CtrUsuario usuarioCtr = new CtrUsuario();
 
             usuarioDto = usuarioCtr.Login(usuarioDto);
-            Log.WriteLog("usuarioDto" + usuarioDto);
+            Log.WriteOnLog("usuarioDto" + usuarioDto);
 
             if (usuarioDto != null)
             {
-                Log.WriteLog("-------------------------------------------------------------------------------------------------------------");
-                Log.WriteLog("-----------------------------Ingresando a login y seteando valores de session--------------------------------");
-                Log.WriteLog("-------------------------------------------------------------------------------------------------------------");
+                Log.WriteOnLog("-------------------------------------------------------------------------------------------------------------");
+                Log.WriteOnLog("-----------------------------Ingresando a login y seteando valores de session--------------------------------");
+                Log.WriteOnLog("-------------------------------------------------------------------------------------------------------------");
 
                 objctrUsuario.ObtenerInformacionUsuario(usuarioDto, planDto, objdtosesionFisio, objdtosesionNutri);
 
@@ -76,35 +77,48 @@ public partial class WebPrincipal_WF_Iniciar_Sesion1 :  System.Web.UI.Page
                 Session["NombreCompleto"] = usuarioDto.VU_Nombre + " " + usuarioDto.VU_APaterno + " " + usuarioDto.VU_AMaterno;
                 Session["CU_Celular"] = usuarioDto.CU_Celular;
                 Session["DU_FechaNacimiento"] = usuarioDto.DU_FechaNacimiento;
+
+
+
+
                 Session["id_perfil"] = usuarioDto.FK_ITU_Cod;
                 Session["correo"] = usuarioDto.VU_Correo;
-                Session["TipoPlanID"] = usuarioDto.FK_IP_Cod;
+                //Session["TipoPlanID"] = usuarioDto.FK_IC_Cod;
+
+
                 Session["direccion"] = usuarioDto.VU_Direccion;
+                Session["IC_Citas_Fisio_Usadas"] = usuarioDto.IC_Citas_Fisio_Usadas;
+                Session["IC_Citas_Nutri_Usadas"] = usuarioDto.IC_Citas_Nutri_Usadas;
 
 
-                Log.WriteLog(" Session['SessionUsuario'] " + Session["SessionUsuario"]);
-                Log.WriteLog(" Session['NombreUsuario'] " + Session["NombreUsuario"]);
-                Log.WriteLog(" Session['APaternoUsuario'] " + Session["APaternoUsuario"]);
-                Log.WriteLog(" Session['AMaternoUsuario'] " + Session["AMaternoUsuario"]);
+                Log.CustomWriteOnLog("IniciarSesion", " Session['SessionUsuario'] " + Session["SessionUsuario"]);
+                Log.CustomWriteOnLog("IniciarSesion", " Session['NombreUsuario'] " + Session["NombreUsuario"]);
+                Log.CustomWriteOnLog("IniciarSesion", " Session['APaternoUsuario'] " + Session["APaternoUsuario"]);
+                Log.CustomWriteOnLog("IniciarSesion", " Session['AMaternoUsuario'] " + Session["AMaternoUsuario"]);
+                Log.CustomWriteOnLog("IniciarSesion", " Session['direccion'] " + Session["direccion"]);
+                Log.CustomWriteOnLog("IniciarSesion", " Session['correo'] " + Session["correo"]);
+                Log.CustomWriteOnLog("IniciarSesion", " Session['id_perfil'] " + Session["id_perfil"]);
+                Log.CustomWriteOnLog("IniciarSesion", " Session['DU_FechaNacimiento'] " + Session["DU_FechaNacimiento"]);
+                Log.CustomWriteOnLog("IniciarSesion", " Session['CU_Celular'] " + Session["CU_Celular"]);
+                //Log.CustomWriteOnLog("IniciarSesion", " Session['TipoPlanID'] " + Session["TipoPlanID"]);
+                Log.CustomWriteOnLog("IniciarSesion", "--------------------------------------------Fin Login Aspx----------------------------------------------------");
 
-                Log.WriteLog(" Session['direccion'] " + Session["direccion"]);
-                Log.WriteLog(" Session['correo'] " + Session["correo"]);
-                Log.WriteLog(" Session['id_perfil'] " + Session["id_perfil"]);
-                Log.WriteLog(" Session['DU_FechaNacimiento'] " + Session["DU_FechaNacimiento"]);
-                Log.WriteLog(" Session['CU_Celular'] " + Session["CU_Celular"]);
-                Log.WriteLog(" Session['TipoPlanID'] " + Session["TipoPlanID"]);
-                Log.WriteLog("--------------------------------------------Fin Login Aspx----------------------------------------------------");
-
-                if (Session["id_perfil"].ToString() == "1")
+                if (usuarioDto.FK_IC_Cod != 0)
                 {
-                    Session["DP_Fecha_Fin_Plan"] = planDto.DP_Fecha_Fin;
-                    Session["ISF_Cantidad"] = objdtosesionFisio.ISF_Cantidad;
-                    Session["ISN_Cantidad"] = objdtosesionNutri.ISN_Cantidad;
+                    if (Session["id_perfil"].ToString() == "1")
+                    {
 
-                    Log.WriteLog(" Session['DP_Fecha_Fin_Plan'] " + Session["DP_Fecha_Fin_Plan"]);
-                    Log.WriteLog(" Session['ISF_Cantidad'] " + Session["ISF_Cantidad"]);
-                    Log.WriteLog(" Session['ISN_Cantidad'] " + Session["ISN_Cantidad"]);
+                        Session["TipoPlanID"] = usuarioDto.FK_IC_Cod.ToString();
+
+                        Log.CustomWriteOnLog("IniciarSesion", " Session['TipoPlanID'] " + Session["TipoPlanID"]);
+
+                    }
                 }
+                else
+                {
+                    Session["TipoPlanID"] = "0";
+                }
+                
                 string script = @"<script type='text/javascript'>
                                       location.href='../inicio.aspx';
                                   </script>";
@@ -112,7 +126,7 @@ public partial class WebPrincipal_WF_Iniciar_Sesion1 :  System.Web.UI.Page
                 error = Constante.ERROR_SUCCESS;
 
                 tipousuarioDto.PK_TU_Cod = usuarioDto.FK_ITU_Cod;
-                planDto.PK_IP_Cod = usuarioDto.FK_IP_Cod;
+                planDto.PK_IP_Cod = usuarioDto.FK_IC_Cod;
 
             }
             else
@@ -120,18 +134,21 @@ public partial class WebPrincipal_WF_Iniciar_Sesion1 :  System.Web.UI.Page
 
                 //mostrarMensaje.Text = "Su usuario o contraseña incorrecta o no existe";
                 throw new Exception("Su usuario o contraseña incorrecta o no existe");
+                
             }
 
         }
         catch (Exception ex)
         {
+            Log.CustomWriteOnLog("IniciarSesion", "Error=  " + ex.Message + "Ubicacion" + ex.StackTrace);
             color = Constante.COLOR_ROJO;
             msj = ex.Message;
-            Log.WriteLog("error " + ex.Message);
+            Log.WriteOnLog("error " + ex.Message);
             mostrarMensaje.Text = msj;
         }
         if (error != Constante.ERROR_SUCCESS)
         {
+
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('" + color + "', '" + msj + "', 'bottom', 'center', null, null);", true);
         }
     }

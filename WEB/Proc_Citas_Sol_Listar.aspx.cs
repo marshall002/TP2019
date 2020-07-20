@@ -11,9 +11,10 @@ using CTR;
 public partial class Proc_Citas_Sol_Listar : System.Web.UI.Page
 {
     CtrCita objctrcita = new CtrCita();
+    Log _log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
-        Log.WriteLog("Session['id_perfil']" + Session["id_perfil"]);
+        _log.CustomWriteOnLog("Proc_Citas_Sol_Listar", "Session['id_perfil']" + Session["id_perfil"]);
         if (Session["id_perfil"] != null)
         {
             if (int.Parse(Session["id_perfil"].ToString()) == Constante.ROL_ADMINISTRADOR)
@@ -23,14 +24,14 @@ public partial class Proc_Citas_Sol_Listar : System.Web.UI.Page
             }
             else
             {
-                Log.WriteLog("Proc Citas Sol Registrar2 - Error en id Perfil");
+                _log.CustomWriteOnLog("Proc_Citas_Sol_Listar", "Proc Citas Sol Registrar2 - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
             }
         }
         else
         {
 
-            Log.WriteLog("Proc Citas Sol Registrar2 - Error en id Perfil");
+             _log.CustomWriteOnLog("Proc_Citas_Sol_Listar", "Proc Citas Sol Registrar2 - Error en id Perfil");
             Response.Redirect("Inicio.aspx");
 
         }

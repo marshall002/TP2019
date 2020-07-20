@@ -29,14 +29,14 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
                 }
                 else
                 {
-                    Log.WriteLog(" Sol Citas Registrar - Error en id Perfil");
+                    Log.WriteOnLog(" Sol Citas Registrar - Error en id Perfil");
                     Response.Redirect("Inicio.aspx");
                 }
             }
             else
             {
 
-                Log.WriteLog(" Sol Citas Registrar - Error en id Perfil");
+                Log.WriteOnLog(" Sol Citas Registrar - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
 
             }
@@ -48,13 +48,13 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
         {
             string valorRadiobuttonentxt = txtresultadoChecbox.Value;
             contarCitasxServicio();
-            Log.WriteLog("---------------------------------------------------------------------------------------------");
+            Log.WriteOnLog("---------------------------------------------------------------------------------------------");
 
-            Log.WriteLog("Cantidad de sesiones x plan de fisioterapeuta actuales: " + Session["ISF_Cantidad"].ToString());
-            Log.WriteLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
-            Log.WriteLog("Contador de sesiones x plan de nutricionista actuales: " + Session["ISN_Cantidad"].ToString());
-            Log.WriteLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
-            Log.WriteLog("---------------------------------------------------------------------------------------------");
+            Log.WriteOnLog("Cantidad de sesiones x plan de fisioterapeuta actuales: " + Session["ISF_Cantidad"].ToString());
+            Log.WriteOnLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
+            Log.WriteOnLog("Contador de sesiones x plan de nutricionista actuales: " + Session["ISN_Cantidad"].ToString());
+            Log.WriteOnLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
+            Log.WriteOnLog("---------------------------------------------------------------------------------------------");
 
 
 

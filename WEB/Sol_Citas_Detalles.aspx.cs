@@ -13,8 +13,9 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 	CtrCita objctrcita = new CtrCita();
 	CtrUsuario objctrusuario = new CtrUsuario();
 	DtoCita objdtocita = new DtoCita();
+    Log Log = new Log();
 	DtoUsuario objdtousuario = new DtoUsuario();
-	protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!IsPostBack)
 		{
@@ -27,14 +28,14 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
                 }
                 else
                 {
-                    Log.WriteLog(" Sol Citas Detalles - Error en id Perfil");
+                    Log.WriteOnLog(" Sol Citas Detalles - Error en id Perfil");
                     Response.Redirect("Inicio.aspx");
                 }
             }
             else
             {
 
-                Log.WriteLog(" Sol Citas Detalles - Error en id Perfil");
+                Log.WriteOnLog(" Sol Citas Detalles - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
 
             }
@@ -50,14 +51,14 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 		{
 			string valorRadiobuttonentxt = txtresultadoChecbox.Value;
 			contarCitasxServicio();
-			Log.WriteLog("---------------------------------------------------------------------------------------------");
+			Log.WriteOnLog("---------------------------------------------------------------------------------------------");
 
-			Log.WriteLog("Cantidad de sesiones x plan de fisioterapeuta actuales: " + Session["ISF_Cantidad"].ToString());
-			Log.WriteLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
-			Log.WriteLog("Contador de sesiones x plan de nutricionista actuales: " + Session["ISN_Cantidad"].ToString());
-			Log.WriteLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
+			Log.WriteOnLog("Cantidad de sesiones x plan de fisioterapeuta actuales: " + Session["ISF_Cantidad"].ToString());
+			Log.WriteOnLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
+			Log.WriteOnLog("Contador de sesiones x plan de nutricionista actuales: " + Session["ISN_Cantidad"].ToString());
+			Log.WriteOnLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
 
-			Log.WriteLog("---------------------------------------------------------------------------------------------");
+			Log.WriteOnLog("---------------------------------------------------------------------------------------------");
 			if (valorRadiobuttonentxt == "1")//Nutricionista
 			{
 				if ( int.Parse(objdtousuario.IC_Citas_Nutri_Usadas.ToString()) >= int.Parse(Session["ISN_Cantidad"].ToString()))
@@ -129,7 +130,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 		DateTime Fecha = Convert.ToDateTime(txtFecha.Text);
 		DateTime fechasolitada = Fecha + Hora;
 		int codigosol = int.Parse(Session["CodigoSolicitudCita"].ToString());
-		Log.WriteLog(txtresultadoChecbox.Value);
+		Log.WriteOnLog(txtresultadoChecbox.Value);
 
 		string mensaje = "Datos actualizados";
 
@@ -141,12 +142,12 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 	{
 		try
 		{
-            Log.WriteLog("Entro a cargar datos citas");
+            Log.WriteOnLog("Entro a cargar datos citas");
 			objdtocita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
-            Log.WriteLog("1");
+            Log.WriteOnLog("1");
 
             objctrcita.ObtenerInformacionSolicitudCita(objdtocita);
-            Log.WriteLog("2");
+            Log.WriteOnLog("2");
             DateTime dtValue = objdtocita.DC_FechaHoraSolicitada;
 			txtFecha.Text = dtValue.ToString("yyyy-MM-dd");
 			ddlHoras.Text = dtValue.ToString("HH:mm");
@@ -160,16 +161,16 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 
 			txtDudaConsulta.Text = objdtocita.VC_Observacion;
 			txtFecha.Text = Convert.ToString(objdtocita.DC_FechaHoraSolicitada.ToString("yyyy-MM-dd"));
-            Log.WriteLog("objdtocita.IC_Cod"+ objdtocita.IC_Cod);
-            Log.WriteLog("dtValue" + dtValue);
-            Log.WriteLog("TipoCitaSol" + TipoCitaSol);
-            Log.WriteLog("objdtocita.VC_Observacion" + objdtocita.VC_Observacion);
-            Log.WriteLog("objdtocita.FechaHoraSolicitada" + Convert.ToString(objdtocita.DC_FechaHoraSolicitada.ToString("yyyy-MM-dd")));
+            Log.WriteOnLog("objdtocita.IC_Cod"+ objdtocita.IC_Cod);
+            Log.WriteOnLog("dtValue" + dtValue);
+            Log.WriteOnLog("TipoCitaSol" + TipoCitaSol);
+            Log.WriteOnLog("objdtocita.VC_Observacion" + objdtocita.VC_Observacion);
+            Log.WriteOnLog("objdtocita.FechaHoraSolicitada" + Convert.ToString(objdtocita.DC_FechaHoraSolicitada.ToString("yyyy-MM-dd")));
 
 
             if (int.Parse(Session["estadosol"].ToString()) == 2)
 			{
-				Log.WriteLog("entro a page load");
+				Log.WriteOnLog("entro a page load");
 
 				System.Text.StringBuilder sb1 = new System.Text.StringBuilder();
 				sb1.Append(@"<script language='javascript'>");
@@ -181,7 +182,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 		}
 		catch (Exception ex)
 		{
-            Log.WriteLog("Error en EX"+ex.Message);
+            Log.WriteOnLog("Error en EX"+ex.Message);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No tiene los permisos para actualizar', 'bottom', 'center', null, null);", true);
 
 		}
@@ -197,17 +198,17 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
 	public void contarCitasxServicio()
 	{
 		objdtousuario.PK_CU_Dni = Session["SessionUsuario"].ToString();
-		Log.WriteLog("El codigo de sesion es:" + objdtousuario.PK_CU_Dni);
+		Log.WriteOnLog("El codigo de sesion es:" + objdtousuario.PK_CU_Dni);
 		objctrusuario.ObtenerNumCitasRealizadas(objdtousuario);
-		Log.WriteLog("-----------------------------------SOL_CITAS_DETALLES.ASPX----------------------------------------------------");
+		Log.WriteOnLog("-----------------------------------SOL_CITAS_DETALLES.ASPX----------------------------------------------------");
 
-		Log.WriteLog("Citas registradas de fisioterapeuta son en aspx de detalles: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
-		Log.WriteLog("Citas registradas de nutricionista  son en aspx de detalles: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
+		Log.WriteOnLog("Citas registradas de fisioterapeuta son en aspx de detalles: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
+		Log.WriteOnLog("Citas registradas de nutricionista  son en aspx de detalles: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
 	}
 
 	protected void ddlHoras_SelectedIndexChanged(object sender, EventArgs e)
 	{
-		Log.WriteLog("Valor de dropdownList seleccionado al actualizar : " + ddlHoras.SelectedValue);
+		Log.WriteOnLog("Valor de dropdownList seleccionado al actualizar : " + ddlHoras.SelectedValue);
 
 	}
 }

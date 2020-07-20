@@ -13,7 +13,8 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
     CtrCita objctrcita = new CtrCita();
     DaoCita objdaocita = new DaoCita();
     DtoCita objdtocita = new DtoCita();
-  
+    Log Log = new Log();
+
 
     //DtoCita objdtoCita = new DtoCita();
     //CtrUsuario objctrusuario = new CtrUsuario();
@@ -33,13 +34,13 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
                 }
                 else
                 {
-                    Log.WriteLog("Citas Nutri Administracion - Error en id Perfil");
+                    Log.WriteOnLog("Citas Nutri Administracion - Error en id Perfil");
                     Response.Redirect("Inicio.aspx");
                 }
             }
             else
             {
-                Log.WriteLog("Citas Nutri Administracion - Error en id Perfil");
+                Log.WriteOnLog("Citas Nutri Administracion - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
 
             }
@@ -100,9 +101,9 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
     {
         try
         {
-            Log.WriteLog("Entro a cargar datos citas");
+            Log.WriteOnLog("Entro a cargar datos citas");
             objdtocita.IC_Cod = int.Parse(Session["CodigoSolicitudCita"].ToString());
-            Log.WriteLog("1");
+            Log.WriteOnLog("1");
             btnGuardar.Text = "GUARDAR";
             objctrcita.ObtenerInformacionSolicitudCita(objdtocita);
             textNombre.Text = Session["nombre"].ToString();
@@ -115,7 +116,7 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            Log.WriteLog("Error en EX" + ex.Message);
+            Log.WriteOnLog("Error en EX" + ex.Message);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No tiene los permisos para actualizar', 'bottom', 'center', null, null);", true);
 
         }
@@ -149,7 +150,7 @@ public partial class AdministrarCitaNutri : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            Log.WriteLog("Error en el actualizar aprobar o rechazar :" + ex.Message);
+            Log.WriteOnLog("Error en el actualizar aprobar o rechazar :" + ex.Message);
             throw;
         }
 

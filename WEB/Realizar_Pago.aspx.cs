@@ -58,7 +58,7 @@ public partial class Realizar_Pago : System.Web.UI.Page
         
             DTOCP.PK_ICP_Cod = Convert.ToInt32(gvRegistrarPago.Rows[index].Cells[0].Text);
             txtmostrarcod.Value=gvRegistrarPago.Rows[index].Cells[0].Text;
-            Log.WriteLog("txtmostrarcod.Value : " + txtmostrarcod.Value);
+            Log.WriteOnLog("txtmostrarcod.Value : " + txtmostrarcod.Value);
             CTRCP.VERPAGO(DTOCP);
             txt_noperacion.Text = "" + DTOCP.VCP_NOperacion;
             txt_nfisio.Text = "" + DTOCP.ICP_NFisio;

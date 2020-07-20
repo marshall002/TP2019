@@ -8,33 +8,65 @@ using System.Threading.Tasks;
 
 namespace CTR
 {
-	public class Log
-	{
-		public static void WriteLog(string strMessage)
-		{
-			string strPath = @"C:\\TP2019\Log.txt";
-			string strDate = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture); // 12 horas
+    public class Log
+    {
+        bool EnableLog = true;
 
-			PrepareLog(strPath);
+        private static void PrepareLog(string strPath)
+        {
+            if (!File.Exists(strPath))
+            {
+                using (File.CreateText(strPath))
+                {
 
-			using (StreamWriter sw = new StreamWriter(strPath, true, Encoding.Unicode))
-			{
-				sw.WriteLine(strDate + " >> " + strMessage);
-			}
+                }
+            }
+        }
 
-		}
+        public void WriteOnLog(string strMessage)
+        {
+            if (EnableLog)
+            {
+                string strPath = AppDomain.CurrentDomain.BaseDirectory + @"\Log.txt";
+                string strDate = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture); // 12 horas
 
-		private static void PrepareLog(string strPath)
-		{
-			if (!File.Exists(strPath))
-			{
-				using (File.CreateText(strPath))
-				{
-				}
-			}
-		}
+                PrepareLog(strPath);
 
+                using (StreamWriter sw = new StreamWriter(strPath, true, Encoding.Unicode))
+                {
+                    sw.WriteLine(strDate + " : " + strMessage);
+                }
+            }
+        }
 
-	}
+        public void CustomWriteOnLog(string strFileName, string strMessage)
+        {
+            if (EnableLog)
+            {
+                string strPath = AppDomain.CurrentDomain.BaseDirectory + @"\Log\" + strFileName + ".txt";
+                string strDate = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss.fff tt", CultureInfo.InvariantCulture); // 12 horas
+
+                PrepareLog(strPath);
+
+                using (StreamWriter sw = new StreamWriter(strPath, true, Encoding.Unicode))
+                {
+                    sw.WriteLine(strDate + " : " + strMessage);
+                }
+            }
+        }
+
+        public void DeleteLog()
+        {
+            string strPath = AppDomain.CurrentDomain.BaseDirectory + @"\Log.txt";
+            File.Delete(strPath);
+        }
+
+        public void DeleteCustomLog(string strFileName)
+        {
+            string strPath = AppDomain.CurrentDomain.BaseDirectory + @"\Log\" + strFileName + ".txt";
+            File.Delete(strPath);
+        }
+    }
 }
+
 
