@@ -147,7 +147,7 @@
                         <h5 class="card-inside-title">Fecha de inicio </h5>
                         <div class="input-group date" id="id_EscogerFechaInicio">
                             <div class="form-line">
-                                <asp:TextBox type="text" ID="txtFechaIngreso" runat="server" class="form-control" placeholder="Escoja una fecha de inicio"></asp:TextBox>
+                                <asp:TextBox type="text" ClientIDMode="Static" ID="txtFechaIngreso" runat="server" class="form-control" placeholder="Escoja una fecha de inicio"></asp:TextBox>
                             </div>
                             <span class="input-group-addon">
                                 <i class="material-icons">date_range</i>
@@ -158,7 +158,7 @@
                         <h5 class="card-inside-title">Comentario adicional </h5>
                         <div class="input-group">
                             <div class="form-line">
-                                <asp:TextBox type="text" ID="txtComentario" Rows="3" TextMode="MultiLine" runat="server" class="form-control no-resize" placeholder="Escoja una fecha de inicio"></asp:TextBox>
+                                <asp:TextBox type="text" ClientIDMode="Static" ID="txtComentario" Rows="3" TextMode="MultiLine" runat="server" class="form-control no-resize" placeholder="Escoja una fecha de inicio"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                 <div class="modal-footer">
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
                         <ContentTemplate>
-                            <asp:HiddenField ID="hidenfield" runat="server" ClientIDMode="Static"/>
+                            <asp:HiddenField ID="hidenfield" runat="server" ClientIDMode="Static" />
 
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cancelar</button>
                             <asp:Button runat="server" ID="btnConfirmar" CssClass="btn btn-link waves-effect" Text="Crear solicitud de compra" OnClick="btnConfirmar_Click" />
@@ -198,6 +198,14 @@
         }
         function mostrarModal() {
             $('#exampleModal').modal('show');
+        }
+        function OcultaryLimpiarModal() {
+            $('#exampleModal').modal('hide');
+            $('#txtFechaIngreso').val("");
+            $('#txtComentario').val("");
+        }
+        function mostrarMensajeConfirmacion() {
+            swal('Registro Exitoso!', 'Solicitud registrada!!', 'success');
         }
         $(function () {
             $('#id_EscogerFechaInicio').datepicker({

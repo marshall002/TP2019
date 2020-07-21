@@ -180,6 +180,8 @@ public partial class SolicitarPlan : System.Web.UI.Page
             _log.CustomWriteOnLog("SolicitarPlan", "objdtocontrato.VC_DEscripcion " + txtComentario.Text);
             objctrContrato.RegistrarContrato(objdtousuario, objdtocontrato);
             _log.CustomWriteOnLog("SolicitarPlan", "Registro plan solicitado");
+            Utils.AddScriptClientUpdatePanel(UpdatePanel1, "mostrarMensajeConfirmacion();");
+            Utils.AddScriptClientUpdatePanel(UpdatePanel1, "OcultaryLimpiarModal();");
         }
         catch (Exception ex)
         {
