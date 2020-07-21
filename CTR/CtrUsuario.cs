@@ -10,25 +10,25 @@ using System.Data;
 
 namespace CTR
 {
-	public class CtrUsuario
-	{
-		DaoUsuario objDaoUsuario;
+    public class CtrUsuario
+    {
+        DaoUsuario objDaoUsuario;
 
-		public CtrUsuario()
-		{
-			objDaoUsuario = new DaoUsuario();
-		}
-		public void ObtenerInformacionUsuario(DtoUsuario dtoUsuario,DtoPlan dtoplan,DtoSesionFisio dtosesionfisio, DtoSesionNutri dtosesionnutri )
-		{
-			objDaoUsuario.ObtenerDatosSocioPlan(dtoUsuario, dtoplan, dtosesionfisio, dtosesionnutri);
-		}
-		public void ObtenerNumCitasRealizadas(DtoUsuario dtoUsuario)
-		{
-			objDaoUsuario.ObtenerNumerodeCitasUsadas(dtoUsuario);
-		}
+        public CtrUsuario()
+        {
+            objDaoUsuario = new DaoUsuario();
+        }
+        public void ObtenerInformacionUsuario(DtoUsuario dtoUsuario, DtoPlan dtoplan, DtoSesionFisio dtosesionfisio, DtoSesionNutri dtosesionnutri)
+        {
+            objDaoUsuario.ObtenerDatosSocioPlan(dtoUsuario, dtoplan, dtosesionfisio, dtosesionnutri);
+        }
+        public void ObtenerNumCitasRealizadas(DtoUsuario dtoUsuario)
+        {
+            objDaoUsuario.ObtenerNumerodeCitasUsadas(dtoUsuario);
+        }
         public DataTable ListarDNIUsuario()
         {
-           return objDaoUsuario.ListarDNIUsuario();
+            return objDaoUsuario.ListarDNIUsuario();
         }
 
         public void RegistrarSocio(DtoUsuario objRecBE)
@@ -39,9 +39,9 @@ namespace CTR
         public DtoUsuario Login(DtoUsuario dtoUsuario)
         {
 
-            int persona_id = objDaoUsuario.validacionLogin(dtoUsuario.PK_CU_Dni,  dtoUsuario.VU_Contrasenia);
-            
-           if(persona_id == 0)
+            int persona_id = objDaoUsuario.validacionLogin(dtoUsuario.PK_CU_Dni, dtoUsuario.VU_Contrasenia);
+
+            if (persona_id == 0)
             {
                 throw new Exception("Usuario y/o contrase&ntilde;a incorrecta(s)");
             }
@@ -49,9 +49,8 @@ namespace CTR
             {
                 return objDaoUsuario.datosUsuario(dtoUsuario.PK_CU_Dni);
             }
-
-           
-
         }
+
+        
     }
 }

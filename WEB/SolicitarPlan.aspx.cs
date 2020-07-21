@@ -13,34 +13,71 @@ public partial class SolicitarPlan : System.Web.UI.Page
 {
     List<DtoPlan> lstPLan = new List<DtoPlan>();
 
-    CtrPlan objctrplan = new CtrPlan();
+    DtoUsuario objdtousuario = new DtoUsuario();
+    DtoPlan objdtoplan = new DtoPlan();
+    DtoContrato objdtocontrato = new DtoContrato();
     Log _log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (IsPostBack != true)
         {
-            try
+            if (Session["id_perfil"] != null)
             {
-                lstPLan = objctrplan.ObtenerPlanes();
-                if (lstPLan.Count > 0)
+                try
                 {
-                    CrearRuleta(lstPLan);
+                    CtrPlan objctrplan = new CtrPlan();
+                    lstPLan = objctrplan.ObtenerPlanes();
+                    if (lstPLan.Count > 0)
+                    {
+                        CrearRuleta(lstPLan);
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
                 }
             }
-            catch (Exception)
+            else
             {
 
-                throw;
+                _log.CustomWriteOnLog("SolicitarPlan", "Proc Citas Sol Detalles - Error en id Perfil");
+                Response.Redirect("Inicio.aspx");
+
             }
+
 
         }
     }
 
     public void CrearRuleta(List<DtoPlan> obLRuleta)
     {
+        CtrPlan objctrplan = new CtrPlan();
         StringBuilder myString = new StringBuilder();
         StringBuilder CarouselIndicators = new StringBuilder();
-        //Array a = obLRuleta.Take(3).ToArray();
+        if (Session["SessionUsuario"] != null)
+        {
+            objdtousuario.PK_CU_Dni = Session["SessionUsuario"].ToString();
+
+        }
+        int validarcontrato = objctrplan.validarcontrato(objdtousuario);
+        if (validarcontrato > 0)
+        {
+            objctrplan.ObtenerDatosContratoVigente(objdtousuario, objdtoplan, objdtocontrato);
+            lblDuracionMeses.InnerText = objdtoplan.MembresiaDuracionString;
+            lblfechainicio.InnerText = objdtocontrato.DC_Fecha_Inicio.ToShortDateString();
+            lblfechavencimiento.InnerText = objdtocontrato.DC_Fecha_Vencimiento.ToShortDateString();
+            lblnutricionista.InnerText = objdtoplan.IE_Cantidad_Sesion_Nutri.ToString() + " citas según su plan";
+            lblfisioterapeuta.InnerText = objdtoplan.IP_Cantidad_Sesion_Fisio.ToString() + " citas según su plan";
+            lblCongelamiento.InnerText = objdtoplan.Congelamiento.ToString() + " días";
+            lblfrecuencia.InnerText = objdtoplan.FrecuenciaString.ToString();
+            MensajeH.Visible = false;
+        }
+        else
+        {
+            MensajeH.Visible = true;
+            divTablePlan.Visible = false;
+        }
         for (int i = 0; i <= obLRuleta.Max(x => x.Index); i++)
         {
             string a = "";
@@ -49,21 +86,14 @@ public partial class SolicitarPlan : System.Web.UI.Page
                 a = "active";
             }
             CarouselIndicators.Append("<li data-target='#carousel-example-generic' data-slide-to=" + i + " class='" + a + "'>" +
-                    //"<img src = 'resources/img/user_carrusel.png' width = '32'/>" +
                     "</li>"
                          );
-            //CarouselIndicators.Append("<li data-target='#carousel-example-generic' data-slide-to='0' class='active'></li>" +
-            //    "<li data-target='#carousel-example-generic' data-slide-to='1'></li>" +
-            //    "<li data-target='#carousel-example-generic' data-slide-to='2'></li>"
-            //   );
-
             List<DtoPlan> Temp = new List<DtoPlan>();
             Temp = obLRuleta.Where(x => x.Index == i).ToList();
             myString.Append("<div class='item " + a + "'>");
 
             foreach (DtoPlan value in Temp)
             {
-
                 myString.Append("<div class='col-md-4'>");
                 myString.Append("<div class='card'>");
                 myString.Append("<div class='header bg-red'>");
@@ -101,12 +131,15 @@ public partial class SolicitarPlan : System.Web.UI.Page
                 myString.Append("Costo : ");
                 myString.Append("</td>");
                 myString.Append("<td>");
-                myString.Append("<b>"+value.DP_Costo+"</b>");
+                myString.Append("<b>" + value.DP_Costo + "</b>");
                 myString.Append("</td>");
                 myString.Append("</tr>");
                 myString.Append("</table>");
                 myString.Append("</p>");
-                myString.Append("<button ID='btn"+value.PK_IP_Cod+"' class='btn btn-primary' onclick='CambiarTextboxHF("+ value.PK_IP_Cod +")'/>inscribirse");
+                if (validarcontrato == 0)
+                {
+                    myString.Append("<button ID='btn" + value.PK_IP_Cod + "' class='btn btn-primary' onclick='CambiarTextboxHF(" + value.PK_IP_Cod + ")'/>inscribirse");
+                }
                 myString.Append("</div>");
                 myString.Append("</div>");
                 myString.Append("</div>");
@@ -118,32 +151,39 @@ public partial class SolicitarPlan : System.Web.UI.Page
         _log.CustomWriteOnLog("Crear_Ruleta", " -------------------------------------------------");
         _log.CustomWriteOnLog("Crear_Ruleta", " obLRuleta.Count        " + obLRuleta.Count);
         _log.CustomWriteOnLog("Crear_Ruleta", " -------------------------------------------------");
-        //foreach (DtoPlan beruleta in obLRuleta)
-        //{
-        //    _log.CustomWriteOnLog("Crear_Ruleta", " _beRuleta.Aprobador    " + beruleta.IE_Cantidad_Sesion_Nutri);
-        //    _log.CustomWriteOnLog("Crear_Ruleta", " _beRuleta.Cargo        " + beruleta.IP_Cantidad_Sesion_Fisio);
-        //    _log.CustomWriteOnLog("Crear_Ruleta", " _beRuleta.Fecha        " + beruleta.MembresiaDuracionString);
-        //    _log.CustomWriteOnLog("Crear_Ruleta", " _beRuleta.Index        " + beruleta.PK_IP_Cod);
-        //    _log.CustomWriteOnLog("Crear_Ruleta", " _beRuleta.Orden        " + beruleta.Congelamiento);
-        //    _log.CustomWriteOnLog("Crear_Ruleta", " _beRuleta.Posicion     " + beruleta.DP_Costo);
-        //    _log.CustomWriteOnLog("Crear_Ruleta", " _beRuleta.EstadoColor  " + beruleta.FrecuenciaString);
-        //    _log.CustomWriteOnLog("Crear_Ruleta", " -------------------------------------------------");
-        //}
-
     }
-
-
     protected void hfValorSeleccionado_ValueChanged(object sender, EventArgs e)
     {
-        _log.CustomWriteOnLog("Crear_Ruleta", "Obtenido valor cambiado "+ hfValorSeleccionado.Value);
-        //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "mostrarModal();");
+        _log.CustomWriteOnLog("Crear_Ruleta", "Obtenido valor cambiado " + hfValorSeleccionado.Value);
         Utils.AddScriptClientUpdatePanel(upCarrusel, "mostrarModal();");
+        var ValordeHiddenfield = hfValorSeleccionado.Value;
+        hfValorSeleccionado.Value = "";
         _log.CustomWriteOnLog("Crear_Ruleta", "PASO");
-
     }
 
     protected void btnConfirmar_Click(object sender, EventArgs e)
     {
+        
 
+        try
+        {
+            CtrContrato objctrContrato = new CtrContrato();
+            _log.CustomWriteOnLog("SolicitarPlan", "............................" + txtFechaIngreso.Text);
+
+            objdtocontrato.FK_IP_Cod = int.Parse(hidenfield.Value);
+            objdtousuario.PK_CU_Dni = Session["SessionUsuario"].ToString();
+            objdtocontrato.DC_Fecha_Inicio = Convert.ToDateTime(String.Format("{0:MM/dd/YYYY HH:mm:ss}", txtFechaIngreso.Text));
+            objdtocontrato.VC_DEscripcion = txtComentario.Text;
+            _log.CustomWriteOnLog("SolicitarPlan", "objdtocontrato.FK_IP_Cod " + int.Parse(hidenfield.Value));
+            _log.CustomWriteOnLog("SolicitarPlan", "objdtousuario.PK_CU_Dni " + Session["SessionUsuario"].ToString());
+            _log.CustomWriteOnLog("SolicitarPlan", "objdtocontrato.DC_Fecha_Inicio " + Convert.ToDateTime(String.Format("{0:dd-MM-YYYY 00:00:00}", txtFechaIngreso.Text)));
+            _log.CustomWriteOnLog("SolicitarPlan", "objdtocontrato.VC_DEscripcion " + txtComentario.Text);
+            objctrContrato.RegistrarContrato(objdtousuario, objdtocontrato);
+            _log.CustomWriteOnLog("SolicitarPlan", "Registro plan solicitado");
+        }
+        catch (Exception ex)
+        {
+            _log.CustomWriteOnLog("SolicitarPlan", "ERROR " + ex.Message);
+        }
     }
 }

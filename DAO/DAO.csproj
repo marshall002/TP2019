@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ConexionBD.cs" />
     <Compile Include="DaoCita.cs" />
+    <Compile Include="DaoContrato.cs" />
     <Compile Include="DaoCPago.cs" />
     <Compile Include="DaoEjercicio.cs" />
     <Compile Include="DaoMonitorearCitaFisio.cs" />

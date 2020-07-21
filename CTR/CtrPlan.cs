@@ -21,5 +21,14 @@ namespace CTR
             ListRuleta = objdaoplan.getPLanes();
             return ListRuleta;
         }
+        public int validarcontrato(DtoUsuario dtoUsuario)
+        {
+            int contratovigente = objdaoplan.validacionContratoVigente(dtoUsuario.PK_CU_Dni);
+            return contratovigente;
+        }
+        public void ObtenerDatosContratoVigente(DtoUsuario dtoUsuario, DtoPlan dtoPlan,DtoContrato dtoContrato)
+        {
+            objdaoplan.ObtenerPlanVigente(dtoUsuario.PK_CU_Dni, dtoPlan, dtoContrato);
+        }
     }
 }

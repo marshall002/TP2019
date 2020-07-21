@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CtrCita.cs" />
+    <Compile Include="CtrContrato.cs" />
     <Compile Include="CtrCPago.cs" />
     <Compile Include="CtrEjercicio.cs" />
     <Compile Include="CtrMonitoriarCitaFisio.cs" />
