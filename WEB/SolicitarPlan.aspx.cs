@@ -163,13 +163,10 @@ public partial class SolicitarPlan : System.Web.UI.Page
 
     protected void btnConfirmar_Click(object sender, EventArgs e)
     {
-        
-
         try
         {
             CtrContrato objctrContrato = new CtrContrato();
             _log.CustomWriteOnLog("SolicitarPlan", "............................" + txtFechaIngreso.Text);
-
             objdtocontrato.FK_IP_Cod = int.Parse(hidenfield.Value);
             objdtousuario.PK_CU_Dni = Session["SessionUsuario"].ToString();
             objdtocontrato.DC_Fecha_Inicio = Convert.ToDateTime(String.Format("{0:MM/dd/YYYY HH:mm:ss}", txtFechaIngreso.Text));

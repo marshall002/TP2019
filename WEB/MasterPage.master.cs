@@ -79,15 +79,21 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
         html1 = string.Format("<li>" +
             "<a href='SolicitarPlan.aspx'>" +
-            "<i class='material-icons'>content_paste</i>"+                            
-                            "<span>Se</span>"+
-                        "</a>"+
+            "<i class='material-icons'>content_paste</i>" +
+                            "<span>Se</span>" +
+                        "</a>" +
                     "</li>");
         string html = string.Format(@"
                     <li>
                         <a href='SolicitarPlan.aspx'>
                             <i class='material-icons'>content_paste</i>
                             <span>Solicitar un plan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href='SolicitudPlan.aspx'>
+                            <i class='material-icons'>content_paste</i>
+                            <span>Mis solicitudes de plan</span>
                         </a>
                     </li>
                     <li>
@@ -121,6 +127,12 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         string html = string.Format(@"
 
+                    <li>
+                        <a href='SolicitudPlan.aspx'>
+                            <i class='material-icons'>content_paste</i>
+                            <span>Administrar las solicitudes de plan</span>
+                        </a>
+                    </li>
 
                    <li>
                         <a href='Proc_Citas_Sol_Listar.aspx'>
@@ -128,7 +140,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                             <span>Gestionar las solicitudes</span>
                         </a>
                     </li>
-<li>
+                    <li>
                         <a href='Verificar_Pago.aspx'>
                             <i class='material-icons'>content_paste</i>
                             <span>Verificar los pagos</span>

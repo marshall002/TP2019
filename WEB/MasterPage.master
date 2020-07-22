@@ -240,6 +240,27 @@
     <script src="../../js/pages/ui/dialogs.js"></script>
     <script src="js/demo.js"></script>
     <script src="../../js/public/utils.js"></script>
-
+     <script>$(function () {
+    $(".dataTable").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable({
+        "bProcessing": false,
+        "bLengthChange": false,
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Buscar registros",
+            lengthMenu: "Mostrar _MENU_ registros",
+            paginate: {
+                first: "Primero",
+                last: "&Uacute;ltimo",
+                next: "Siguiente",
+                previous: "Anterior"
+            },
+            
+        }, "bLengthChange": false,
+        "bFilter": true,
+        "bInfo": false,
+        "bAutoWidth": false,
+        responsive: true
+    });
+        });</script>
 </body>
 </html>

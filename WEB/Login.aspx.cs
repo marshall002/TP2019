@@ -50,7 +50,7 @@ public partial class Login : System.Web.UI.Page
             DtoSesionNutri objdtosesionNutri = new DtoSesionNutri();
 
             usuarioDto.PK_CU_Dni = usuario;
-            usuarioDto.VU_Contraseña = clave;
+            usuarioDto.VU_Contrasenia = clave;
 
             CtrUsuario usuarioCtr = new CtrUsuario();
 
@@ -74,7 +74,7 @@ public partial class Login : System.Web.UI.Page
                 Session["DU_FechaNacimiento"] = usuarioDto.DU_FechaNacimiento;
                 Session["id_perfil"] = usuarioDto.FK_ITU_Cod;
                 Session["correo"] = usuarioDto.VU_Correo;
-                Session["TipoPlanID"] = usuarioDto.FK_IP_Cod;
+                Session["TipoPlanID"] = usuarioDto.FK_IC_Cod;
                 Session["direccion"] = usuarioDto.VU_Direccion;
 
 
@@ -93,7 +93,7 @@ public partial class Login : System.Web.UI.Page
 
                 if (Session["id_perfil"].ToString() == "1")
                 {
-                    Session["DP_Fecha_Fin_Plan"] = planDto.DP_Fecha_Fin;
+                    Session["DP_Fecha_Fin_Plan"] = "";
                     Session["ISF_Cantidad"] = objdtosesionFisio.ISF_Cantidad;
                     Session["ISN_Cantidad"] = objdtosesionNutri.ISN_Cantidad;
 
@@ -109,7 +109,7 @@ public partial class Login : System.Web.UI.Page
                 error = Constante.ERROR_SUCCESS;
 
                 tipousuarioDto.PK_TU_Cod = usuarioDto.FK_ITU_Cod;
-                planDto.PK_IP_Cod = usuarioDto.FK_IP_Cod;
+                planDto.PK_IP_Cod = usuarioDto.FK_IC_Cod;
 
             }
             else

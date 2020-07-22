@@ -30,6 +30,43 @@ namespace DAO
             cmd.ExecuteNonQuery();
             conexion.Close();
         }
+        public DataTable ListarSolicitudesContratoxUsuarioxEstado(DtoUsuario dtoUsuario,DtoContrato dtoContrato)
+        {
+            DataTable dtSolicitudes = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("sp_ListarSolicitudesContratoxUsuarioxEstado", conexion);
+            command.Parameters.AddWithValue("@PK_IC_Dni", dtoUsuario.PK_CU_Dni);
+            command.Parameters.AddWithValue("@FK_IEC_Cod", dtoContrato.FK_IEC_Cod);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtSolicitudes = new DataTable();
+            daAdaptador.Fill(dtSolicitudes);
+            conexion.Close();
+            return dtSolicitudes;
+        }
+        public DataTable ListarSolicitudesContratoxEstado(DtoContrato dtoContrato)
+        {
+            DataTable dtSolicitudes = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("sp_ListarSolicitudesContratoxEstado", conexion);
+            command.Parameters.AddWithValue("@FK_IEC_Cod", dtoContrato.FK_IEC_Cod);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtSolicitudes = new DataTable();
+            daAdaptador.Fill(dtSolicitudes);
+            conexion.Close();
+            return dtSolicitudes;
+        }
+        public void ActualizarContrato(DtoContrato dtoContrato)
+        {
+            SqlCommand command = new SqlCommand("sp_ActualizarEstadoContrato", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@PK_IC_Cod", dtoContrato.PK_IC_Cod);
+            command.Parameters.AddWithValue("@FK_IEC_Cod", dtoContrato.FK_IEC_Cod);
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
     }
 
 }

@@ -205,7 +205,18 @@
             $('#txtComentario').val("");
         }
         function mostrarMensajeConfirmacion() {
-            swal('Registro Exitoso!', 'Solicitud registrada!!', 'success');
+            //swal('Registro Exitoso!', 'Solicitud registrada!!', 'success');
+            setTimeout(function () {
+                swal({
+                    title: "Registro Exitoso!",
+                    text: "Solicitud registrada!!",
+                    type: "success"
+                }, function () {
+                    window.location = "SolicitudPlan.aspx";
+                });
+            }, 1000);
+
+
         }
         $(function () {
             $('#id_EscogerFechaInicio').datepicker({

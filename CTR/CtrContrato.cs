@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAO;
 using DTO;
+using System.Data;
 
 namespace CTR
 {
@@ -19,5 +20,19 @@ namespace CTR
         {
             objDaoContrato.RegistrarContrato_PLANxSOCIO(dtoUsuario, dtoContrato);
         }
+        public DataTable ListarSolicitudesContratoxUsuarioxEstado(DtoUsuario dtoUsuario, DtoContrato dtoContrato)
+        {
+            return objDaoContrato.ListarSolicitudesContratoxUsuarioxEstado(dtoUsuario, dtoContrato);
+        }
+        public DataTable ListarSolicitudesContratoxEstado(DtoContrato dtoContrato)
+        {
+            return objDaoContrato.ListarSolicitudesContratoxEstado(dtoContrato);
+        }
+        public void ActualizarContrato(DtoContrato dtoContrato)
+        {
+            objDaoContrato.ActualizarContrato(dtoContrato);
+        }
+
+        
     }
 }
