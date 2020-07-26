@@ -17,5 +17,6 @@ namespace DTO
         public int FK_IP_Cod { get; set; }
         public string FK_CU_Dni { get; set; }
         public DateTime DC_Fecha_Vencimiento { get; set; }
+        public byte[] VBC_Imagen { get; set; }
     }
 }

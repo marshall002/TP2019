@@ -32,7 +32,10 @@ namespace CTR
         {
             objDaoContrato.ActualizarContrato(dtoContrato);
         }
+        public void RegistrarImgPagoContrato(byte[] bytes, int id)
+        {
+            objDaoContrato.RegistrarImgContratoImg(bytes, id);
+        }
 
-        
     }
 }

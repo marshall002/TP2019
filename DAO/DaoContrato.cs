@@ -67,6 +67,16 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+        public void RegistrarImgContratoImg(byte[] bytes, int id)
+        {
+            SqlCommand command = new SqlCommand("SP_Actualizar_Img_Contrato", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@idMol", id);
+            command.Parameters.AddWithValue("@imagen", bytes);
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
     }
 
 }
