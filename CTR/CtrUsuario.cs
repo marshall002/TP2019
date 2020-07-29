@@ -18,9 +18,9 @@ namespace CTR
         {
             objDaoUsuario = new DaoUsuario();
         }
-        public void ObtenerInformacionUsuario(DtoUsuario dtoUsuario, DtoPlan dtoplan, DtoSesionFisio dtosesionfisio, DtoSesionNutri dtosesionnutri)
+        public void ObtenerInformacionUsuario(DtoUsuario dtoUsuario, DtoContrato dtoContrato, DtoSesionFisio dtosesionfisio, DtoSesionNutri dtosesionnutri)
         {
-            objDaoUsuario.ObtenerDatosSocioPlan(dtoUsuario, dtoplan, dtosesionfisio, dtosesionnutri);
+            objDaoUsuario.ObtenerDatosSocioPlan(dtoUsuario, dtoContrato, dtosesionfisio, dtosesionnutri);
         }
         public void ObtenerNumCitasRealizadas(DtoUsuario dtoUsuario)
         {

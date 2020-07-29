@@ -66,7 +66,7 @@ namespace DAO
         {
             int valor_retornado = 0;
             SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM T_Contrato WHERE" +
-                " FK_CU_Dni = '" + DniUsuario + "' and FK_IEC_Cod = 3", conexion);
+                " FK_CU_Dni = '" + DniUsuario + "' and FK_IEC_Cod = 5", conexion);
             //Console.WriteLine(cmd);
             conexion.Open();
 

@@ -39,7 +39,7 @@ namespace DAO
         }
 
 
-        public void ObtenerDatosSocioPlan(DtoUsuario usuario, DtoPlan plan, DtoSesionFisio sesionfisio, DtoSesionNutri sesionnutri)
+        public void ObtenerDatosSocioPlan(DtoUsuario usuario, DtoContrato contrato,DtoSesionFisio sesionfisio, DtoSesionNutri sesionnutri)
         {
             SqlCommand cmd = new SqlCommand("sp_ObtenerDatosUsuario", conexion);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -62,6 +62,9 @@ namespace DAO
                 usuario.IC_Citas_Nutri_Usadas = Convert.ToInt32(reader[8].ToString());
                 usuario.VU_Correo = reader[9].ToString();
                 usuario.VU_Direccion = reader[10].ToString();
+                contrato.DC_Fecha_Vencimiento= Convert.ToDateTime(reader[11].ToString());
+                sesionfisio.ISF_Cantidad= Convert.ToInt32(reader[12].ToString());
+                sesionnutri.ISN_Cantidad= Convert.ToInt32(reader[13].ToString());
             }
             conexion.Close();
             conexion.Dispose();

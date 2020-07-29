@@ -86,7 +86,6 @@
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -196,6 +195,9 @@
             $('#hfValorSeleccionado').val(value);
             $('#hidenfield').val(value);
         }
+
+
+
         function mostrarModal() {
             $('#exampleModal').modal('show');
         }

@@ -12,6 +12,7 @@ public partial class MonitorearCitaFisio : System.Web.UI.Page
 {
     CtrMonitoriarCitaFisio ct = new CtrMonitoriarCitaFisio();
     DtoCita dtoCita = new DtoCita();
+    Log _log = new Log();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -26,38 +27,38 @@ public partial class MonitorearCitaFisio : System.Web.UI.Page
     {
         if (e.CommandName == "Ver Acción")
         {
-            Log.WriteOnLog("1");
+            _log.CustomWriteOnLog("MonitorearCitaFisio","1");
             int index = Convert.ToInt32(e.CommandArgument);
-            Log.WriteOnLog("2");
+            _log.CustomWriteOnLog("MonitorearCitaFisio","2");
 
             var colsNoVisible = gvListaMoniCitaFisio.DataKeys[index].Values;
-            Log.WriteOnLog("3");
+            _log.CustomWriteOnLog("MonitorearCitaFisio","3");
 
             string id = colsNoVisible[0].ToString();
-            Log.WriteOnLog("4");
+            _log.CustomWriteOnLog("MonitorearCitaFisio","4");
 
             dtoCita.IC_Cod = int.Parse(colsNoVisible[0].ToString());
-            Log.WriteOnLog("5");
+            _log.CustomWriteOnLog("MonitorearCitaFisio","5");
 
             Session["codigoCita"] = int.Parse(colsNoVisible[0].ToString());
-            Log.WriteOnLog("6");
+            _log.CustomWriteOnLog("MonitorearCitaFisio","6");
 
             dtoCita = ct.ObtenerInformacionSolicitudCita(dtoCita);
-            Log.WriteOnLog("7");
+            _log.CustomWriteOnLog("MonitorearCitaFisio","7");
 
             textCodigo.Text = Session["codigoCita"].ToString();
-            Log.WriteOnLog("dtoCita.IC_Cod.ToString();" + dtoCita.IC_Cod.ToString());
+            _log.CustomWriteOnLog("MonitorearCitaFisio","dtoCita.IC_Cod.ToString();" + dtoCita.IC_Cod.ToString());
 
             textObs.Text = dtoCita.VC_Observacion;
-            Log.WriteOnLog("dtoCita.VC_Observacion" + dtoCita.VC_Observacion);
+            _log.CustomWriteOnLog("MonitorearCitaFisio","dtoCita.VC_Observacion" + dtoCita.VC_Observacion);
 
             textHora.Text = dtoCita.DC_FechaHoraSolicitada.ToString("dd-MM-yyyy");
-            Log.WriteOnLog("textHora.Text" + textHora.Text);
+            _log.CustomWriteOnLog("MonitorearCitaFisio","textHora.Text" + textHora.Text);
 
             textFecha.Text = dtoCita.DC_FechaHoraSolicitada.ToString("HH:mm tt");
 
 
-            Log.WriteOnLog("11");
+            _log.CustomWriteOnLog("MonitorearCitaFisio","11");
             upModal.Update();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#VerDetalleMod').modal('show');", true);
         }

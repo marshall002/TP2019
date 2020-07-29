@@ -22,7 +22,7 @@
                                     <li role="presentation" class="active"><a href="#revision" data-toggle="tab">En revisión</a></li>
                                     <li role="presentation"><a href="#pendientepagos" data-toggle="tab">Pendientes de pago</a></li>
                                     <li role="presentation" runat="server" id="liAprobados"><a href="#aprobados" data-toggle="tab">Aprobados</a></li>
-                                    <li role="presentation" runat="server" id="liPagadoSinRevision"><a href="#pagadosinrevision" data-toggle="tab">Pagado sin revision</a></li>
+                                    <li role="presentation" runat="server" id="liPagadoSinRevision"><a href="#pagadosinrevision" data-toggle="tab">Pagados</a></li>
                                     <li role="presentation" runat="server" id="licanceladas"><a href="#canceladas" data-toggle="tab">Canceladas por mi</a></li>
                                     <li role="presentation"><a href="#rechazadas" data-toggle="tab">Rechazados</a></li>
                                 </ul>
@@ -57,7 +57,7 @@
                                         <div class="body table-responsive ">
                                             <asp:UpdatePanel ID="updPanelPendientePago" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                                 <ContentTemplate>
-                                                    <asp:GridView ID="gvSolPendientePago" CssClass="table table-bordered table-hover js-basic-example dataTable" DataKeyNames="PK_IC_Cod,VC_Descripcion" runat="server" AutoGenerateColumns="False" EmptyDataText="No existen registros" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolPendientePago_RowCommand">
+                                                    <asp:GridView ID="gvSolPendientePago" CssClass="table table-bordered table-hover js-basic-example dataTable" DataKeyNames="PK_IC_Cod,VC_Descripcion" runat="server" AutoGenerateColumns="False" EmptyDataText="No existen registros" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolPendientePago_RowCommand" OnRowDataBound="gvSolPendientePago_RowDataBound">
                                                         <Columns>
                                                             <asp:BoundField DataField="PK_IC_Cod" HeaderText="ID" />
                                                             <asp:BoundField DataField="VC_Descripcion" HeaderText="Tipo de moldura" Visible="false" />
@@ -84,7 +84,7 @@
                                         <div class="body table-responsive ">
                                             <asp:UpdatePanel ID="updPanelRevision" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                                 <ContentTemplate>
-                                                    <asp:GridView ID="gvSolRevision" CssClass="table table-bordered table-hover js-basic-example dataTable" DataKeyNames="PK_IC_Cod,VC_Descripcion" runat="server" AutoGenerateColumns="False" EmptyDataText="No existen registros" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolAprobado_RowCommand" OnRowCreated="gvSolRevision_RowCreated">
+                                                    <asp:GridView ID="gvSolRevision" CssClass="table table-bordered table-hover js-basic-example dataTable" DataKeyNames="PK_IC_Cod,VC_Descripcion" runat="server" AutoGenerateColumns="False" EmptyDataText="No existen registros" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolAprobado_RowCommand" OnRowDataBound="gvSolRevision_RowDataBound">
                                                         <Columns>
                                                             <asp:BoundField DataField="PK_IC_Cod" HeaderText="ID" />
                                                             <asp:BoundField DataField="VC_Descripcion" HeaderText="Tipo de moldura" Visible="false" />
@@ -117,7 +117,7 @@
                                         <div class="body table-responsive ">
                                             <asp:UpdatePanel ID="updPanelSolSinRevision" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                                 <ContentTemplate>
-                                                    <asp:GridView ID="gvSolPagadoSinRevision" CssClass="table table-bordered table-hover js-basic-example dataTable" DataKeyNames="PK_IC_Cod,VC_Descripcion" runat="server" AutoGenerateColumns="False" EmptyDataText="No existen registros" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolPagadoSinRevision_RowCommand" OnRowCreated="gvSolPagadoSinRevision_RowCreated">
+                                                    <asp:GridView ID="gvSolPagadoSinRevision" CssClass="table table-bordered table-hover js-basic-example dataTable" DataKeyNames="PK_IC_Cod,VC_Descripcion" runat="server" AutoGenerateColumns="False" EmptyDataText="No existen registros" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolPagadoSinRevision_RowCommand" OnRowDataBound="gvSolPagadoSinRevision_RowDataBound">
                                                         <Columns>
                                                             <asp:BoundField DataField="PK_IC_Cod" HeaderText="ID" />
                                                             <asp:BoundField DataField="VC_Descripcion" HeaderText="Tipo de moldura" Visible="false" />

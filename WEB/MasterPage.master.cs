@@ -22,11 +22,9 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 Log.WriteOnLog("-------------------------------------------------------------------------------------------------------------");
                 int perfil = int.Parse(Session["id_perfil"].ToString());
 
-                Log.WriteOnLog(" perfil:  " + perfil);
+                Log.CustomWriteOnLog("MasterPage"," perfil:  " + perfil);
 
-                string nombre = Session["NombreUsuario"].ToString() + " " + Session["APaternoUsuario"].ToString()
-                                 + " " + Session["AMaternoUsuario"].ToString();
-
+                string nombre = Session["NombreCompleto"].ToString();
                 nombreUsuario.Text = nombre;
 
                 string email = Session["correo"].ToString();
@@ -64,8 +62,10 @@ public partial class MasterPage : System.Web.UI.MasterPage
             }
             //cargarnotificaciones(usuario);
         }
-        catch
+        catch (Exception ex)
         {
+            Log.CustomWriteOnLog("MasterPage", "ERROR EN MASTERPAGE = " + ex.Message);
+            Log.CustomWriteOnLog("MasterPage", "ERROR EN MASTERPAGE Stacktrace = " + ex.StackTrace);
             Session.Clear();
             Session.Abandon();
             Response.Redirect("~/WebPrincipal/WF_Iniciar_Sesion.aspx");

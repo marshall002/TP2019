@@ -6,9 +6,28 @@
 
     <script src="../../js/pages/ui/dialogs.js"></script>
     <link href="../../plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-    <script>$(function () {
-            $(".dataTable").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable();
-        });</script>
+   <script>$(function () {
+           $(".dataTable").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable({
+               "bProcessing": false,
+               "bLengthChange": false,
+               language: {
+                   search: "_INPUT_",
+                   searchPlaceholder: "Buscar registros",
+                   lengthMenu: "Mostrar _MENU_ registros",
+                   paginate: {
+                       first: "Primero",
+                       last: "&Uacute;ltimo",
+                       next: "Siguiente",
+                       previous: "Anterior"
+                   },
+
+               }, "bLengthChange": false,
+               "bFilter": true,
+               "bInfo": false,
+               "bAutoWidth": false,
+               responsive: true
+           });
+       });</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="Server">
     <section>
@@ -41,7 +60,7 @@
                     </div>
                 </div>
             </div>
-           <%-- <div class="block-header">
+            <%-- <div class="block-header">
                 <h1></h1>
             </div>--%>
             <div class="row clearfix">
@@ -66,16 +85,16 @@
                                         </li>
                                     </ul>
 
-                                   
+
 
                                 </div>
                                 <div>
-                                     <asp:Button ID="btnRegistrar" runat="server" Text="Registrar"
+                                    <asp:Button ID="btnRegistrar" runat="server" Text="Registrar"
                                         class="btn btn-block btn-lg btn-danger waves-effect" aria-hidden="true" OnClick="btnRegistrar_Click" />
                                 </div>
                                 <div class="body table-responsive ">
 
-                                    <asp:GridView ID="gvSolicitudesCita" CssClass="table table-bordered table-hover js-basic-example dataTable" DataKeyNames="PK_IC_Cod,FK_IEC_Cod,FK_ITC_Cod" runat="server" AutoGenerateColumns="False" EmptyDataText="No tiene citas registradas" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolicitudesCita_RowCommand">
+                                    <asp:GridView ID="gvSolicitudesCita" CssClass="table table-bordered table-hover js-basic-example" DataKeyNames="PK_IC_Cod,FK_IEC_Cod,FK_ITC_Cod" runat="server" AutoGenerateColumns="False" EmptyDataText="No tiene citas registradas" ShowHeaderWhenEmpty="True" OnRowCommand="gvSolicitudesCita_RowCommand">
                                         <Columns>
                                             <asp:BoundField DataField="PK_IC_Cod" HeaderText="Codigo de solicitud" />
                                             <asp:BoundField DataField="DC_FechaHoraSolicitada" HeaderText="Fecha y Hora solicitada" DataFormatString="{0:dd/MM/yyyy hh:mm tt}" />
@@ -86,12 +105,6 @@
                                             <asp:BoundField DataField="VEC_Nombre" HeaderText="Estado de Solicitud" />
                                             <asp:BoundField DataField="FK_CU_Dni" HeaderText="FK_UsuarioDNI" Visible="false" />
                                             <asp:BoundField DataField="VTC_Nombre" HeaderText="Especialidad" />
-                                            <%--<asp:ButtonField HeaderText="Actualiza tu sol." Text="Actualizar" ButtonType="Button" ItemStyle-CssClass="text-sm-center" CommandName="actualizar">
-                                                <ControlStyle CssClass="btn btn-success" />
-                                            </asp:ButtonField>--%>
-                                           <%-- <asp:ButtonField HeaderText="Elimina tu sol." Text="Eliminar" ButtonType="Button" ItemStyle-CssClass="text-sm-center" CommandName="eliminar">
-                                                <ControlStyle CssClass="btn btn-danger" />
-                                            </asp:ButtonField>--%>
                                             <asp:TemplateField HeaderText="Actualiza tu sol.">
                                                 <ItemTemplate>
                                                     <asp:Button runat="server" Text="Actualizar"

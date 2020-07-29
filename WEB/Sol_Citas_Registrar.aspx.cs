@@ -14,7 +14,7 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
     CtrUsuario objctrusuario = new CtrUsuario();
     DtoCita objdtoCita = new DtoCita();
     CtrCita objctrCita = new CtrCita();
-
+    Log _log = new Log();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -29,14 +29,14 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
                 }
                 else
                 {
-                    Log.WriteOnLog(" Sol Citas Registrar - Error en id Perfil");
+                    _log.CustomWriteOnLog("SolCitasRegistrar", " Sol Citas Registrar - Error en id Perfil");
                     Response.Redirect("Inicio.aspx");
                 }
             }
             else
             {
 
-                Log.WriteOnLog(" Sol Citas Registrar - Error en id Perfil");
+                _log.CustomWriteOnLog("SolCitasRegistrar", " Sol Citas Registrar - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
 
             }
@@ -48,19 +48,19 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
         {
             string valorRadiobuttonentxt = txtresultadoChecbox.Value;
             contarCitasxServicio();
-            Log.WriteOnLog("---------------------------------------------------------------------------------------------");
+            _log.CustomWriteOnLog("SolCitasRegistrar", "---------------------------------------------------------------------------------------------");
 
-            Log.WriteOnLog("Cantidad de sesiones x plan de fisioterapeuta actuales: " + Session["ISF_Cantidad"].ToString());
-            Log.WriteOnLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
-            Log.WriteOnLog("Contador de sesiones x plan de nutricionista actuales: " + Session["ISN_Cantidad"].ToString());
-            Log.WriteOnLog("Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
-            Log.WriteOnLog("---------------------------------------------------------------------------------------------");
+            _log.CustomWriteOnLog("SolCitasRegistrar", "Cantidad de sesiones x plan de fisioterapeuta actuales: " + Session["ISF_Cantidad"].ToString());
+            _log.CustomWriteOnLog("SolCitasRegistrar", "Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Fisio_Usadas.ToString());
+            _log.CustomWriteOnLog("SolCitasRegistrar", "Contador de sesiones x plan de nutricionista actuales: " + Session["ISN_Cantidad"].ToString());
+            _log.CustomWriteOnLog("SolCitasRegistrar", "Contador de sesiones registradas actuales: " + objdtousuario.IC_Citas_Nutri_Usadas.ToString());
+            _log.CustomWriteOnLog("SolCitasRegistrar", "---------------------------------------------------------------------------------------------");
 
 
 
             if (valorRadiobuttonentxt == "1")//Nutri
             {
-                if (int.Parse(objdtousuario.IC_Citas_Nutri_Usadas.ToString()) >= int.Parse(Session["ISN_Cantidad"].ToString()))
+                if (int.Parse(Session["IC_Citas_Nutri_Usadas"].ToString()) >= int.Parse(Session["ISN_Cantidad"].ToString()))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Debe adjuntar el derecho de pago para Nutri', 'bottom', 'center', null, null);", true);
                 }
@@ -71,7 +71,7 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
             }
             else if (valorRadiobuttonentxt == "2")//Fisio
             {
-                if (int.Parse(objdtousuario.IC_Citas_Fisio_Usadas.ToString()) >= int.Parse(Session["ISF_Cantidad"].ToString()))
+                if (int.Parse(Session["IC_Citas_Fisio_Usadas"].ToString()) >= int.Parse(Session["ISF_Cantidad"].ToString()))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Debe adjuntar el derecho de pago para Fisio', 'bottom', 'center', null, null);", true);
                 }
@@ -91,40 +91,48 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
     }
     public void RegistrarCodigo(string valorRadiobuttonentxt)
     {
-        TimeSpan Hora = TimeSpan.Parse(ddlHoras.Text);
-        string txtareaconsulta = txtDudaConsulta.Text.Trim();
-        DateTime Fecha = Convert.ToDateTime(txtFecha.Text);
-        DateTime fechasolitada = Fecha + Hora;
-        string Sesion = "74931448";
-
-        int IECCod = 1;
-
-        objdtoCita.DC_FechaHoraSolicitada = fechasolitada;
-        objdtoCita.VC_Observacion = txtareaconsulta;
-        objdtoCita.FK_IEC_Cod = IECCod;
-        objdtoCita.FK_ITC_Cod = int.Parse(valorRadiobuttonentxt);
-        objdtoCita.FK_CU_DNI = Sesion;
-        bool valHoraCita = objctrCita.ExisteCita(fechasolitada.ToString("yyyy-MM-dd'T'HH':'mm':'ss"), Sesion);
-
-        if (Fecha > DateTime.Now)
+        try
         {
-            if (valHoraCita == false)
-            {
-                string mensaje = "Registrado con exito";
-                objctrCita.registrarSolicitudCita(objdtoCita);
+            TimeSpan Hora = TimeSpan.Parse(ddlHoras.Text);
+            string txtareaconsulta = txtDudaConsulta.Text.Trim();
+            DateTime Fecha = Convert.ToDateTime(txtFecha.Text);
+            DateTime fechasolitada = Fecha + Hora;
+            string Sesion = Session["SessionUsuario"].ToString();
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+            int IECCod = 1;
+
+            objdtoCita.DC_FechaHoraSolicitada = fechasolitada;
+            objdtoCita.VC_Observacion = txtareaconsulta;
+            objdtoCita.FK_IEC_Cod = IECCod;
+            objdtoCita.FK_ITC_Cod = int.Parse(valorRadiobuttonentxt);
+            objdtoCita.FK_CU_DNI = Sesion;
+            bool valHoraCita = objctrCita.ExisteCita(fechasolitada.ToString("yyyy-MM-dd'T'HH':'mm':'ss"), Sesion);
+
+            if (Fecha > DateTime.Now)
+            {
+                if (valHoraCita == false)
+                {
+                    string mensaje = "Registrado con exito";
+                    objctrCita.registrarSolicitudCita(objdtoCita);
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+                }
+                else
+                {
+                    string mensaje = "Existe Cita en esa hora";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+                }
             }
             else
             {
-                string mensaje = "Existe Cita en esa hora";
+                string mensaje = "selecione fecha correctamente";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + mensaje + "', 'bottom', 'center', null, null);", true);
             }
         }
-        else
+        catch (Exception ex)
         {
-            string mensaje = "selecione fecha correctamente";
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + mensaje + "', 'bottom', 'center', null, null);", true);
+            _log.CustomWriteOnLog("SolCitasRegistrar", "ERROR : " + ex.Message);
+            _log.CustomWriteOnLog("SolCitasRegistrar", "STACKTRACE : "+ex.StackTrace);
         }
     }
     protected void btnCancelar_ServerClick(object sender, EventArgs e)
@@ -140,5 +148,5 @@ public partial class Solicitudes_Cita_Registrar_Solicitud_Cita : System.Web.UI.P
     protected void ddlHoras_SelectedIndexChanged(object sender, EventArgs e)
     {
     }
-    
+
 }

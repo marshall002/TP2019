@@ -337,11 +337,11 @@ public partial class SolicitudPlan : System.Web.UI.Page
         if (Session["id_perfil"].ToString() == "1")
         {
             e.Row.Cells[11].Visible = false;
-            e.Row.Cells[12].Visible = false;
+            //e.Row.Cells[12].Visible = false;
         }
         else if (Session["id_perfil"].ToString() == "2")
         {
-            e.Row.Cells[10].Visible = false;
+            //e.Row.Cells[10].Visible = false;
         }
 
     }
@@ -512,18 +512,6 @@ public partial class SolicitudPlan : System.Web.UI.Page
         }
     }
 
-    protected void gvSolPagadoSinRevision_RowCreated(object sender, GridViewRowEventArgs e)
-    {
-        if (Session["id_perfil"].ToString() == "1")
-        {
-            //e.Row.Cells[11].Visible = false;
-        }
-        else if (Session["id_perfil"].ToString() == "2")
-        {
-            //e.Row.Cells[10].Visible = false;
-        }
-    }
-
     protected void btnaceptarAprobarRegistro_Click(object sender, EventArgs e)
     {
         try
@@ -639,5 +627,69 @@ public partial class SolicitudPlan : System.Web.UI.Page
         {
             _log.CustomWriteOnLog("SolicitudesPlan", "Error = " + ex.Message + "Stac" + ex.StackTrace);
         }
+    }
+
+    protected void gvSolRevision_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (Session["id_perfil"].ToString() == "1")
+            {
+                gvSolRevision.Columns[12].Visible = false;
+                gvSolRevision.Columns[11].Visible = false;
+            }
+            else if (Session["id_perfil"].ToString() == "2")
+            {
+                gvSolRevision.Columns[10].Visible = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            _log.CustomWriteOnLog("gvSolPagadoSinRevision_RowDataBound", "ERROR = " + ex.Message);
+        }
+
+    }
+
+    protected void gvSolPagadoSinRevision_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (Session["id_perfil"].ToString() == "1")
+            {
+                gvSolPagadoSinRevision.Columns[12].Visible = false;
+                gvSolPagadoSinRevision.Columns[11].Visible = false;
+            }
+            else if (Session["id_perfil"].ToString() == "2")
+            {
+                gvSolPagadoSinRevision.Columns[10].Visible = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            _log.CustomWriteOnLog("gvSolPagadoSinRevision_RowDataBound", "ERROR = "+ex.Message);
+        }
+      
+    }
+
+    protected void gvSolPendientePago_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (Session["id_perfil"].ToString() == "1")
+            {
+                //e.Row.Cells[12].Visible = false;
+                //e.Row.Cells[11].Visible = false;
+            }
+            else if (Session["id_perfil"].ToString() == "2")
+            {
+                gvSolPendientePago.Columns[10].Visible = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            _log.CustomWriteOnLog("gvSolPagadoSinRevision_RowDataBound", "ERROR = " + ex.Message);
+
+        }
+       
     }
 }

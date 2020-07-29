@@ -14,7 +14,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
     CtrUsuario objctrusuario = new CtrUsuario();
     DtoCita objdtocita = new DtoCita();
     DtoUsuario objdtousuario = new DtoUsuario();
-    DtoPlan objdtoplan = new DtoPlan();
+    DtoContrato objdtocontrato = new DtoContrato();
     DtoSesionFisio objdtosesionFisio = new DtoSesionFisio();
     DtoSesionNutri objdtosesionNutri = new DtoSesionNutri();
     Log Log = new Log();
@@ -108,7 +108,7 @@ public partial class Sol_Citas_Detalles : System.Web.UI.Page
             objdtousuario.PK_CU_Dni = objdtocita.FK_CU_DNI;
             try
             {
-                objctrusuario.ObtenerInformacionUsuario(objdtousuario, objdtoplan, objdtosesionFisio, objdtosesionNutri);
+                objctrusuario.ObtenerInformacionUsuario(objdtousuario, objdtocontrato, objdtosesionFisio, objdtosesionNutri);
                 txtUsuarioSolicitante.Text = objdtousuario.VU_Nombre;
                 txtApellidos.Text = objdtousuario.VU_APaterno + " " + objdtousuario.VU_AMaterno;
             }
