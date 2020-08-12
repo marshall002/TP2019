@@ -169,7 +169,12 @@ header .navbar {min-height: 70px;padding: 18px 0;background: #080808;}
     width: 100%;
     position: absolute;
 }
-
+.input-group .input-group-addon {
+    border: none;
+    background-color: transparent;
+    padding-left: 0;
+    font-weight: bold;
+}
 header .nav li a:hover,
 header .nav li a:focus,
 header .nav li.active a,

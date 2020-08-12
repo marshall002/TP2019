@@ -9,7 +9,7 @@ using System.Data;
 
 public partial class AdminRutinas_Prueba : System.Web.UI.Page
 {
-    string connectionString = @"Data Source=LAPTOP-UEI1JFVM;Integrated Security=true;Initial Catalog=BD_SCLAP";
+    string connectionString = @"Data Source=LAPTOP-UEI1JFVM;Integrated Security=true;Initial Catalog=BD_SGCLAP";
 
     protected void Page_Load(object sender, EventArgs e)
     {

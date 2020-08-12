@@ -7,10 +7,11 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using CTR;
+using DAO;
 
 public partial class AdministrarRutina_Extra : System.Web.UI.Page
 {
-    string connectionString = @"Data Source=LAPTOP-UEI1JFVM;Integrated Security=true;Initial Catalog=BD_SCLAP";
+    string connectionString = ConexionBD.CadenaConexion;
     Log Log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -96,6 +97,12 @@ public partial class AdministrarRutina_Extra : System.Web.UI.Page
                     //var textbox = gvRutina.FindControl("txtFK_ITR_CodFooter");
                     lblErrorMessage.Text = "";
                     UPGridview.Update();
+                    DateTime FechaSel = Convert.ToDateTime(Session["PrimerDia"]);
+                    string fecha = FechaSel.ToString("yyyy-MM-dd'T'HH':'mm':'ss");
+                    DateTime date = DateTime.Now;
+                    (gvRutina.FooterRow.FindControl("txtfechaRutinaFooter") as TextBox).Text= fecha;
+                    (gvRutina.FooterRow.FindControl("txtfecharegistroFooter") as TextBox).Text= date.ToShortDateString();
+                    (gvRutina.FooterRow.FindControl("txtFK_ITR_CodFooter") as TextBox).Text= "1";
                 }
             }
         }

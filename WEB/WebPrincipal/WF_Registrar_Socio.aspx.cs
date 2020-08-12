@@ -79,21 +79,31 @@ public partial class WebPrincipal_WF_Registrar_Socio : System.Web.UI.Page
                 return;
             }
 
-            DateTime fecha = DateTime.Now;
+            int contador = objctrUsuario.MensajeRegistrarSocio(txtDni.Text);
+            if (contador == 0)
+            {
+                DateTime fecha = DateTime.Now;
 
-            objdtoUsuario.PK_CU_Dni = txtDni.Text;
-            objdtoUsuario.VU_Nombre = txtnombre.Text;
-            objdtoUsuario.VU_APaterno = txtapellidopaterno.Text;
-            objdtoUsuario.VU_AMaterno = txtapellidomaterno.Text;
-            objdtoUsuario.VU_Correo = txtcorreo.Text;
-            objdtoUsuario.DU_FechaNacimiento = Convert.ToDateTime(txtedad.Text);
-            //objdtoUsuario.IU_Edad = int.Parse(txtedad.Text);
-            objdtoUsuario.VU_Contrasenia = txtcontrasenia.Text;
-            objdtoUsuario.CU_Celular = txtcelular.Text;
-            objdtoUsuario.VU_Direccion = txtdireccion.Text;
-            objctrUsuario.RegistrarSocio(objdtoUsuario);
+                objdtoUsuario.PK_CU_Dni = txtDni.Text;
+                objdtoUsuario.VU_Nombre = txtnombre.Text;
+                objdtoUsuario.VU_APaterno = txtapellidopaterno.Text;
+                objdtoUsuario.VU_AMaterno = txtapellidomaterno.Text;
+                objdtoUsuario.VU_Correo = txtcorreo.Text;
+                objdtoUsuario.DU_FechaNacimiento = Convert.ToDateTime(txtedad.Text);
+                //objdtoUsuario.IU_Edad = int.Parse(txtedad.Text);
+                objdtoUsuario.VU_Contrasenia = txtcontrasenia.Text;
+                objdtoUsuario.CU_Celular = txtcelular.Text;
+                objdtoUsuario.VU_Direccion = txtdireccion.Text;
+                objctrUsuario.RegistrarSocio(objdtoUsuario);
 
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + "Se a registrado el Socio con exito" + "');", true);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + "Se a registrado el Socio con exito" + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "mostrarMensajeConfirmacion();", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + "Dni replicado" + "');", true);
+
+            }
 
         }
         catch (Exception ex)

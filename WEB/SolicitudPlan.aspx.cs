@@ -9,6 +9,8 @@ using DTO;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using System.Net.Mail;
+using System.Net;
 
 public partial class SolicitudPlan : System.Web.UI.Page
 {
@@ -691,5 +693,43 @@ public partial class SolicitudPlan : System.Web.UI.Page
 
         }
        
+    }
+    public void EnviarCorreoUsuario(DtoUsuario objuser)
+    {
+        
+            string senderr = "crossfitlaparada01@gmail.com";
+            string senderrPass = "crossfitlaparada01";
+            string displayName = "CROSSFIT LA PARADA";
+
+            var recipient = objuser.VU_Correo.ToString();
+
+            string body =
+                "<body>" +
+                    "<h1>CROSSFIT LA PARADA</h1>" +
+                    //"<h4>Bienvenid@ " + nombre + "</h4>" +
+                    "<span>No comparta esto con nadie." +
+                    "<br></br><span> Saludos cordiales.<span>" +
+                "</body>";
+
+            MailMessage mail = new MailMessage();
+            mail.Subject = "Bienvenido";
+            mail.From = new MailAddress(senderr.Trim(), displayName);
+            mail.Body = body;
+            mail.To.Add(recipient.Trim());
+            mail.IsBodyHtml = true;
+            //mail.Priority = MailPriority.Normal;
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.UseDefaultCredentials = false;
+            smtp.EnableSsl = true;
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //smtp.Credentials = new System.Net.NetworkCredential(senderr.Trim(), senderrPass.Trim());
+            NetworkCredential nc = new NetworkCredential(senderr, senderrPass);
+            smtp.Credentials = nc;
+
+            smtp.Send(mail);
+        
     }
 }

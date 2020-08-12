@@ -74,20 +74,39 @@ public partial class MasterPage : System.Web.UI.MasterPage
     }
     public void perfil_Socio()
     {
+    DtoUsuario objdtousuario = new DtoUsuario();
+        CtrPlan objctrplan = new CtrPlan();
         string html1 = "";
+        
+        if (Session["SessionUsuario"] != null)
+        {
+            objdtousuario.PK_CU_Dni = Session["SessionUsuario"].ToString();
 
-
-        html1 = string.Format("<li>" +
-            "<a href='SolicitarPlan.aspx'>" +
-            "<i class='material-icons'>content_paste</i>" +
-                            "<span>Se</span>" +
-                        "</a>" +
-                    "</li>");
-        string html = string.Format(@"
+        }
+        int validarcontrato = objctrplan.validarcontrato(objdtousuario);
+        if (validarcontrato == 0)
+        {
+            html1 = string.Format(@"
                     <li>
                         <a href='SolicitarPlan.aspx'>
                             <i class='material-icons'>content_paste</i>
                             <span>Solicitar un plan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href='SolicitudPlan.aspx'>
+                            <i class='material-icons'>content_paste</i>
+                            <span>Mis solicitudes de plan</span>
+                        </a>
+                    </li>");
+        }
+        else
+        {
+            html1 = string.Format(@"
+                     <li>
+                        <a href='SolicitarPlan.aspx'>
+                            <i class='material-icons'>content_paste</i>
+                            <span>Mi plan</span>
                         </a>
                     </li>
                     <li>
@@ -114,14 +133,17 @@ public partial class MasterPage : System.Web.UI.MasterPage
                             <span>Inscribete a las rutinas</span>
                         </a>
                     </li>
-                     <li>
-                        <a href='Realizar_Pago.aspx'>
-                            <i class='material-icons'>content_paste</i>
-                            <span>Mis pagos</span>
-                        </a>
-                    </li>
+                     
                     ");
-        this.Literal1.Text = html;
+        }
+            //string html 
+        //<li>
+        //                <a href='Realizar_Pago.aspx'>
+        //                    <i class='material-icons'>content_paste</i>
+        //                    <span>Mis pagos</span>
+        //                </a>
+        //            </li>
+        this.Literal1.Text = html1;
     }
     public void perfil_Administrador()
     {
@@ -137,16 +159,17 @@ public partial class MasterPage : System.Web.UI.MasterPage
                    <li>
                         <a href='Proc_Citas_Sol_Listar.aspx'>
                             <i class='material-icons'>content_paste</i>
-                            <span>Gestionar las solicitudes</span>
+                            <span>Solicitudes de cita</span>
                         </a>
                     </li>
-                    <li>
-                        <a href='Verificar_Pago.aspx'>
-                            <i class='material-icons'>content_paste</i>
-                            <span>Verificar los pagos</span>
-                        </a>
-                    </li>
+                    
                     ");
+        //<li>
+        //                <a href='Verificar_Pago.aspx'>
+        //                    <i class='material-icons'>content_paste</i>
+        //                    <span>Verificar los pagos</span>
+        //                </a>
+        //            </li>
         this.Literal1.Text = html;
     }
     public void perfil_Nutricionista()

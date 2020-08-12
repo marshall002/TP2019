@@ -14,7 +14,7 @@ using System.Globalization;
 
 public partial class AdministrarRutina : System.Web.UI.Page
 {
-
+    Log _log = new Log();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -32,13 +32,14 @@ public partial class AdministrarRutina : System.Web.UI.Page
                 }
                 else
                 {
-                    Log.WriteOnLog("Listar rutinas socio - Error en id Perfil");
+                    
+                    _log.CustomWriteOnLog("AdministrarRutina.aspx","Listar rutinas socio - Error en id Perfil");
                     Response.Redirect("Inicio.aspx");
                 }
             }
             else
             {
-                Log.WriteOnLog("Listar rutinas socio - Error en id Perfil");
+                _log.CustomWriteOnLog("AdministrarRutina.aspx","Listar rutinas socio - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
 
             }
@@ -58,17 +59,17 @@ public partial class AdministrarRutina : System.Web.UI.Page
         DateTime today = DateTime.Now;
         //EXTRAEMOS EL MES
         int daysInMonth = DateTime.DaysInMonth(today.Year, int.Parse(ddlMes.SelectedValue));
-        Log.WriteOnLog("Dias de semana: " + daysInMonth);
+        _log.CustomWriteOnLog("AdministrarRutina.aspx","Dias de semana: " + daysInMonth);
         DateTime firstOfMonth = new DateTime(today.Year, today.Month, 1);
-        Log.WriteOnLog("firstOfMonth: " + firstOfMonth);
+        _log.CustomWriteOnLog("AdministrarRutina.aspx","firstOfMonth: " + firstOfMonth);
 
 
         //DIAS DEL MES COMIENZA DEL DOMINGO =0
         int firstDayOfMonth = (int)firstOfMonth.DayOfWeek;
-        Log.WriteOnLog("Primer dia de mes: " + firstDayOfMonth);
+        _log.CustomWriteOnLog("AdministrarRutina.aspx","Primer dia de mes: " + firstDayOfMonth);
 
         int weeksInMonth = (int)Math.Ceiling((firstDayOfMonth + daysInMonth) / 7.0);
-        Log.WriteOnLog("weeksInMonth" + (int)DateTime.Now.Day);
+        _log.CustomWriteOnLog("AdministrarRutina.aspx","weeksInMonth" + (int)DateTime.Now.Day);
 
         DataTable dt = new DataTable();
         DataColumn n1 = dt.Columns.Add("n1", typeof(string));
@@ -116,25 +117,25 @@ public partial class AdministrarRutina : System.Web.UI.Page
     {
         if (e.CommandName == "VerC")
         {
-            Log.WriteOnLog("1");
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","1");
             int index = Convert.ToInt32(e.CommandArgument);
-            Log.WriteOnLog("2");
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","2");
             var colsNoVisible = gvLista.DataKeys[index].Values;
-            Log.WriteOnLog("3");
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","3");
             string id = colsNoVisible[0].ToString();
-            Log.WriteOnLog("4");
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","4");
 
             DateTime fec = Convert.ToDateTime(id);
             Session["Tipo_Rutina"] = 1;
             Session["Primerdia"] = fec;
-            Log.WriteOnLog("5");
-            Log.WriteOnLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","5");
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
 
             //Session["Fecha_Seleccionada"] = a;
-            Log.WriteOnLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Crossfit";
             consultarDatos();
-            Log.WriteOnLog("6");
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","6");
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal2').modal('show');", true);
             Response.Redirect("AdministrarRutina_Extra.aspx");
         }
@@ -149,8 +150,8 @@ public partial class AdministrarRutina : System.Web.UI.Page
             Session["Tipo_Rutina"] = 2;
             //Session["Primerdia"] = id;
             Session["Primerdia"] = fec;
-            Log.WriteOnLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
-            Log.WriteOnLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Funcional";
             consultarDatos();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#myModal2').modal('show');", true);
@@ -164,8 +165,8 @@ public partial class AdministrarRutina : System.Web.UI.Page
 
             Session["Tipo_Rutina"] = 1;
             Session["Primerdia"] = id;
-            Log.WriteOnLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
-            Log.WriteOnLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Crossfit";
             consultarDatos();
             obtener_Rutina_Fecha();
@@ -181,8 +182,8 @@ public partial class AdministrarRutina : System.Web.UI.Page
 
             Session["Tipo_Rutina"] = 2;
             Session["Primerdia"] = id;
-            Log.WriteOnLog("ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
-            Log.WriteOnLog("Dia seleccionado es:   " + Session["Primerdia"].ToString());
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","ID Tipo de rutina seleccionada es :  " + Session["Tipo_Rutina"].ToString());
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","Dia seleccionado es:   " + Session["Primerdia"].ToString());
             TituloTRut.Text = "Funcional";
             consultarDatos();
             obtener_Rutina_Fecha();
@@ -276,7 +277,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            Log.WriteOnLog("Error: " + ex.Message);
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","Error: " + ex.Message);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red','" + ex.Message + "', 'bottom', 'center', null, null);", true);
 
         }
@@ -293,7 +294,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            Log.WriteOnLog("Ex acutalizar error:  " + ex.Message);
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","Ex acutalizar error:  " + ex.Message);
         }
 
     }
@@ -308,7 +309,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            Log.WriteOnLog("Ex eliminar error:  " + ex.Message);
+            _log.CustomWriteOnLog("AdministrarRutina.aspx","Ex eliminar error:  " + ex.Message);
         }
     }
     public void consultarDatos()
@@ -324,8 +325,8 @@ public partial class AdministrarRutina : System.Web.UI.Page
         objdtoRutina.FK_ITR_Cod = int.Parse(Session["Tipo_Rutina"].ToString());
         objctrRutina.Obtener_Rutina(objdtoRutina);
 
-        Log.WriteOnLog("objdotioRutina" + objdtoRutina.PK_IR_Cod);
-        Log.WriteOnLog("objdotioRutina" + objdtoRutina.VR_Descripcion);
+        _log.CustomWriteOnLog("AdministrarRutina.aspx","objdotioRutina" + objdtoRutina.PK_IR_Cod);
+        _log.CustomWriteOnLog("AdministrarRutina.aspx","objdotioRutina" + objdtoRutina.VR_Descripcion);
 
 
         DateTime dia = DateTime.Parse(fecha);
@@ -349,8 +350,8 @@ public partial class AdministrarRutina : System.Web.UI.Page
         objdtoRutina.FK_ITR_Cod = int.Parse(Session["Tipo_Rutina"].ToString());
         objctrRutina.Obtener_Rutina(objdtoRutina);
 
-        Log.WriteOnLog("objdotioRutina" + objdtoRutina.PK_IR_Cod);
-        Log.WriteOnLog("objdotioRutina" + objdtoRutina.VR_Descripcion);
+        _log.CustomWriteOnLog("AdministrarRutina.aspx","objdotioRutina" + objdtoRutina.PK_IR_Cod);
+        _log.CustomWriteOnLog("AdministrarRutina.aspx","objdotioRutina" + objdtoRutina.VR_Descripcion);
         objdtoRutina.VR_Descripcion = txtVerDesc.Text;
 
         objctrRutina.Actualizar_Rutina(objdtoRutina);
@@ -369,7 +370,7 @@ public partial class AdministrarRutina : System.Web.UI.Page
         objdtoRutina.FK_ITR_Cod = int.Parse(Session["Tipo_Rutina"].ToString());
         objctrRutina.Obtener_Rutina(objdtoRutina);
 
-        Log.WriteOnLog("objdotioRutina" + objdtoRutina.PK_IR_Cod);
+        _log.CustomWriteOnLog("AdministrarRutina.aspx","objdotioRutina" + objdtoRutina.PK_IR_Cod);
 
         objctrRutina.Eliminar_Rutina(objdtoRutina);
 

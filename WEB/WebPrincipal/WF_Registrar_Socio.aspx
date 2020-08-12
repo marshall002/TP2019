@@ -14,6 +14,14 @@
     <link rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
     <link href="../css/StilosPW/bootstrap.min.css" rel="stylesheet" />
     <link href="../css/StilosPW/style.css" rel="stylesheet" />
+
+    <%--<link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />--%>
+    <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="../../plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <%--<link href="../css/style.css" rel="stylesheet" />--%>
+    <link href="../css/themes/all-themes.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -73,7 +81,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            
+
                             <div class="input-field">
                                 <asp:TextBox ID="txtDni" runat="server" class="form-control white-text" name="name"></asp:TextBox>
                                 <label for="name" class="" style="color: white">DNI</label>
@@ -98,10 +106,19 @@
                                 <asp:TextBox ID="txtcelular" runat="server" class="form-control white-text" name="name"></asp:TextBox>
                                 <label for="name" class="" style="color: white">Celular</label>
                             </div>
-                            <div class="input-field">
-                                <asp:TextBox ID="txtedad" runat="server" class="form-control white-text" name="name"></asp:TextBox>
-                                <%--<input  ID="txtedad" runat="server" class="form-control white-text" name="name" type="date" />--%>
-                                <label for="name" class="" style="color: white">fecha de nacimiento</label>
+                            <%--<div class="input-field">
+                                <%--<asp:TextBox ID="txtedad" runat="server" class="form-control white-text" name="name"></asp:TextBox>--%>
+                            <%--<input  ID="txtedad" runat="server" class="form-control white-text" name="name" type="date" />--%>
+                            <%--<label for="name" class="" style="color: white">fecha de nacimiento</label>--%>
+                            <%--</div>--%>
+                            <div class="input-group date" id="bs_datepicker_component_container">
+                                <div class="form-line ">
+                                    <label class="form-label white-text" for="name">Fecha de nacimiento  </label>
+                                    <span class="input-group-addon">
+                                        <asp:TextBox ID="txtedad" class="form-control date white-text" name="name" runat="server" Style="width: 546px;"></asp:TextBox>
+                                        <i class="material-icons">date_range</i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="input-field">
                                 <asp:TextBox ID="txtdireccion" runat="server" class="form-control white-text" name="name"></asp:TextBox>
@@ -204,6 +221,7 @@
     <!-- javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <%--<script src="plugins/jquery/jquery.min.js"></script>--%>
     <script src="../js/jquery.js"></script>
     <script src="../js/jquery.easing.1.3.js"></script>
     <script src="../materialize/js/materialize.min.js"></script>
@@ -219,9 +237,36 @@
     <script src="../js/animate.js"></script>
     <script src="../js/custom.js"></script>
 
-    <script src="contact/jqBootstrapValidation.js"></script>
-    <script src="contact/contact_me.js"></script>
+    <%--    <script src="../contact/jqBootstrapValidation.js"></script>
+    <script src="../contact/contact_me.js"></script>--%>
+    <script src="../../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+    <script src="../../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
+    <script>
+        $(function () {
+            var $demoMaskedInput = $('.demo-masked-input');
+            $demoMaskedInput.find('.email').inputmask({ alias: "email" });
+            $demoMaskedInput.find('.date').inputmask('dd/mm/yyyy', { placeholder: '__/__/____' });
+            $('#bs_datepicker_component_container').datepicker({
+                autoclose: true,
+                container: '#bs_datepicker_component_container'
+            });
+        });
+        function mostrarMensajeConfirmacion() {
+            //swal('Registro Exitoso!', 'Solicitud registrada!!', 'success');
+            setTimeout(function () {
+                swal({
+                    title: "Registro Exitoso!",
+                    text: "Ha sido registrado!!",
+                    type: "success"
+                }, function () {
+                    window.location = "WF_Iniciar_Sesion.aspx";
+                });
+            }, 1000);
 
+
+        }
+    </script>
 
 </body>
 </html>

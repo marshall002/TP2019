@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using DTO;
 using System.Data.SqlClient;
 using System.Data;
+using System.Net.Mail;
+using System.Net;
 
 
 namespace DAO
@@ -166,6 +168,25 @@ namespace DAO
             conexion.Close();
             return (usuarioDto);
         }
-        
+
+        public int BuscarUsuario(string llaveDNI)
+        {
+            int valor_retornado = 0;
+            string select = "select COUNT(*) from T_Usuario where PK_CU_Dni = '" + llaveDNI+"'";
+            SqlCommand Comando = new SqlCommand(select, conexion);
+
+            conexion.Open();
+            SqlDataReader reader = Comando.ExecuteReader();
+
+            if (reader.Read())
+            {
+                valor_retornado = int.Parse(reader[0].ToString());
+
+            }
+            conexion.Close();
+
+            return valor_retornado;
+        }
+
     }
 }

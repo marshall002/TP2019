@@ -13,6 +13,7 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
     DtoUsuario objdtousuario = new DtoUsuario();
     DtoUsuario_X_Rutina objdtousuarioxrutina = new DtoUsuario_X_Rutina();
     CtrUsuario_X_Rutina objctrusuarioxrutina = new CtrUsuario_X_Rutina();
+    Log _log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -26,14 +27,15 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
                 }
                 else
                 {
-                    Log.WriteOnLog("Listar rutinas socio - Error en id Perfil");
+                    
+                    _log.CustomWriteOnLog("Listar_rutinas_socio","Listar rutinas socio - Error en id Perfil");
                     Response.Redirect("Inicio.aspx");
                 }
             }
             else
             {
 
-                Log.WriteOnLog("Listar rutinas socio - Error en id Perfil");
+                _log.CustomWriteOnLog("Listar_rutinas_socio","Listar rutinas socio - Error en id Perfil");
                 Response.Redirect("Inicio.aspx");
 
             }
@@ -134,11 +136,11 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
                 objdtousuarioxrutina.FK_CU_Dni = Session["SessionUsuario"].ToString();
                 objdtousuarioxrutina.FK_IR_Cod = int.Parse(Session["cor_R"].ToString());
                 DateTime fechaclase = fecha + Hora;
-                Log.WriteOnLog("fecha hora=" + fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+                _log.CustomWriteOnLog("Listar_rutinas_socio","fecha hora=" + fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
                 objdtousuarioxrutina.DR_FechaHora = DateTime.Parse(fechaclase.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
-                Log.WriteOnLog("objdtousuarioxrutina.DR_FechaHora:" + objdtousuarioxrutina.DR_FechaHora);
+                _log.CustomWriteOnLog("Listar_rutinas_socio","objdtousuarioxrutina.DR_FechaHora:" + objdtousuarioxrutina.DR_FechaHora);
 
-                Log.WriteOnLog("fh:" + objdtousuarioxrutina.DR_FechaHora.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
+                _log.CustomWriteOnLog("Listar_rutinas_socio","fh:" + objdtousuarioxrutina.DR_FechaHora.ToString("yyyy-MM-dd'T'HH':'mm':'ss"));
                 objdtousuarioxrutina.FK_IH_Cod = objctrusuarioxrutina.retornaHoraId(ddlHoras.Text);
                 int tr = 0;
                 string TRutina = Session["Tipo_Rutina"].ToString();
@@ -172,7 +174,7 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
         catch (Exception ex)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', '" + ex.Message + "', 'bottom', 'center', null, null);", true);
-            Log.WriteOnLog("" + ex.Message);
+            _log.CustomWriteOnLog("Listar_rutinas_socio","" + ex.Message);
         }
     }
 
@@ -226,15 +228,15 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
     public void cargarddlHoras()
     {
         ddlHoras.Items.Clear();
-        Log.WriteOnLog("1");
+        _log.CustomWriteOnLog("Listar_rutinas_socio","1");
         string fecha = Session["fecha"].ToString();
 
         DateTime dia = DateTime.Parse(fecha);
-        Log.WriteOnLog("3");
+        _log.CustomWriteOnLog("Listar_rutinas_socio","3");
         //txtfechaClase.Text = fecha + ", " + dia.DayOfWeek.ToString();
         if (Convert.ToInt32(dia.DayOfWeek) == 0)
         {
-            Log.WriteOnLog("dia:" + Convert.ToInt32(dia.DayOfWeek));
+            _log.CustomWriteOnLog("Listar_rutinas_socio","dia:" + Convert.ToInt32(dia.DayOfWeek));
             ListItem i;
             i = new ListItem("8:00 AM", "08:00");
             ddlHoras.Items.Add(i);
@@ -252,7 +254,7 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
         }
         else
         {
-            Log.WriteOnLog("Convert.ToInt32(dia.DayOfWeek)" + Convert.ToInt32(dia.DayOfWeek));
+            _log.CustomWriteOnLog("Listar_rutinas_socio","Convert.ToInt32(dia.DayOfWeek)" + Convert.ToInt32(dia.DayOfWeek));
             ListItem i;
             i = new ListItem("8:00 AM", "08:00");
             ddlHoras.Items.Add(i);
@@ -285,7 +287,7 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
         }
         DateTime hora = DateTime.Parse(Session["fechahora"].ToString());
         ddlHoras.Text = hora.ToString("HH:mm");
-        Log.WriteOnLog("hora es:" + hora.ToString("hh:mm"));
+        _log.CustomWriteOnLog("Listar_rutinas_socio","hora es:" + hora.ToString("hh:mm"));
         Udp_ddlhoras.Update();
     }
 
@@ -325,8 +327,8 @@ public partial class Listar_rutinas_socio : System.Web.UI.Page
         
         objctrRutina.Obtener_Rutina(objdtoRutina);
 
-        Log.WriteOnLog("objdotioRutina" + objdtoRutina.PK_IR_Cod);
-        Log.WriteOnLog("objdotioRutina" + objdtoRutina.VR_Descripcion);
+        _log.CustomWriteOnLog("Listar_rutinas_socio","objdotioRutina" + objdtoRutina.PK_IR_Cod);
+        _log.CustomWriteOnLog("Listar_rutinas_socio","objdotioRutina" + objdtoRutina.VR_Descripcion);
 
 
         DateTime dia = DateTime.Parse(fecha);

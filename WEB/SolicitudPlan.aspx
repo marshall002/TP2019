@@ -13,7 +13,7 @@
 
                     <div class="card">
                         <div class="header">
-                            <h3>Mis planes solicitados</h3>
+                            <h3>Planes solicitados</h3>
                         </div>
                         <div>
                             <div class="body">

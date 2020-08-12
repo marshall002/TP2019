@@ -12,6 +12,8 @@ public partial class Realizar_Pago : System.Web.UI.Page
 {
     DtoCPago DTOCP = new DtoCPago();
     CtrCPago CTRCP = new CtrCPago();
+    Log _log = new Log();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -58,7 +60,7 @@ public partial class Realizar_Pago : System.Web.UI.Page
         
             DTOCP.PK_ICP_Cod = Convert.ToInt32(gvRegistrarPago.Rows[index].Cells[0].Text);
             txtmostrarcod.Value=gvRegistrarPago.Rows[index].Cells[0].Text;
-            Log.WriteOnLog("txtmostrarcod.Value : " + txtmostrarcod.Value);
+            _log.CustomWriteOnLog("Realizar_Pago","txtmostrarcod.Value : " + txtmostrarcod.Value);
             CTRCP.VERPAGO(DTOCP);
             txt_noperacion.Text = "" + DTOCP.VCP_NOperacion;
             txt_nfisio.Text = "" + DTOCP.ICP_NFisio;

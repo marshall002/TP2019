@@ -36,6 +36,14 @@ namespace CTR
             objDaoUsuario.RegistrarSocio(objRecBE);
         }
 
+
+        public int MensajeRegistrarSocio(string llave)
+        {
+            //llave duplicada
+            int contador = objDaoUsuario.BuscarUsuario(llave);
+            return contador;
+        }
+
         public DtoUsuario Login(DtoUsuario dtoUsuario)
         {
 

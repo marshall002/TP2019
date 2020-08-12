@@ -84,6 +84,22 @@
                                             </td>
                                         </tr>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+
+                                            <td>
+                                                <asp:UpdatePanel runat="server">
+                                                    <ContentTemplate>
+                                                        <asp:Button Text="Congelar plan" runat="server" CssClass="btn btn-primary" />
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+
+                                                <asp:Button Text="Imprimir contrato" runat="server" ID="Button1" CssClass="btn btn-danger" OnClick="btnImprimirContrato_Click" />
+
+                                            </td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>

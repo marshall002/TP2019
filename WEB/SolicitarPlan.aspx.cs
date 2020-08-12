@@ -8,6 +8,8 @@ using DTO;
 using DAO;
 using CTR;
 using System.Text;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 public partial class SolicitarPlan : System.Web.UI.Page
 {
@@ -184,5 +186,90 @@ public partial class SolicitarPlan : System.Web.UI.Page
         {
             _log.CustomWriteOnLog("SolicitarPlan", "ERROR " + ex.Message);
         }
+    }
+    protected void btnImprimirContrato_Click(object sender, EventArgs e)
+    {
+        CtrPlan objctrplan = new CtrPlan();
+        DtoPlan objdtoplan = new DtoPlan();
+        DtoContrato objdtocontrato = new DtoContrato();
+        objdtousuario.PK_CU_Dni = Session["SessionUsuario"].ToString();
+
+        objctrplan.ObtenerDatosContratoVigente(objdtousuario, objdtoplan, objdtocontrato);
+        string idplan = objdtoplan.PK_IP_Cod.ToString();
+        DateTime contratoFechainicio = objdtocontrato.DC_Fecha_Inicio;
+        DateTime contratofechavencimiento = objdtocontrato.DC_Fecha_Vencimiento;
+        string plancantidadsesionnutri = objdtoplan.IE_Cantidad_Sesion_Nutri.ToString();
+        string plancantidadsesionfisio = objdtoplan.IP_Cantidad_Sesion_Fisio.ToString();
+        string membresiaduracion = objdtoplan.MembresiaDuracionString;
+        string congelamiento = objdtoplan.Congelamiento;
+        string frecuenciaasistencia = objdtoplan.FrecuenciaString;
+
+
+        Document DocumentoPDF = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+        PdfWriter.GetInstance(DocumentoPDF, Response.OutputStream);
+        DocumentoPDF.Open();
+        string plantilla = HttpContext.Current.Server.MapPath("/plantillas/CalculoInsentivo.htm"); //Corregir ruta
+        string imageURL = Server.MapPath(".") + "/images/LogoParadaFondo.png";
+        iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
+        jpg.ScaleToFit(140f, 120f);
+        jpg.SpacingBefore = 10f;
+        jpg.SpacingAfter = 1f;
+
+        jpg.Alignment = Element.ALIGN_LEFT;
+        DocumentoPDF.Add(jpg);
+        Paragraph titulo = new Paragraph();
+        titulo.Add("CROSSFIT LA PARADA  -  CONTRATO DE MEMBRESIA");
+        titulo.Alignment = Element.ALIGN_CENTER;
+        DocumentoPDF.Add(titulo);
+        DocumentoPDF.Add(new Paragraph(" "));
+        DocumentoPDF.Add(new Paragraph(" "));
+        DocumentoPDF.Add(new Paragraph(" "));
+        PdfPTable table = new PdfPTable(2);
+
+        PdfPCell cell = new PdfPCell(new Phrase("Descripción del plan contratado"));
+        cell.Colspan = 2;
+        cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+        table.AddCell(cell);
+        table.AddCell("DNI del socio");
+        table.AddCell(Session["SessionUsuario"].ToString());
+        table.AddCell("Nombre completo del socio");
+        table.AddCell(Session["NombreCompleto"].ToString());
+        table.AddCell("Codigo del plan");
+        table.AddCell(idplan);
+        table.AddCell("Duracion de la membresia");
+        table.AddCell(membresiaduracion +"meses");
+        table.AddCell("Fecha de inicio de plan");
+        table.AddCell(contratoFechainicio.ToString("dd/MM/yyyy"));
+        table.AddCell("Fecha de fin");
+        table.AddCell(contratofechavencimiento.ToString("dd/MM/yyyy"));
+        table.AddCell("Sesiones con nutricionista incluido");
+        table.AddCell(plancantidadsesionnutri);
+        table.AddCell("Sesiones con fisioterapeuta incluido");
+        table.AddCell(plancantidadsesionfisio);
+        table.AddCell("Tiempo de congelamiento ");
+        table.AddCell(congelamiento +"dias");
+
+        DocumentoPDF.Add(table);
+        DocumentoPDF.Add(new Paragraph(" "));
+        DocumentoPDF.Add(new Paragraph(" "));
+        DocumentoPDF.Add(new Paragraph(" "));
+        DocumentoPDF.Add(new Paragraph("Clausulas: "));
+        DocumentoPDF.Add(new Paragraph("PAGO: todo pago sera relizado de forma directa en la empresa."));
+        DocumentoPDF.Add(new Paragraph("RENOVACION: El socio podra realizar la renovacion teniendo un plan en progreso, en donde el antiguo plan se cancelara y seguira con el nuevo plan."));
+        DocumentoPDF.Add(new Paragraph("CUOTAS DE PAGOS: Solo existen 2 cuotas de pago al elegir el tipo de pago por cuotas."));
+        DocumentoPDF.Add(new Paragraph("MEMBRESIAS: Todo socio que se haya ausentado de la asistencia al local en un plazo de 2 meses y no haya usado un congelamineto sera considerado como."));
+        DocumentoPDF.Add(new Paragraph("SOSCIO ANTIGUOS: Todo socio que se haya ausentado de la asistencia al local en un plazo de 2 meses y no haya usado un congelamiento sera considerado como socio nuevo."));
+        DocumentoPDF.Add(new Paragraph("BEBIDAS ALCOHOLICAS Y FUMAR: Se prohibe el consumo de cualquier tipo de bebida alcoholica y cigarro dentro del local."));
+
+
+        DocumentoPDF.Close();
+
+
+
+        Response.ContentType = "application/pdf";
+        Response.AddHeader("content-disposition", "attachment;" + "filename=Contrato_Membresia.pdf");
+        Response.Cache.SetCacheability(HttpCacheability.NoCache);
+        Response.Write(DocumentoPDF);
+        Response.End();
     }
 }
